@@ -43,63 +43,84 @@ install_skill() {
   printf 'Installed %s to %s\n' "$SKILL_NAME" "$DEST_SKILL"
 }
 
-ensure_global_agents() {
-  mkdir -p "$(dirname "$CODEX_GLOBAL_AGENTS")"
+write_global_merge_packet() {
+  require_file "$SECTION_FILE"
+  require_file "$GLOBAL_EXAMPLE"
 
-  if [ ! -e "$CODEX_GLOBAL_AGENTS" ]; then
-    require_file "$GLOBAL_EXAMPLE"
-    cp "$GLOBAL_EXAMPLE" "$CODEX_GLOBAL_AGENTS"
-    printf 'Created %s from global/AGENTS.md.example\n' "$CODEX_GLOBAL_AGENTS"
-  fi
+  local packet_template="${TMPDIR:-/tmp}/codex-agent-tooling-agents-merge.XXXXXX.md"
+  local packet
+  packet="$(mktemp "$packet_template")"
+
+  cat > "$packet" <<EOF
+# Codex Global AGENTS.md Merge Packet
+
+Generated: $(date -Iseconds)
+Repository: $REPO_ROOT
+
+## Files
+
+- Existing global AGENTS.md: \`$CODEX_GLOBAL_AGENTS\`
+- Recommended example: \`$GLOBAL_EXAMPLE\`
+- Project-memory managed block: \`$SECTION_FILE\`
+
+## Objective
+
+Propose a sane merge of the recommended global instructions into the existing global AGENTS.md.
+
+## Instructions For Codex
+
+Do not apply changes immediately.
+
+Read the files listed above, then prepare a proposed merged AGENTS.md that:
+
+- preserves the user's existing intent and personal operating preferences
+- incorporates useful guidance from the recommended example
+- keeps the project-memory managed block between its BEGIN/END markers
+- uses \`$SECTION_FILE\` as the source of truth for the project-memory managed block
+- removes duplicate guidance
+- avoids contradictory or over-broad instructions
+- keeps the final file concise enough to remain useful as global agent guidance
+- leaves unrelated local instructions alone unless they conflict with the merged result
+
+Before applying anything, show the user:
+
+1. a short summary of semantic changes
+2. a unified diff from the existing global AGENTS.md to the proposed version
+3. any conflicts, judgment calls, or questions
+
+Only write the merged file after the user explicitly approves the proposed result. If the sandbox requires permission to edit the global file, request that permission only after approval.
+
+When applying the approved merge:
+
+- back up the current global AGENTS.md first
+- write the approved merged content to \`$CODEX_GLOBAL_AGENTS\`
+- tell the user to restart Codex so the global instruction changes are picked up
+
+## Prompt To Give Codex
+
+Please use this merge packet to propose a sane merge for my global AGENTS.md. Show me the summary and unified diff before applying anything, and only write the file after I approve the proposal.
+EOF
+
+  printf 'Global AGENTS.md already exists, so I left it unchanged.\n'
+  printf 'A Codex merge packet was written to: %s\n' "$packet"
+  printf '\nTo finish the global AGENTS.md merge safely, ask Codex:\n\n'
+  printf '  Please use %s to propose a sane merge for my global AGENTS.md. Show me the summary and unified diff before applying anything.\n' "$packet"
 }
 
-update_global_block() {
-  require_file "$SECTION_FILE"
-  ensure_global_agents
+prepare_global_agents() {
+  mkdir -p "$(dirname "$CODEX_GLOBAL_AGENTS")"
+  require_file "$GLOBAL_EXAMPLE"
 
-  local backup="$CODEX_GLOBAL_AGENTS.backup.$(timestamp)"
-  cp "$CODEX_GLOBAL_AGENTS" "$backup"
+  if [ ! -e "$CODEX_GLOBAL_AGENTS" ]; then
+    cp "$GLOBAL_EXAMPLE" "$CODEX_GLOBAL_AGENTS"
+    printf 'Created %s from global/AGENTS.md.example\n' "$CODEX_GLOBAL_AGENTS"
+    return
+  fi
 
-  python3 - "$CODEX_GLOBAL_AGENTS" "$SECTION_FILE" <<'PY'
-from pathlib import Path
-import sys
-
-target = Path(sys.argv[1])
-section_path = Path(sys.argv[2])
-
-start = "<!-- BEGIN project-memory-methodology -->"
-end = "<!-- END project-memory-methodology -->"
-
-text = target.read_text()
-section = section_path.read_text().strip() + "\n"
-
-if start in text and end in text:
-    before, rest = text.split(start, 1)
-    _, after = rest.split(end, 1)
-    new_text = before.rstrip() + "\n\n" + section + after.lstrip()
-elif "## Project Documentation Methodology" in text:
-    marker = "## Project Documentation Methodology"
-    before, rest = text.split(marker, 1)
-    rest_with_marker = marker + rest
-    lines = rest_with_marker.splitlines(keepends=True)
-    next_section = None
-    for idx, line in enumerate(lines[1:], start=1):
-        if line.startswith("## "):
-            next_section = idx
-            break
-    after = "".join(lines[next_section:]) if next_section is not None else ""
-    new_text = before.rstrip() + "\n\n" + section + after.lstrip()
-else:
-    new_text = text.rstrip() + "\n\n" + section
-
-target.write_text(new_text)
-PY
-
-  printf 'Updated managed project-memory block in %s\n' "$CODEX_GLOBAL_AGENTS"
-  printf 'Backup written to %s\n' "$backup"
+  write_global_merge_packet
 }
 
 install_skill
-update_global_block
+prepare_global_agents
 
 printf '\nDone. Restart Codex to pick up skill changes.\n'

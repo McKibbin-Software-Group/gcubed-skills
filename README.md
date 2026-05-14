@@ -11,7 +11,7 @@ Portable personal Codex setup for:
 - `skills/project-memory/`: Codex skill for creating and maintaining concise per-project documentation memory.
 - `global/AGENTS.md.example`: Example full global `AGENTS.md`.
 - `global/project-memory-section.md`: Managed global `AGENTS.md` section that points Codex at `$project-memory`.
-- `scripts/install.sh`: Install/update the skill and managed global `AGENTS.md` block.
+- `scripts/install.sh`: Install/update the skill and prepare a safe global `AGENTS.md` merge when needed.
 - `scripts/sync-from-local.sh`: Refresh this repo from the currently installed local files.
 
 ## Install On A Machine
@@ -39,10 +39,13 @@ The installer:
 
 - installs `skills/project-memory`
 - creates `~/.codex/AGENTS.md` if missing
-- backs up existing files before changing them
-- inserts or replaces only the managed Project Documentation Methodology block
+- backs up an existing installed skill before replacing it
+- leaves an existing global `AGENTS.md` unchanged
+- writes a temporary Codex merge packet when global `AGENTS.md` already exists
 
-Restart Codex after installing or updating skills.
+When a merge packet is created, ask Codex to use it to propose a sane merge. Codex should show you the summary and diff first, then write the merged file only after you approve it.
+
+Restart Codex after installing or updating skills or global instructions.
 
 ## Install Skill Only
 
