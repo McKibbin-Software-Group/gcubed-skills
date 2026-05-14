@@ -26,7 +26,9 @@ This packet is for wiring installed skills only. It must not adopt or merge the 
 
 Do not apply changes immediately.
 
-Inspect the existing target file if it exists. Prepare a proposed `AGENTS.md` that:
+Inspect the existing target file if it exists. If the target is missing, propose a minimal `AGENTS.md` containing the recommended skill-hooks block.
+
+Prepare a proposed `AGENTS.md` that:
 
 - preserves existing user/project intent
 - adds the skill-hooks block if missing
@@ -45,4 +47,4 @@ Only write the file after the user explicitly approves the proposed result. Back
 
 ## Prompt To Give Codex
 
-Please use this packet with `$setup-agents-md` to add or refresh the AshieSlashy skill hooks in my `AGENTS.md`. Show me the summary and unified diff before applying anything.
+Please run `$setup-agents-md`. It should discover this packet, add or refresh the AshieSlashy skill hooks in my `AGENTS.md`, and show me the summary and unified diff before applying anything.

@@ -21,20 +21,27 @@ This skill is deliberately boring. It adds or refreshes a concise skill-hooks bl
    - Global: personal/user Codex instructions.
    - Project: repository root `AGENTS.md`.
    - Devcontainer/Codespace: usually project scope inside the workspace unless the user says otherwise.
-2. Inspect before proposing:
+2. Discover any installer packet:
+   - If the user provided a packet path, read that first.
+   - For project/devcontainer scope, look for `.codex-agent-tooling/agents-md-wiring.md` at the repository root.
+   - For global scope, look for `$HOME/.codex/merge-packets/agents-md-wiring.md`.
+   - If no stable global packet exists, look for the newest `$HOME/.codex/merge-packets/agents-md-wiring-*.md`.
+   - Prefer a project packet over a global packet when running inside a repository. If multiple plausible packets conflict, ask the user which one to use.
+3. Inspect before proposing:
    - Read the target `AGENTS.md` if it exists.
    - Check which AshieSlashy skills are installed or selected.
    - For project/devcontainer scope, inspect root docs enough to avoid contradicting local guidance.
-3. Prepare a proposal:
+4. Prepare a proposal:
    - Add or refresh only the skill-hooks block from `assets/templates/skill-hooks-section.md`.
+   - If the target `AGENTS.md` is missing, use `assets/templates/minimal-agents.md` as the starter.
    - Preserve all existing user/project instructions.
    - Remove duplicate old skill hook blocks if they clearly refer to the same AshieSlashy skills.
    - Do not add the Architect methodology or rewrite the user's operating style.
-4. Show before writing:
+5. Show before writing:
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts or assumptions.
-5. Write only after explicit approval:
+6. Write only after explicit approval:
    - Back up the existing file first when one exists.
    - Apply the approved content exactly.
    - Tell the user to restart Codex or reload the workspace if needed.
@@ -44,3 +51,4 @@ This skill is deliberately boring. It adds or refreshes a concise skill-hooks bl
 - This skill wires skills into `AGENTS.md`; it does not create the project docs memory baseline. Use `$project-memory` for that.
 - This skill does not replace or substantially rewrite `AGENTS.md`. Use `$ashie-agents-methodology` when the user wants to adopt or merge the opinionated Architect methodology.
 - Manual installers may generate wiring packets from this skill's assets, but canonical prose belongs in assets, not shell scripts.
+- If a manual installer has just run, the user should be able to ask only `$setup-agents-md`; this skill is responsible for finding the conventional packet.

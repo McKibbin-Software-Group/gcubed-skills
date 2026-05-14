@@ -89,38 +89,9 @@ $ashie-agents-methodology merge Ashie's Architect methodology into my global Cod
 
 Scripts render these templates; they should not bury canonical instruction prose.
 
-## Manual Script Fallback
-
-The scripts are retained as manual helpers for environments where the skills CLI is not available:
-
-```bash
-./scripts/install.sh
-./scripts/install-project.sh
-```
-
-They install the base skills and create review-first skill-wiring packets. The scripts are no longer the primary distribution path.
-
-Validation:
-
-```bash
-shellcheck scripts/install.sh scripts/install-project.sh scripts/sync-from-local.sh
-bash -n scripts/install.sh scripts/install-project.sh scripts/sync-from-local.sh
-```
-
 ## Repository Layout
 
 - `skills/project-memory/`: docs memory skill, templates, and snippets.
 - `skills/setup-agents-md/`: skill-hook wiring skill and packet assets.
 - `skills/ashie-agents-methodology/`: optional Architect methodology adoption skill and assets.
-- `scripts/`: optional/manual install and sync helpers.
-- `docs/`: repo memory, status, roadmap, and ADRs.
-
-## Sync From Local Machine
-
-After editing installed local skills:
-
-```bash
-./scripts/sync-from-local.sh
-```
-
-Review the diff before committing. Do not blindly sync a live global `AGENTS.md`; update the skill assets intentionally.
+- `docs/adr/`: durable design decisions for this skills collection.

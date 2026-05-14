@@ -24,4 +24,4 @@ All `AGENTS.md` changes remain review-first.
 
 - Users can keep an existing `AGENTS.md` and only add skill hooks.
 - Users can opt into the Architect methodology separately.
-- Manual scripts should create wiring packets only, not deploy the full Architect methodology by default.
+- The repo should not include dogfooding install scripts; the skills collection installer plus AI setup skills should own the workflow.
