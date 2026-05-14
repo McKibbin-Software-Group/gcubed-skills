@@ -1,0 +1,76 @@
+# Codex Agent Tooling
+
+Portable personal Codex setup for:
+
+- reusable skills
+- global `AGENTS.md` snippets
+- safe installation on new machines
+
+## Contents
+
+- `skills/project-memory/`: Codex skill for creating and maintaining concise per-project documentation memory.
+- `global/AGENTS.md.example`: Example full global `AGENTS.md`.
+- `global/project-memory-section.md`: Managed global `AGENTS.md` section that points Codex at `$project-memory`.
+- `scripts/install.sh`: Install/update the skill and managed global `AGENTS.md` block.
+- `scripts/sync-from-local.sh`: Refresh this repo from the currently installed local files.
+
+## Install On A Machine
+
+From a clone of this repo:
+
+```bash
+./scripts/install.sh
+```
+
+Defaults:
+
+- skills install to `$HOME/.agents/skills`
+- global instructions update `$HOME/.codex/AGENTS.md`
+
+Override paths when needed:
+
+```bash
+CODEX_SKILLS_DIR="$HOME/.codex/skills" \
+CODEX_GLOBAL_AGENTS="$HOME/.codex/AGENTS.md" \
+./scripts/install.sh
+```
+
+The installer:
+
+- installs `skills/project-memory`
+- creates `~/.codex/AGENTS.md` if missing
+- backs up existing files before changing them
+- inserts or replaces only the managed Project Documentation Methodology block
+
+Restart Codex after installing or updating skills.
+
+## Install Skill Only
+
+Codex can install the skill directly from GitHub, but this does not update global `AGENTS.md`:
+
+```bash
+install-skill-from-github.py --repo YOUR_GITHUB_USER/codex-agent-tooling --path skills/project-memory
+```
+
+Use `scripts/install.sh` when you want both the skill and global methodology block.
+
+## Refresh This Repo From Local Machine
+
+After editing your live skill or global `AGENTS.md`:
+
+```bash
+./scripts/sync-from-local.sh
+```
+
+Then review the diff, commit, and push.
+
+## First Push
+
+```bash
+git init
+git add .
+git commit -m "Add Codex agent tooling"
+git branch -M main
+git remote add origin git@github.com:YOUR_GITHUB_USER/codex-agent-tooling.git
+git push -u origin main
+```
