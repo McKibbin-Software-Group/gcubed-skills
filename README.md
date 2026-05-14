@@ -12,6 +12,7 @@ Portable personal Codex setup for:
 - `global/AGENTS.md.example`: Example full global `AGENTS.md`.
 - `global/project-memory-section.md`: Managed global `AGENTS.md` section that points Codex at `$project-memory`.
 - `scripts/install.sh`: Install/update the skill and prepare a safe global `AGENTS.md` merge when needed.
+- `scripts/install-project.sh`: Install/update project-local skills and prepare a safe project `AGENTS.md` merge.
 - `scripts/sync-from-local.sh`: Refresh this repo from the currently installed local files.
 
 ## Install On A Machine
@@ -47,6 +48,29 @@ When a merge packet is created, ask Codex to use it to propose a sane merge. Cod
 
 Restart Codex after installing or updating skills or global instructions.
 
+## Install Into A Project
+
+Use this from a devcontainer, Codespace, or any repository where you want the skill and `AGENTS.md` guidance to live with the project:
+
+```bash
+./scripts/install-project.sh
+```
+
+Run it from inside the target project. If this tooling repo lives elsewhere, call the script by path from the target project. By default it targets the Git repository containing your current working directory. Override the target when needed:
+
+```bash
+PROJECT_ROOT="/workspaces/my-project" ./scripts/install-project.sh
+```
+
+The project installer:
+
+- installs `skills/project-memory` to `$PROJECT_ROOT/.agents/skills/project-memory`
+- leaves `$PROJECT_ROOT/AGENTS.md` unchanged
+- writes `$PROJECT_ROOT/.codex-agent-tooling/project-agents-merge.md`
+- prints a Codex prompt for a review-first project `AGENTS.md` merge
+
+This is the preferred mode for ephemeral devcontainers when you want the setup to survive container rebuilds without changing mounts. Ask Codex to use the merge packet, review the proposed summary and diff, and approve before it writes `AGENTS.md`.
+
 ## Install Skill Only
 
 Codex can install the skill directly from GitHub, but this does not update global `AGENTS.md`:
@@ -66,14 +90,3 @@ After editing your live skill or global `AGENTS.md`:
 ```
 
 Then review the diff, commit, and push.
-
-## First Push
-
-```bash
-git init
-git add .
-git commit -m "Add Codex agent tooling"
-git branch -M main
-git remote add origin git@github.com:YOUR_GITHUB_USER/codex-agent-tooling.git
-git push -u origin main
-```

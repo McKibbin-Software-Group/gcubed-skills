@@ -33,7 +33,8 @@ install_skill() {
   cp -R "$SOURCE_SKILL" "$tmp_dest/$SKILL_NAME"
 
   if [ -e "$DEST_SKILL" ]; then
-    local backup="$DEST_SKILL.backup.$(timestamp)"
+    local backup
+    backup="$DEST_SKILL.backup.$(timestamp)"
     mv "$DEST_SKILL" "$backup"
     printf 'Backed up existing skill to %s\n' "$backup"
   fi
