@@ -4,10 +4,11 @@ Last updated: 2026-05-14
 
 ## Immediate Pickup
 
-1. Review the current diff, especially `scripts/install-project.sh`, `README.md`, and this new `docs/` baseline.
-2. Decide whether the README removal of the old "First Push" section should stay.
-3. Run `scripts/install-project.sh` in a real devcontainer or Codespace and inspect the generated packet.
-4. Commit the installer and project-memory baseline once reviewed.
+1. Review the current diff, especially `skills/setup-agents-md`, `skills/ashie-agents-methodology`, `skills/project-memory/SKILL.md`, `README.md`, and the fallback scripts.
+2. Run the validation commands below.
+3. Smoke-test `scripts/install.sh` and `scripts/install-project.sh` after the pivot.
+4. Test `npx skills@latest add ashieslashy/skills` once the repo name/publish target is ready.
+5. Commit the skills-collection pivot once reviewed.
 
 ## Validation To Run
 
@@ -23,12 +24,14 @@ tmpdir=$(mktemp -d /tmp/project-install-smoke.XXXXXX)
 git -C "$tmpdir" init -q
 PROJECT_ROOT="$tmpdir" scripts/install-project.sh
 test -f "$tmpdir/.agents/skills/project-memory/SKILL.md"
-test -f "$tmpdir/.codex-agent-tooling/project-agents-merge.md"
+test -f "$tmpdir/.agents/skills/setup-agents-md/SKILL.md"
+test -f "$tmpdir/.agents/skills/ashie-agents-methodology/SKILL.md"
+test -f "$tmpdir/.codex-agent-tooling/agents-md-wiring.md"
 ```
 
 ## Context Needed Before Starting
 
-- Confirm whether the target is global install behavior, project install behavior, or skill contents.
+- Confirm whether the target is skills CLI behavior, fallback script behavior, or skill contents.
 - Check `git status --short` because this repo often has user edits in progress.
 
 ## Blockers

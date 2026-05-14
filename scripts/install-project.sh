@@ -3,11 +3,10 @@ set -euo pipefail
 
 TOOLING_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-SKILL_NAME="project-memory"
-SOURCE_SKILL="$TOOLING_ROOT/skills/$SKILL_NAME"
-GLOBAL_EXAMPLE="$TOOLING_ROOT/global/AGENTS.md.example"
-SECTION_FILE="$TOOLING_ROOT/global/project-memory-section.md"
-PROJECT_TEMPLATE="$TOOLING_ROOT/skills/$SKILL_NAME/assets/templates/AGENTS.md"
+SKILL_NAMES=("project-memory" "setup-agents-md" "ashie-agents-methodology")
+SETUP_SKILL="$TOOLING_ROOT/skills/setup-agents-md"
+SKILL_HOOKS_TEMPLATE="$SETUP_SKILL/assets/templates/skill-hooks-section.md"
+WIRING_PACKET_TEMPLATE="$SETUP_SKILL/assets/merge-packets/agents-md-wiring.md"
 
 timestamp() {
   date +"%Y%m%d-%H%M%S"
@@ -18,6 +17,34 @@ require_file() {
     printf 'Missing required file: %s\n' "$1" >&2
     exit 1
   fi
+}
+
+render_template() {
+  local template="$1"
+  local output="$2"
+  shift 2
+
+  python3 - "$template" "$output" "$@" <<'PY'
+from pathlib import Path
+import sys
+
+template = Path(sys.argv[1])
+output = Path(sys.argv[2])
+values = {}
+
+for arg in sys.argv[3:]:
+    key, value = arg.split("=", 1)
+    if key.endswith("_FILE"):
+        values[key[:-5]] = Path(value).read_text().rstrip()
+    else:
+        values[key] = value
+
+text = template.read_text()
+for key, value in values.items():
+    text = text.replace("{{" + key + "}}", value)
+
+output.write_text(text)
+PY
 }
 
 find_project_root() {
@@ -56,36 +83,37 @@ find_project_root() {
 
 PROJECT_ROOT="$(find_project_root)"
 PROJECT_SKILLS_DIR="$PROJECT_ROOT/.agents/skills"
-DEST_SKILL="$PROJECT_SKILLS_DIR/$SKILL_NAME"
 PROJECT_AGENTS="$PROJECT_ROOT/AGENTS.md"
 PACKET_DIR="$PROJECT_ROOT/.codex-agent-tooling"
-PACKET_FILE="$PACKET_DIR/project-agents-merge.md"
+PACKET_FILE="$PACKET_DIR/agents-md-wiring.md"
 
 install_project_skill() {
-  require_file "$SOURCE_SKILL/SKILL.md"
+  local skill_name="$1"
+  local source_skill="$TOOLING_ROOT/skills/$skill_name"
+  local dest_skill="$PROJECT_SKILLS_DIR/$skill_name"
 
+  require_file "$source_skill/SKILL.md"
   mkdir -p "$PROJECT_SKILLS_DIR"
 
   local tmp_dest
   tmp_dest="$(mktemp -d)"
-  cp -R "$SOURCE_SKILL" "$tmp_dest/$SKILL_NAME"
+  cp -R "$source_skill" "$tmp_dest/$skill_name"
 
-  if [ -e "$DEST_SKILL" ]; then
+  if [ -e "$dest_skill" ]; then
     local backup
-    backup="$DEST_SKILL.backup.$(timestamp).$$"
-    mv "$DEST_SKILL" "$backup"
+    backup="$dest_skill.backup.$(timestamp).$$"
+    mv "$dest_skill" "$backup"
     printf 'Backed up existing project skill to %s\n' "$backup"
   fi
 
-  mv "$tmp_dest/$SKILL_NAME" "$DEST_SKILL"
+  mv "$tmp_dest/$skill_name" "$dest_skill"
   rmdir "$tmp_dest"
-  printf 'Installed %s to %s\n' "$SKILL_NAME" "$DEST_SKILL"
+  printf 'Installed %s to %s\n' "$skill_name" "$dest_skill"
 }
 
-write_project_merge_packet() {
-  require_file "$GLOBAL_EXAMPLE"
-  require_file "$SECTION_FILE"
-  require_file "$PROJECT_TEMPLATE"
+write_project_wiring_packet() {
+  require_file "$WIRING_PACKET_TEMPLATE"
+  require_file "$SKILL_HOOKS_TEMPLATE"
 
   mkdir -p "$PACKET_DIR"
 
@@ -94,75 +122,24 @@ write_project_merge_packet() {
     project_agents_status="missing; create only after approval"
   fi
 
-  cat > "$PACKET_FILE" <<EOF
-# Codex Project AGENTS.md Merge Packet
-
-Generated: $(date -Iseconds)
-Tooling repository: $TOOLING_ROOT
-Target project: $PROJECT_ROOT
-
-## Files
-
-- Project AGENTS.md path: \`$PROJECT_AGENTS\`
-- Project AGENTS.md status: $project_agents_status
-- Recommended global methodology example: \`$GLOBAL_EXAMPLE\`
-- Project AGENTS.md starter template: \`$PROJECT_TEMPLATE\`
-- Project-memory managed block: \`$SECTION_FILE\`
-- Installed project skill: \`$DEST_SKILL\`
-
-## Objective
-
-Propose a sane project-level AGENTS.md for this repository.
-
-The goal is to make the project self-contained in ephemeral devcontainers or Codespaces: Codex should be able to discover the project instructions from \`$PROJECT_AGENTS\` and the project skill from \`$DEST_SKILL\` after a container rebuild.
-
-## Instructions For Codex
-
-Do not apply changes immediately.
-
-Read the files listed above. If \`$PROJECT_AGENTS\` exists, preserve its existing intent and treat repo-specific guidance as authoritative. If it does not exist, propose a new project AGENTS.md.
-
-Prepare a proposed project AGENTS.md that:
-
-- is project-facing rather than personal-global where possible
-- inspects the project worktree state and relevant existing docs before proposing changes
-- may incorporate broadly useful methodology from \`$GLOBAL_EXAMPLE\`, including the \`# METHODOLOGY\` section
-- removes or rewrites any global-only wording that would be confusing inside a repository
-- incorporates the useful project structure from \`$PROJECT_TEMPLATE\`
-- keeps the project-memory methodology between its BEGIN/END markers when included
-- uses \`$SECTION_FILE\` as the source of truth for the project-memory managed block
-- flags malformed or duplicated project-memory markers as a judgment call instead of guessing silently
-- preserves useful existing project instructions, commands, safety constraints, and documentation pointers
-- removes duplicate guidance
-- avoids contradictory or over-broad instructions
-- keeps the final file concise enough to remain useful as repo-local agent guidance
-
-Before applying anything, show the user:
-
-1. a short summary of semantic changes
-2. a unified diff from the existing project AGENTS.md to the proposed version, or the full proposed file if AGENTS.md does not exist yet
-3. any conflicts, judgment calls, or questions
-
-Only write the merged file after the user explicitly approves the proposed result.
-
-When applying the approved merge:
-
-- back up the current project AGENTS.md first if it exists
-- write the approved merged content to \`$PROJECT_AGENTS\`
-- tell the user that Codex may need to restart or reload the workspace to pick up new project skills and instructions
-
-## Prompt To Give Codex
-
-Please use this merge packet to propose a sane project AGENTS.md for this repository. Show me the summary and unified diff before applying anything, and only write the file after I approve the proposal.
-EOF
+  render_template "$WIRING_PACKET_TEMPLATE" "$PACKET_FILE" \
+    "GENERATED_AT=$(date -Iseconds)" \
+    "TARGET_SCOPE=project" \
+    "TARGET_AGENTS=$PROJECT_AGENTS" \
+    "TARGET_STATUS=$project_agents_status" \
+    "DEST_SKILL_PARENT=$PROJECT_SKILLS_DIR" \
+    "SKILL_HOOKS_SECTION_FILE=$SKILL_HOOKS_TEMPLATE"
 
   printf 'Project AGENTS.md was left unchanged.\n'
-  printf 'A Codex project merge packet was written to: %s\n' "$PACKET_FILE"
+  printf 'A Codex project skill-wiring packet was written to: %s\n' "$PACKET_FILE"
   printf '\nTo finish the project AGENTS.md merge safely, ask Codex:\n\n'
-  printf '  Please use %s to propose a sane project AGENTS.md for this repository. Show me the summary and unified diff before applying anything.\n' "$PACKET_FILE"
+  printf "  Please use %s with \$setup-agents-md to add or refresh project skill hooks. Show me the summary and unified diff before applying anything.\n" "$PACKET_FILE"
 }
 
-install_project_skill
-write_project_merge_packet
+for skill_name in "${SKILL_NAMES[@]}"; do
+  install_project_skill "$skill_name"
+done
+
+write_project_wiring_packet
 
 printf '\nDone. Restart Codex or reload the workspace to pick up project skill changes.\n'

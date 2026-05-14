@@ -1,6 +1,6 @@
 # Project Instructions
 
-This repo packages personal and project-local Codex tooling: reusable skills, global `AGENTS.md` snippets, and install scripts.
+This repo packages portable Codex skills, review-first AGENTS.md skill wiring, and optional methodology adoption guidance.
 
 ## Methodology
 
@@ -23,14 +23,16 @@ This repo packages personal and project-local Codex tooling: reusable skills, gl
 
 ## Project Context
 
-- Project purpose: portable Codex skills, global instruction snippets, and safe install flows.
+- Project purpose: portable Codex skills, review-first AGENTS.md skill wiring, and optional Architect methodology adoption.
 - Primary stack/tools: Bash scripts, Markdown docs, Codex skills, ShellCheck.
-- Main entrypoints: `scripts/install.sh`, `scripts/install-project.sh`, `scripts/sync-from-local.sh`, and `skills/project-memory/SKILL.md`.
+- Main entrypoints: `skills/project-memory/SKILL.md`, `skills/setup-agents-md/SKILL.md`, `skills/ashie-agents-methodology/SKILL.md`, and optional scripts under `scripts/`.
 
 ## Working Rules
 
-- Keep installer behavior boring and operator-safe.
-- Do not blindly merge instruction prose into an existing `AGENTS.md`; write a merge packet and ask Codex to propose a reviewable merge.
+- Treat `npx skills@latest add ashieslashy/skills` as the primary distribution path.
+- Keep manual installer behavior boring and operator-safe.
+- Do not blindly merge instruction prose into an existing `AGENTS.md`; write a packet and ask Codex to propose a reviewable diff.
+- Keep skill wiring separate from optional methodology adoption.
 - Prefer repo-local/project guidance in root `AGENTS.md`; keep durable project truth in `docs/`.
 - Before editing scripts, inspect `git status --short` and relevant diffs.
 - Do not commit, publish, or sync from local installs unless the user explicitly asks.
@@ -44,10 +46,11 @@ bash -n scripts/install.sh scripts/install-project.sh scripts/sync-from-local.sh
 ## Repository Map
 
 - `skills/project-memory/`: installable Codex skill and templates.
-- `global/AGENTS.md.example`: recommended global/user-level instructions.
-- `global/project-memory-section.md`: managed project-memory methodology block.
-- `scripts/install.sh`: global/personal install flow.
-- `scripts/install-project.sh`: project-local/devcontainer install flow.
+- `skills/setup-agents-md/`: AGENTS.md skill-hook wiring skill and assets.
+- `skills/ashie-agents-methodology/`: optional Architect AGENTS.md methodology adoption skill and assets.
+- `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
+- `scripts/install.sh`: optional global/personal manual install flow.
+- `scripts/install-project.sh`: optional project-local/devcontainer manual install flow.
 - `scripts/sync-from-local.sh`: refresh this repo from installed local files.
 - `docs/`: project memory and handoff docs.
 

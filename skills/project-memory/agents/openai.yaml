@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Memory"
   short_description: "Set up concise repo memory docs"
-  default_prompt: "Use $project-memory to set up or refresh this repository's AGENTS.md and docs memory set."
+  default_prompt: "Use $project-memory to set up or refresh this repository's concise docs memory set."

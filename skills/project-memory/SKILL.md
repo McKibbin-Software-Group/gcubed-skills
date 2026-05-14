@@ -1,11 +1,13 @@
 ---
 name: project-memory
-description: Create and maintain a concise per-project documentation memory system for agent handoff and low-loss project continuity. Use when setting up a new repository, when a repo is missing root AGENTS.md or standard docs, when docs/current-status/next-steps are stale, or when substantial work should be captured for future sessions.
+description: Create and maintain a concise per-project documentation memory system for agent handoff and low-loss project continuity. Use when setting up or refreshing repository docs, when docs/current-status/next-steps are stale, or after substantial work should be captured for future sessions.
 ---
 
 # Project Memory
 
 Use this skill to create or refresh a repository's lightweight memory layer without polluting context.
+
+This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or optional methodology adoption. Use `$setup-agents-md` for skill hooks and `$ashie-agents-methodology` for Ashie's Architect methodology.
 
 ## Baseline Shape
 
@@ -22,6 +24,8 @@ Expected repository memory set:
 
 Copy and adapt templates from `assets/templates/` when creating missing files. Treat them as starting points, not boilerplate to leave untouched.
 
+The project-memory methodology snippet lives at `assets/snippets/project-memory-methodology.md`.
+
 ## Setup Workflow
 
 1. Read any existing root `AGENTS.md`, `docs/00-START-HERE.md`, and nearby docs before writing.
@@ -32,6 +36,15 @@ Copy and adapt templates from `assets/templates/` when creating missing files. T
 6. Never overwrite existing docs without reading them. If replacing structure would be substantial, explain the proposed move first.
 
 If this skill is noticed during unrelated work, do not derail the task. Briefly mention that the repo is missing/stale and offer to run the setup later.
+
+## AGENTS.md Boundary
+
+`AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
+
+- If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md`.
+- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-agents-md` for skill hooks or `$ashie-agents-methodology` for methodology adoption.
+- When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
+- Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 
 ## Update Workflow
 
@@ -67,5 +80,6 @@ Templates live at:
 - `assets/templates/docs/04-next-steps.md`
 - `assets/templates/docs/ai/HANDOFF.md`
 - `assets/templates/docs/adr/0001-record-architecture-decisions.md`
+- `assets/snippets/project-memory-methodology.md`
 
 When using templates, replace placeholders with repo-specific facts discovered from files. Delete sections that do not apply.

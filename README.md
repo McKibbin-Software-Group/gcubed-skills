@@ -1,92 +1,126 @@
-# Codex Agent Tooling
+# AshieSlashy Skills
 
-Portable personal Codex setup for:
+Portable Codex skills and setup guidance.
 
-- reusable skills
-- global `AGENTS.md` snippets
-- safe installation on new machines
+The intended install path is the skills collection installer:
 
-## Contents
+```bash
+npx skills@latest add ashieslashy/skills
+```
 
-- `skills/project-memory/`: Codex skill for creating and maintaining concise per-project documentation memory.
-- `global/AGENTS.md.example`: Example full global `AGENTS.md`.
-- `global/project-memory-section.md`: Managed global `AGENTS.md` section that points Codex at `$project-memory`.
-- `scripts/install.sh`: Install/update the skill and prepare a safe global `AGENTS.md` merge when needed.
-- `scripts/install-project.sh`: Install/update project-local skills and prepare a safe project `AGENTS.md` merge.
-- `scripts/sync-from-local.sh`: Refresh this repo from the currently installed local files.
+This assumes the GitHub repo is published or mirrored as `ashieslashy/skills`; until then, substitute the current repo slug.
 
-## Install On A Machine
+After installing, wire the selected skills into the relevant `AGENTS.md`:
 
-From a clone of this repo:
+```text
+$setup-agents-md
+```
+
+That setup skill adds or refreshes a compact skill-hooks block. It shows a summary and diff, then writes only after approval.
+
+If you also want Ashie's opinionated Architect methodology, run that separately:
+
+```text
+$ashie-agents-methodology
+```
+
+## Skills
+
+- `skills/project-memory/`: create and maintain lightweight repo memory docs under `docs/`.
+- `skills/setup-agents-md/`: wire installed skills into global/project/devcontainer `AGENTS.md`.
+- `skills/ashie-agents-methodology/`: optionally preview, replace, or intelligently merge Ashie's Architect `AGENTS.md` methodology.
+
+## Recommended Workflow
+
+1. Install from the skill collection:
+
+   ```bash
+   npx skills@latest add ashieslashy/skills
+   ```
+
+2. Select the skills you want, usually:
+
+   - `project-memory`
+   - `setup-agents-md`
+   - `ashie-agents-methodology` if you want the optional Architect methodology
+
+3. Ask Codex:
+
+   ```text
+   $setup-agents-md add skill hooks to this project AGENTS.md. Show me proposed changes before applying.
+   ```
+
+4. Review the proposed summary and diff.
+5. Approve the write only when the proposal looks right.
+6. Optionally ask Codex:
+
+   ```text
+   $ashie-agents-methodology preview how Ashie's Architect methodology would merge into this AGENTS.md.
+   ```
+
+## Project / Devcontainer Setup
+
+For a project, devcontainer, or Codespace, install the skills into the project scope with the skills CLI, then run `$setup-agents-md` from inside the target repo.
+
+Project setup should keep global/personal defaults out of repo-local `AGENTS.md` unless explicitly approved. Use `$project-memory` for the project docs baseline.
+
+## Global Setup
+
+For personal/global Codex instructions, install globally with the skills CLI if desired, then run:
+
+```text
+$setup-agents-md add skill hooks to my global Codex AGENTS.md. Show me the diff before applying.
+```
+
+To adopt Ashie's full Architect methodology globally, run:
+
+```text
+$ashie-agents-methodology merge Ashie's Architect methodology into my global Codex AGENTS.md. Preserve skill hooks and show me the diff before applying.
+```
+
+## Source Of Truth
+
+- Skill hooks template: `skills/setup-agents-md/assets/templates/skill-hooks-section.md`
+- Architect methodology template: `skills/ashie-agents-methodology/assets/templates/global-architect-agents.md`
+- Project `AGENTS.md` starter: `skills/project-memory/assets/templates/AGENTS.md`
+- Project-memory methodology block: `skills/project-memory/assets/snippets/project-memory-methodology.md`
+- Wiring packet template: `skills/setup-agents-md/assets/merge-packets/agents-md-wiring.md`
+- Methodology adoption packet template: `skills/ashie-agents-methodology/assets/merge-packets/methodology-adoption.md`
+
+Scripts render these templates; they should not bury canonical instruction prose.
+
+## Manual Script Fallback
+
+The scripts are retained as manual helpers for environments where the skills CLI is not available:
 
 ```bash
 ./scripts/install.sh
-```
-
-Defaults:
-
-- skills install to `$HOME/.agents/skills`
-- global instructions update `$HOME/.codex/AGENTS.md`
-
-Override paths when needed:
-
-```bash
-CODEX_SKILLS_DIR="$HOME/.codex/skills" \
-CODEX_GLOBAL_AGENTS="$HOME/.codex/AGENTS.md" \
-./scripts/install.sh
-```
-
-The installer:
-
-- installs `skills/project-memory`
-- creates `~/.codex/AGENTS.md` if missing
-- backs up an existing installed skill before replacing it
-- leaves an existing global `AGENTS.md` unchanged
-- writes a temporary Codex merge packet when global `AGENTS.md` already exists
-
-When a merge packet is created, ask Codex to use it to propose a sane merge. Codex should show you the summary and diff first, then write the merged file only after you approve it.
-
-Restart Codex after installing or updating skills or global instructions.
-
-## Install Into A Project
-
-Use this from a devcontainer, Codespace, or any repository where you want the skill and `AGENTS.md` guidance to live with the project:
-
-```bash
 ./scripts/install-project.sh
 ```
 
-Run it from inside the target project. If this tooling repo lives elsewhere, call the script by path from the target project. By default it targets the Git repository containing your current working directory. Override the target when needed:
+They install the base skills and create review-first skill-wiring packets. The scripts are no longer the primary distribution path.
+
+Validation:
 
 ```bash
-PROJECT_ROOT="/workspaces/my-project" ./scripts/install-project.sh
+shellcheck scripts/install.sh scripts/install-project.sh scripts/sync-from-local.sh
+bash -n scripts/install.sh scripts/install-project.sh scripts/sync-from-local.sh
 ```
 
-The project installer:
+## Repository Layout
 
-- installs `skills/project-memory` to `$PROJECT_ROOT/.agents/skills/project-memory`
-- leaves `$PROJECT_ROOT/AGENTS.md` unchanged
-- writes `$PROJECT_ROOT/.codex-agent-tooling/project-agents-merge.md`
-- prints a Codex prompt for a review-first project `AGENTS.md` merge
+- `skills/project-memory/`: docs memory skill, templates, and snippets.
+- `skills/setup-agents-md/`: skill-hook wiring skill and packet assets.
+- `skills/ashie-agents-methodology/`: optional Architect methodology adoption skill and assets.
+- `scripts/`: optional/manual install and sync helpers.
+- `docs/`: repo memory, status, roadmap, and ADRs.
 
-This is the preferred mode for ephemeral devcontainers when you want the setup to survive container rebuilds without changing mounts. Ask Codex to use the merge packet, review the proposed summary and diff, and approve before it writes `AGENTS.md`.
+## Sync From Local Machine
 
-## Install Skill Only
-
-Codex can install the skill directly from GitHub, but this does not update global `AGENTS.md`:
-
-```bash
-install-skill-from-github.py --repo YOUR_GITHUB_USER/codex-agent-tooling --path skills/project-memory
-```
-
-Use `scripts/install.sh` when you want both the skill and global methodology block.
-
-## Refresh This Repo From Local Machine
-
-After editing your live skill or global `AGENTS.md`:
+After editing installed local skills:
 
 ```bash
 ./scripts/sync-from-local.sh
 ```
 
-Then review the diff, commit, and push.
+Review the diff before committing. Do not blindly sync a live global `AGENTS.md`; update the skill assets intentionally.

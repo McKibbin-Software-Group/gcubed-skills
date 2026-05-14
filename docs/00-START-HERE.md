@@ -13,7 +13,7 @@ This is the entrypoint for humans and agents working in this repo.
 
 ## Project In One Paragraph
 
-`codex-agent-tooling` is a small portable setup repo for Codex skills and agent instructions. It currently focuses on the `project-memory` skill, global `AGENTS.md` guidance, and safe install flows for both personal environments and project-local/devcontainer environments.
+This repo is a small portable Codex skills collection. It currently has three base responsibilities: `project-memory` owns repo docs memory, `setup-agents-md` owns boring AGENTS.md skill-hook wiring, and `ashie-agents-methodology` owns optional Architect methodology adoption.
 
 ## First Commands
 

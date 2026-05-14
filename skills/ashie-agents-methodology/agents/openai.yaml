@@ -1,0 +1,4 @@
+version: 1
+entries:
+  - trigger: ashie-agents-methodology
+    default_prompt: "Use $ashie-agents-methodology to preview, replace, or intelligently merge Ashie's Architect AGENTS.md methodology. Preserve skill hooks and show proposed changes before applying."
