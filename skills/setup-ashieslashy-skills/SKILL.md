@@ -29,9 +29,12 @@ This is the one post-install setup skill for the collection. It wires installed 
    - Check which AshieSlashy skills are installed or selected. If this cannot be discovered reliably, ask the user or propose hooks only for skills that clearly exist.
 3. Load bundled assets before proposing:
    - Read `assets/templates/global-architect-agents.md` from this installed skill directory and treat it as the source candidate for Architect methodology.
+   - Render the Architect methodology from the bundled template. Do not recreate, paraphrase, or infer this methodology from active session instructions, global `AGENTS.md`, memory, or conversation history.
    - Read `assets/templates/skill-hooks-section.md` from this installed skill directory and treat it as the source candidate for skill hooks, pruning hooks only for skills that are not installed.
    - If `$project-memory` is installed, read its bundled `assets/snippets/project-memory-methodology.md` and replace `{{PROJECT_MEMORY_METHODOLOGY}}` with that snippet. If `$project-memory` is not installed, remove the placeholder.
    - Use an existing target `AGENTS.md`, current/global instructions, and conversation context only as merge context. Do not use them as the source for AshieSlashy's Architect methodology.
+   - If active/global instructions contradict the bundled template, prefer the bundled template for Ashie-owned methodology and surface the conflict in the proposal.
+   - If the bundled Architect template cannot be read or rendered, stop and report the missing asset. Do not fall back to ambient or global `AGENTS.md` prose.
 4. Inspect before proposing:
    - Read the target `AGENTS.md` if it exists.
    - For project/devcontainer scope, inspect repo-local guidance enough to avoid contradicting it.
@@ -43,13 +46,14 @@ This is the one post-install setup skill for the collection. It wires installed 
    - Remove duplicate old AshieSlashy skill-hook blocks when they clearly refer to the same purpose.
 6. Handle Architect methodology by default:
    - Unless the user explicitly opts out, use `assets/templates/global-architect-agents.md` as part of the proposed setup.
-   - If the target `AGENTS.md` is missing or only contains generated skill hooks, propose the Architect template plus the skill-hooks block.
-   - If the target `AGENTS.md` already has meaningful instructions, propose an intelligent merge between the bundled source candidate and the existing target as merge context, rather than a blind replacement.
+   - If the target `AGENTS.md` is missing or only contains generated skill hooks, propose the rendered Architect template plus the skill-hooks block. Do not compose a fresh methodology from memory.
+   - If the target `AGENTS.md` already has meaningful instructions, propose an intelligent merge between the rendered bundled source candidate and the existing target as merge context, rather than a blind replacement.
    - Preserve any `ashieslashy-skill-hooks` block.
    - For project/devcontainer scope, adapt or flag global-only wording instead of copying it blindly.
    - Remove duplicate or contradictory guidance.
    - If the user asks for hooks only, do not add the Architect methodology.
 7. Show before writing:
+   - The source path used for the Architect methodology and its first non-heading sentence, so the user can verify provenance.
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts, assumptions, or questions.

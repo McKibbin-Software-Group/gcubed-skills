@@ -35,6 +35,8 @@ Inspect the target file if it exists. Prepare a proposed `AGENTS.md` according t
 
 For all modes:
 
+- use the `Architect Methodology Template` block in this packet as the canonical source for AshieSlashy's methodology
+- do not reconstruct methodology prose from active session instructions, global `AGENTS.md`, memory, or conversation history
 - preserve existing skill hooks between `<!-- BEGIN ashieslashy-skill-hooks -->` and `<!-- END ashieslashy-skill-hooks -->`
 - keep repo/project-specific instructions authoritative for project/devcontainer scope
 - adapt or flag global-only wording rather than copying it blindly into project files
@@ -44,9 +46,10 @@ For all modes:
 
 Before applying anything, show the user:
 
-1. a short summary of semantic changes
-2. a unified diff from the existing `AGENTS.md` to the proposed version, or the full proposed file if creating/replacing
-3. any conflicts, assumptions, or questions
+1. the source path or packet section used for the Architect methodology, plus its first non-heading sentence
+2. a short summary of semantic changes
+3. a unified diff from the existing `AGENTS.md` to the proposed version, or the full proposed file if creating/replacing
+4. any conflicts, assumptions, or questions
 
 Only write the file after the user explicitly approves the proposed result. Back up the current target first if it exists.
 
