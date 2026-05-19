@@ -18,11 +18,11 @@ Then run:
 $setup-ashieslashy-skills set up the AshieSlashy skills installed in this AGENTS.md. Show me proposed changes before applying.
 ```
 
-The setup skill wires installed skills into the relevant `AGENTS.md`. It can also preview, merge, or replace with Ashie's optional Architect methodology when you explicitly ask for that mode. It shows a summary and diff before writing.
+The setup skill wires installed skills into the relevant `AGENTS.md` and proposes Ashie's Architect methodology by default. Ask for hooks only if you want to opt out. It shows a summary and diff before writing.
 
 ## Skills
 
-- `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): set up installed AshieSlashy skills in a global, project, devcontainer, or Codespace `AGENTS.md`; optionally handle Architect methodology adoption.
+- `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): set up installed AshieSlashy skills in a global, project, devcontainer, or Codespace `AGENTS.md`; proposes Architect methodology by default unless the user opts out.
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`.
 
 ## Setup Notes
@@ -37,10 +37,10 @@ For personal or global Codex instructions, install globally if desired, then run
 $setup-ashieslashy-skills set up my global Codex AGENTS.md. Show me the diff before applying.
 ```
 
-To adopt Ashie's full Architect methodology, ask the same setup skill for that mode:
+To opt out of Ashie's Architect methodology, ask for hooks only:
 
 ```text
-$setup-ashieslashy-skills merge Ashie's Architect methodology into my AGENTS.md. Preserve skill hooks and show me the diff before applying.
+$setup-ashieslashy-skills set up only the installed skill hooks in my AGENTS.md. Do not add Architect methodology. Show me the diff before applying.
 ```
 
 ## Updates
@@ -76,11 +76,11 @@ Canonical instruction prose belongs in skill assets, not ad hoc installer script
 
 - Keep `README.md` as the main user-facing source of truth for install, updates, skill purpose, and repo layout.
 - Keep this repo as a clean distribution source; do not dogfood the `project-memory` docs baseline here.
-- Keep setup behavior AI-driven and review-first: show the proposed summary and diff before writing.
+- Keep setup behavior AI-driven and review-first: propose Architect methodology by default, but show the proposed summary and diff before writing.
 - Keep ADRs optional in generated project docs; recommend them only when there is a durable decision with meaningful tradeoffs.
 
 ## Repository Layout
 
-- `skills/setup-ashieslashy-skills/`: post-install setup skill, skill-hook assets, and optional Architect methodology assets.
+- `skills/setup-ashieslashy-skills/`: post-install setup skill, skill-hook assets, and Architect methodology assets.
 - `skills/project-memory/`: docs memory skill, templates, and snippets.
 - `scripts/validate-skills.sh`: lightweight consistency checks for this repo.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Setup AshieSlashy Skills"
-  short_description: "Wire installed AshieSlashy skills into AGENTS.md"
-  default_prompt: "Use $setup-ashieslashy-skills to set up installed AshieSlashy skills in this AGENTS.md. Show proposed changes before applying."
+  short_description: "Set up skills and Architect guidance"
+  default_prompt: "Use $setup-ashieslashy-skills to set up installed AshieSlashy skills and Architect methodology in this AGENTS.md. Show proposed changes before applying."

@@ -7,7 +7,7 @@ description: Create and maintain a concise per-project documentation memory syst
 
 Use this skill to create or refresh a repository's lightweight memory layer without polluting context.
 
-This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or optional methodology adoption. Use `$setup-ashieslashy-skills` for those setup tasks.
+This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or Architect methodology setup. Use `$setup-ashieslashy-skills` for those setup tasks.
 
 ## Baseline Shape
 

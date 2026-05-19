@@ -8,7 +8,7 @@ Target AGENTS.md: `{{TARGET_AGENTS}}`
 
 Add or refresh the AshieSlashy skill-hooks block in the target `AGENTS.md`.
 
-This packet is for wiring installed skills only. It must not adopt or merge the opinionated Architect methodology unless the user explicitly asks for that setup mode.
+This packet is for hooks-only wiring. The default `$setup-ashieslashy-skills` flow proposes Architect methodology too; use this packet only when the user asked for hooks only or when refreshing an existing hooks block.
 
 ## Existing Target
 
@@ -47,4 +47,4 @@ Only write the file after the user explicitly approves the proposed result. Back
 
 ## Prompt To Give Codex
 
-Please run `$setup-ashieslashy-skills`. It should discover this packet, add or refresh the AshieSlashy skill hooks in my `AGENTS.md`, and show me the summary and unified diff before applying anything.
+Please run `$setup-ashieslashy-skills` in hooks-only mode. It should discover this packet, add or refresh the AshieSlashy skill hooks in my `AGENTS.md`, skip Architect methodology, and show me the summary and unified diff before applying anything.

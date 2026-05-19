@@ -1,13 +1,13 @@
 ---
 name: setup-ashieslashy-skills
-description: Set up installed AshieSlashy Codex skills in a global, project, devcontainer, or Codespace AGENTS.md. Use after `npx skills@latest add ashieslashy/skills`; this adds or refreshes skill hooks for the skills the user installed and can optionally preview, merge, or replace with Ashie's Architect methodology.
+description: Set up installed AshieSlashy Codex skills in a global, project, devcontainer, or Codespace AGENTS.md. Use after `npx skills@latest add ashieslashy/skills`; this adds or refreshes skill hooks for the skills the user installed and proposes Ashie's Architect methodology by default unless the user opts out.
 ---
 
 # Setup AshieSlashy Skills
 
-Set up the AshieSlashy skills the user installed, without surprising them or rewriting their operating style by default.
+Set up the AshieSlashy skills the user installed, without silently rewriting their operating style.
 
-This is the one post-install setup skill for the collection. It wires installed skills into `AGENTS.md` and, only when requested, helps adopt the optional Architect methodology from the bundled template.
+This is the one post-install setup skill for the collection. It wires installed skills into `AGENTS.md` and proposes the Architect methodology from the bundled template by default. The user can opt out of the methodology, and all changes remain review-first.
 
 ## Assets
 
@@ -36,12 +36,14 @@ This is the one post-install setup skill for the collection. It wires installed 
    - If the target `AGENTS.md` is missing, use `assets/templates/minimal-agents.md` as the starter.
    - Preserve all existing user/project instructions.
    - Remove duplicate old AshieSlashy skill-hook blocks when they clearly refer to the same purpose.
-5. Handle optional Architect methodology only when requested:
-   - If the user asks to preview, merge, or replace with the Architect methodology, use `assets/templates/global-architect-agents.md`.
+5. Handle Architect methodology by default:
+   - Unless the user explicitly opts out, use `assets/templates/global-architect-agents.md` as part of the proposed setup.
+   - If the target `AGENTS.md` is missing or only contains generated skill hooks, propose the Architect template plus the skill-hooks block.
+   - If the target `AGENTS.md` already has meaningful instructions, propose an intelligent merge rather than a blind replacement.
    - Preserve any `ashieslashy-skill-hooks` block.
    - For project/devcontainer scope, adapt or flag global-only wording instead of copying it blindly.
    - Remove duplicate or contradictory guidance.
-   - If the user has not asked for methodology adoption, do not add it.
+   - If the user asks for hooks only, do not add the Architect methodology.
 6. Show before writing:
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
@@ -55,5 +57,5 @@ This is the one post-install setup skill for the collection. It wires installed 
 
 - This skill wires installed AshieSlashy skills into `AGENTS.md`; it does not install skills.
 - This skill does not create the project docs memory baseline. Use `$project-memory` for that when the target repo wants one.
-- Architect methodology adoption is optional and user-selected; never silently replace or substantially rewrite an existing `AGENTS.md`.
+- Architect methodology adoption is opt-out but review-first; never silently replace or substantially rewrite an existing `AGENTS.md`.
 - Canonical instruction prose belongs in assets, not shell scripts.

@@ -9,7 +9,7 @@ Adoption mode: {{ADOPTION_MODE}}
 
 Preview, replace, or intelligently merge AshieSlashy's Architect `AGENTS.md` methodology into the target file.
 
-This packet is for optional methodology adoption. It must preserve any existing AshieSlashy skill-hooks block.
+This packet is for the Architect methodology portion of `$setup-ashieslashy-skills`. Methodology setup is the default unless the user asks for hooks only. It must preserve any existing AshieSlashy skill-hooks block.
 
 ## Existing Target
 
