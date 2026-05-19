@@ -24,21 +24,20 @@ This repo packages portable Codex skills, review-first AGENTS.md skill wiring, a
 
 - Project purpose: portable Codex skills, review-first AGENTS.md skill wiring, and optional Architect methodology adoption.
 - Primary stack/tools: Markdown docs and Codex skills.
-- Main entrypoints: `skills/project-memory/SKILL.md`, `skills/setup-agents-md/SKILL.md`, and `skills/ashie-agents-methodology/SKILL.md`.
+- Main entrypoints: `skills/setup-ashieslashy-skills/SKILL.md` and `skills/project-memory/SKILL.md`.
 
 ## Working Rules
 
 - Treat `npx skills@latest add ashieslashy/skills` as the primary distribution path.
 - Keep setup behavior AI-driven and review-first.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; write a packet and ask Codex to propose a reviewable diff.
-- Keep skill wiring separate from optional methodology adoption.
+- Keep one setup skill that wires installed skills and handles optional methodology adoption only when explicitly requested.
 - Keep durable maintainer guidance in `README.md`; this repo intentionally does not dogfood the `project-memory` docs baseline.
 - Before editing, inspect `git status --short` and relevant diffs.
 - Do not commit, publish, or sync from local installs unless the user explicitly asks.
 
 ## Repository Map
 
+- `skills/setup-ashieslashy-skills/`: post-install setup skill, skill-hook assets, and optional Architect methodology assets.
 - `skills/project-memory/`: installable Codex skill and templates.
-- `skills/setup-agents-md/`: AGENTS.md skill-hook wiring skill and assets.
-- `skills/ashie-agents-methodology/`: optional Architect AGENTS.md methodology adoption skill and assets.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.

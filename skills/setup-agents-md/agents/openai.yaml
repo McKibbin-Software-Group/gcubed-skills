@@ -1,4 +1,0 @@
-version: 1
-entries:
-  - trigger: setup-agents-md
-    default_prompt: "Use $setup-agents-md to add or refresh the AshieSlashy skill hooks in this AGENTS.md. Show proposed changes before applying."

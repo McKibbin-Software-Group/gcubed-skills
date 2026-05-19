@@ -8,7 +8,7 @@ This is the entrypoint for humans and agents working in this repo.
 - Current status: `docs/02-current-status.md`
 - Roadmap: `docs/03-roadmap.md`
 - Next steps: `docs/04-next-steps.md`
-- Architecture decisions: `docs/adr/`
+- Architecture decisions, when useful: `docs/adr/`
 - Temporary AI working notes: `docs/ai/`
 
 ## Project In One Paragraph

@@ -52,4 +52,4 @@ Only write the file after the user explicitly approves the proposed result. Back
 
 ## Prompt To Give Codex
 
-Please use this packet with `$ashie-agents-methodology` to preview, replace, or intelligently merge Ashie's Architect methodology into my `AGENTS.md`. Preserve skill hooks and show me the summary and unified diff before applying anything.
+Please use this packet with `$setup-ashieslashy-skills` to preview, replace, or intelligently merge Ashie's Architect methodology into my `AGENTS.md`. Preserve skill hooks and show me the summary and unified diff before applying anything.

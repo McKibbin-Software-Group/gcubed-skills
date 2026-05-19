@@ -2,103 +2,85 @@
 
 Portable Codex skills and setup guidance.
 
-The intended install path is the skills collection installer:
+## Quick Start
+
+Install the collection with:
 
 ```bash
 npx skills@latest add ashieslashy/skills
 ```
 
-This assumes the GitHub repo is published or mirrored as `ashieslashy/skills`; until then, substitute the current repo slug.
+Pick the skills you want to install. Make sure you include `$setup-ashieslashy-skills`; it is the post-install setup skill for this collection.
 
-After installing, wire the selected skills into the relevant `AGENTS.md`:
-
-```text
-$setup-agents-md
-```
-
-That setup skill adds or refreshes a compact skill-hooks block. It shows a summary and diff, then writes only after approval.
-
-If you also want Ashie's opinionated Architect methodology, run that separately:
+Then run:
 
 ```text
-$ashie-agents-methodology
+$setup-ashieslashy-skills set up the AshieSlashy skills installed in this AGENTS.md. Show me proposed changes before applying.
 ```
+
+The setup skill wires installed skills into the relevant `AGENTS.md`. It can also preview, merge, or replace with Ashie's optional Architect methodology when you explicitly ask for that mode. It shows a summary and diff before writing.
 
 ## Skills
 
-- `skills/project-memory/`: create and maintain lightweight repo memory docs under `docs/`.
-- `skills/setup-agents-md/`: wire installed skills into global/project/devcontainer `AGENTS.md`.
-- `skills/ashie-agents-methodology/`: optionally preview, replace, or intelligently merge Ashie's Architect `AGENTS.md` methodology.
+- `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): set up installed AshieSlashy skills in a global, project, devcontainer, or Codespace `AGENTS.md`; optionally handle Architect methodology adoption.
+- `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`.
+
+## Setup Notes
+
+For a project, devcontainer, or Codespace, install the skills into the project scope, then run `$setup-ashieslashy-skills` from inside the target repo.
+
+Project setup should keep global or personal defaults out of repo-local `AGENTS.md` unless explicitly approved. Use `$project-memory` for a project docs baseline when the target repo actually wants one.
+
+For personal or global Codex instructions, install globally if desired, then run:
+
+```text
+$setup-ashieslashy-skills set up my global Codex AGENTS.md. Show me the diff before applying.
+```
+
+To adopt Ashie's full Architect methodology, ask the same setup skill for that mode:
+
+```text
+$setup-ashieslashy-skills merge Ashie's Architect methodology into my AGENTS.md. Preserve skill hooks and show me the diff before applying.
+```
+
+## Updates
+
+To refresh installed skills after this repo changes, rerun:
+
+```bash
+npx skills@latest add ashieslashy/skills
+```
+
+Then rerun `$setup-ashieslashy-skills` if the generated skill hooks or setup guidance changed.
+
+## Validation
+
+Run the lightweight repo checks with:
+
+```bash
+scripts/validate-skills.sh
+```
+
+## Canonical Assets
+
+- Skill hooks template: `skills/setup-ashieslashy-skills/assets/templates/skill-hooks-section.md`
+- Architect methodology template: `skills/setup-ashieslashy-skills/assets/templates/global-architect-agents.md`
+- Project `AGENTS.md` starter: `skills/project-memory/assets/templates/AGENTS.md`
+- Project-memory methodology block: `skills/project-memory/assets/snippets/project-memory-methodology.md`
+- Wiring packet template: `skills/setup-ashieslashy-skills/assets/merge-packets/agents-md-wiring.md`
+- Methodology adoption packet template: `skills/setup-ashieslashy-skills/assets/merge-packets/methodology-adoption.md`
+
+Canonical instruction prose belongs in skill assets, not ad hoc installer scripts.
 
 ## Maintainer Principles
 
 - Keep `README.md` as the main user-facing source of truth for install, updates, skill purpose, and repo layout.
 - Keep this repo as a clean distribution source; do not dogfood the `project-memory` docs baseline here.
-- Keep skill-hook wiring separate from optional Architect methodology adoption.
-- Keep `AGENTS.md` changes review-first: show the proposed summary and diff before writing.
-- Keep canonical instruction prose in skill assets, not in ad hoc installer scripts.
-
-## Recommended Workflow
-
-1. Install from the skill collection:
-
-   ```bash
-   npx skills@latest add ashieslashy/skills
-   ```
-
-2. Select the skills you want, usually:
-
-   - `project-memory`
-   - `setup-agents-md`
-   - `ashie-agents-methodology` if you want the optional Architect methodology
-
-3. Ask Codex:
-
-   ```text
-   $setup-agents-md add skill hooks to this project AGENTS.md. Show me proposed changes before applying.
-   ```
-
-4. Review the proposed summary and diff.
-5. Approve the write only when the proposal looks right.
-6. Optionally ask Codex:
-
-   ```text
-   $ashie-agents-methodology preview how Ashie's Architect methodology would merge into this AGENTS.md.
-   ```
-
-## Project / Devcontainer Setup
-
-For a project, devcontainer, or Codespace, install the skills into the project scope with the skills CLI, then run `$setup-agents-md` from inside the target repo.
-
-Project setup should keep global/personal defaults out of repo-local `AGENTS.md` unless explicitly approved. Use `$project-memory` for the project docs baseline.
-
-## Global Setup
-
-For personal/global Codex instructions, install globally with the skills CLI if desired, then run:
-
-```text
-$setup-agents-md add skill hooks to my global Codex AGENTS.md. Show me the diff before applying.
-```
-
-To adopt Ashie's full Architect methodology globally, run:
-
-```text
-$ashie-agents-methodology merge Ashie's Architect methodology into my global Codex AGENTS.md. Preserve skill hooks and show me the diff before applying.
-```
-
-## Source Of Truth
-
-- Skill hooks template: `skills/setup-agents-md/assets/templates/skill-hooks-section.md`
-- Architect methodology template: `skills/ashie-agents-methodology/assets/templates/global-architect-agents.md`
-- Project `AGENTS.md` starter: `skills/project-memory/assets/templates/AGENTS.md`
-- Project-memory methodology block: `skills/project-memory/assets/snippets/project-memory-methodology.md`
-- Wiring packet template: `skills/setup-agents-md/assets/merge-packets/agents-md-wiring.md`
-- Methodology adoption packet template: `skills/ashie-agents-methodology/assets/merge-packets/methodology-adoption.md`
-
-Scripts render these templates; they should not bury canonical instruction prose.
+- Keep setup behavior AI-driven and review-first: show the proposed summary and diff before writing.
+- Keep ADRs optional in generated project docs; recommend them only when there is a durable decision with meaningful tradeoffs.
 
 ## Repository Layout
 
+- `skills/setup-ashieslashy-skills/`: post-install setup skill, skill-hook assets, and optional Architect methodology assets.
 - `skills/project-memory/`: docs memory skill, templates, and snippets.
-- `skills/setup-agents-md/`: skill-hook wiring skill and packet assets.
-- `skills/ashie-agents-methodology/`: optional Architect methodology adoption skill and assets.
+- `scripts/validate-skills.sh`: lightweight consistency checks for this repo.

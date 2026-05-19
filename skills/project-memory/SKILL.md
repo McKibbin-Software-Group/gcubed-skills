@@ -7,7 +7,7 @@ description: Create and maintain a concise per-project documentation memory syst
 
 Use this skill to create or refresh a repository's lightweight memory layer without polluting context.
 
-This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or optional methodology adoption. Use `$setup-agents-md` for skill hooks and `$ashie-agents-methodology` for Ashie's Architect methodology.
+This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or optional methodology adoption. Use `$setup-ashieslashy-skills` for those setup tasks.
 
 ## Baseline Shape
 
@@ -19,7 +19,7 @@ Expected repository memory set:
 - `docs/02-current-status.md`: living snapshot of what works, what changed, risks, last validation.
 - `docs/03-roadmap.md`: milestones, priorities, deferred work, sequencing.
 - `docs/04-next-steps.md`: practical pickup list for the next work session.
-- `docs/adr/`: durable decisions that should not be repeatedly relitigated.
+- `docs/adr/`: optional durable decisions when a choice has meaningful tradeoffs.
 - `docs/ai/`: temporary AI handoff, investigations, and implementation plans.
 
 Copy and adapt templates from `assets/templates/` when creating missing files. Treat them as starting points, not boilerplate to leave untouched.
@@ -42,7 +42,7 @@ If this skill is noticed during unrelated work, do not derail the task. Briefly 
 `AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
 
 - If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md`.
-- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-agents-md` for skill hooks or `$ashie-agents-methodology` for methodology adoption.
+- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-ashieslashy-skills` for skill hooks or methodology adoption.
 - When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 
@@ -54,7 +54,7 @@ After substantial work, update the smallest relevant docs:
 - Update `docs/04-next-steps.md` when the next operator/agent action changes.
 - Update `docs/01-repo-overview.md` when architecture, directory ownership, or core workflows change.
 - Update `docs/03-roadmap.md` when priority or sequencing changes.
-- Add an ADR for durable decisions with meaningful tradeoffs.
+- Add an ADR only for durable decisions with meaningful tradeoffs.
 - Promote lasting findings from `docs/ai/` into canonical docs; prune or mark temporary notes as superseded.
 
 Do not paste chat transcripts. Summarize outcomes, decisions, commands, and verification signals in current-state language. Use concrete dates when recording status.
@@ -79,7 +79,7 @@ Templates live at:
 - `assets/templates/docs/03-roadmap.md`
 - `assets/templates/docs/04-next-steps.md`
 - `assets/templates/docs/ai/HANDOFF.md`
-- `assets/templates/docs/adr/0001-record-architecture-decisions.md`
+- `assets/templates/docs/adr/0001-record-architecture-decisions.md` when an ADR is useful
 - `assets/snippets/project-memory-methodology.md`
 
 When using templates, replace placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
