@@ -53,14 +53,6 @@ npx skills@latest add ashieslashy/skills
 
 Then rerun `$setup-ashieslashy-skills` if the generated skill hooks or setup guidance changed.
 
-## Validation
-
-Run the lightweight repo checks with:
-
-```bash
-scripts/validate-skills.sh
-```
-
 ## Canonical Assets
 
 - Skill hooks template: `skills/setup-ashieslashy-skills/assets/templates/skill-hooks-section.md`
@@ -83,4 +75,3 @@ Canonical instruction prose belongs in skill assets, not ad hoc installer script
 
 - `skills/setup-ashieslashy-skills/`: post-install setup skill, skill-hook assets, and Architect methodology assets.
 - `skills/project-memory/`: docs memory skill, templates, and snippets.
-- `scripts/validate-skills.sh`: lightweight consistency checks for this repo.
