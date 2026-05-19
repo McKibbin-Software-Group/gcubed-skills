@@ -30,6 +30,14 @@ $ashie-agents-methodology
 - `skills/setup-agents-md/`: wire installed skills into global/project/devcontainer `AGENTS.md`.
 - `skills/ashie-agents-methodology/`: optionally preview, replace, or intelligently merge Ashie's Architect `AGENTS.md` methodology.
 
+## Maintainer Principles
+
+- Keep `README.md` as the main user-facing source of truth for install, updates, skill purpose, and repo layout.
+- Keep this repo as a clean distribution source; do not dogfood the `project-memory` docs baseline here.
+- Keep skill-hook wiring separate from optional Architect methodology adoption.
+- Keep `AGENTS.md` changes review-first: show the proposed summary and diff before writing.
+- Keep canonical instruction prose in skill assets, not in ad hoc installer scripts.
+
 ## Recommended Workflow
 
 1. Install from the skill collection:
@@ -94,4 +102,3 @@ Scripts render these templates; they should not bury canonical instruction prose
 - `skills/project-memory/`: docs memory skill, templates, and snippets.
 - `skills/setup-agents-md/`: skill-hook wiring skill and packet assets.
 - `skills/ashie-agents-methodology/`: optional Architect methodology adoption skill and assets.
-- `docs/adr/`: durable design decisions for this skills collection.
