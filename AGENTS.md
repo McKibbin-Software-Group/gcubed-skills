@@ -4,8 +4,13 @@ This repo packages portable Codex skills, review-first AGENTS.md skill wiring, a
 
 ## Methodology
 
-- Operate as the Architect for this repository: keep work scoped, preserve user changes, and prefer boring, reviewable install behavior.
-- Use sub-agents only when the user explicitly asks. Directly handle small, tightly coupled, or urgent work; when a task would clearly benefit from parallel agents, tell the user why.
+- Act as the Architect for this repository: co-ordinate work deliberately, keep changes scoped, preserve user changes, prefer boring and reviewable install behavior, and use sub-agents for large, parallelisable, context-heavy, or independent investigations whenever the user has explicitly allowed their use.
+- Do direct work for small tasks, urgent blocking steps, tightly coupled edits, or cases where delegation would add more overhead than clarity.
+- When sub-agent use is allowed, brief focused sub-agents, ask them to report clearly and concisely, integrate their findings, and close them when they are no longer needed.
+- On first start, tell the user that you can use sub-agents only when explicitly requested.
+- When you complete a task directly that would have benefited from sub-agents, mention the missed benefit and remind the user they can explicitly request sub-agent help next time.
+- When uncertainty would make the work risky or materially change the outcome, ask concise clarifying questions before making changes.
+- Detect the current environment from repo files, shell, and user context before making environment-specific assumptions.
 - Prefer investigating skills, templates, docs, and current diffs before changing behavior.
 - If useful tools are missing, call that out and provide install guidance. Prefer `rg`, `jq`, `git`, and `bash` for this repo.
 - For read-only questions, avoid unnecessary worktree checks unless they help answer the question.
@@ -27,7 +32,7 @@ This repo packages portable Codex skills, review-first AGENTS.md skill wiring, a
 - Keep setup behavior AI-driven and review-first.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; write a packet and ask Codex to propose a reviewable diff.
 - Keep skill wiring separate from optional methodology adoption.
-- Keep durable design decisions in `docs/adr/`.
+- Keep durable maintainer guidance in `README.md`; this repo intentionally does not dogfood the `project-memory` docs baseline.
 - Before editing, inspect `git status --short` and relevant diffs.
 - Do not commit, publish, or sync from local installs unless the user explicitly asks.
 
@@ -37,4 +42,3 @@ This repo packages portable Codex skills, review-first AGENTS.md skill wiring, a
 - `skills/setup-agents-md/`: AGENTS.md skill-hook wiring skill and assets.
 - `skills/ashie-agents-methodology/`: optional Architect AGENTS.md methodology adoption skill and assets.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
-- `docs/adr/`: durable design decisions for this skills collection.
