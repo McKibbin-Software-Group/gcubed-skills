@@ -19,8 +19,8 @@ Expected repository memory set:
 - `docs/02-current-status.md`: living snapshot of what works, what changed, risks, last validation.
 - `docs/03-roadmap.md`: milestones, priorities, deferred work, sequencing.
 - `docs/04-next-steps.md`: practical pickup list for the next work session.
-- `docs/adr/`: optional durable decisions when a choice has meaningful tradeoffs.
-- `docs/ai/`: temporary AI handoff, investigations, and implementation plans.
+- `docs/adr/`: baseline hint directory; add ADR files only when a choice has meaningful tradeoffs.
+- `docs/ai/`: baseline hint directory; add temporary handoff, investigation, or implementation-plan files only when useful.
 
 Copy and adapt templates from `assets/templates/` when creating missing files. Treat them as starting points, not boilerplate to leave untouched.
 
@@ -30,18 +30,30 @@ The project-memory methodology snippet lives at `assets/snippets/project-memory-
 
 1. Read any existing root `AGENTS.md`, `docs/00-START-HERE.md`, and nearby docs before writing.
 2. Inspect the repo shape with `rg --files`, package manifests, deployment/config files, and existing tests or scripts.
-3. Create only the missing baseline files/directories. Preserve the project's existing doc style and naming if it already has one.
+3. Create only the missing baseline files and hint directories. Preserve the project's existing doc style and naming if it already has one.
 4. Keep each doc short and link to deeper docs instead of duplicating detail.
 5. Put durable project truth in `docs/`; put temporary investigation notes and draft plans in `docs/ai/`.
 6. Never overwrite existing docs without reading them. If replacing structure would be substantial, explain the proposed move first.
 
 If this skill is noticed during unrelated work, do not derail the task. Briefly mention that the repo is missing/stale and offer to run the setup later.
 
+## Refresh Workflow
+
+Use this workflow when docs exist but are stale, incomplete, or still contain placeholders. Do not treat existing files as a no-op by default.
+
+1. Read the existing root `AGENTS.md`, baseline docs, and any nearby domain/architecture docs before writing.
+2. Inspect repo shape, recent work, validation signals, and current user context enough to distinguish stale content from still-accurate content.
+3. Preserve the project's existing doc structure and voice where it is useful. Avoid broad rewrites when targeted updates will do.
+4. Replace stale facts and placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
+5. If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
+6. Update `docs/02-current-status.md` and `docs/04-next-steps.md` first when refreshing after work; update overview, roadmap, ADRs, or `docs/ai/` only when their facts actually changed.
+7. Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
+
 ## AGENTS.md Boundary
 
 `AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
 
-- If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md`.
+- If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md` and render `{{PROJECT_MEMORY_METHODOLOGY}}` from `assets/snippets/project-memory-methodology.md`.
 - If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-ashieslashy-skills` for skill hooks or methodology adoption.
 - When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
@@ -78,8 +90,8 @@ Templates live at:
 - `assets/templates/docs/02-current-status.md`
 - `assets/templates/docs/03-roadmap.md`
 - `assets/templates/docs/04-next-steps.md`
-- `assets/templates/docs/ai/HANDOFF.md`
+- `assets/templates/docs/ai/HANDOFF.md` when a handoff note is useful
 - `assets/templates/docs/adr/0001-record-architecture-decisions.md` when an ADR is useful
 - `assets/snippets/project-memory-methodology.md`
 
-When using templates, replace placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
+When using templates, replace placeholders with repo-specific facts discovered from files and render snippet placeholders from their canonical snippet files. Delete sections that do not apply. Before proposing generated docs, check the proposed `AGENTS.md` and `docs/` content for unresolved `TODO` placeholders and either resolve them, remove the section, or mark a dated unknown.

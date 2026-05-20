@@ -28,5 +28,7 @@ This file contains repo-local instructions for AI agents and automation helpers.
 - `docs/02-current-status.md`: current state, risks, and validation.
 - `docs/03-roadmap.md`: priorities and sequencing.
 - `docs/04-next-steps.md`: practical pickup list.
-- `docs/adr/`: optional durable architecture decisions when useful.
-- `docs/ai/`: temporary AI handoff and working plans.
+- `docs/adr/`: hint directory for durable architecture decisions when useful.
+- `docs/ai/`: hint directory for temporary AI handoff and working plans when useful.
+
+{{PROJECT_MEMORY_METHODOLOGY}}

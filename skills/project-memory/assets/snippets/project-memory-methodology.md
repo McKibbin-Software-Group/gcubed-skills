@@ -10,8 +10,8 @@ Expected baseline:
 - `docs/02-current-status.md`
 - `docs/03-roadmap.md`
 - `docs/04-next-steps.md`
-- optional `docs/adr/`
-- optional `docs/ai/`
+- `docs/adr/` as a hint directory for ADRs when useful
+- `docs/ai/` as a hint directory for temporary AI notes when useful
 
 If the baseline is missing or clearly stale, suggest using `$project-memory`. When substantial work changes project state, use `$project-memory` to update the smallest relevant docs. Keep `AGENTS.md` concise and agent-facing. Keep durable project truth in `docs/`; keep temporary AI handoff notes in `docs/ai/`.
 <!-- END project-memory-methodology -->

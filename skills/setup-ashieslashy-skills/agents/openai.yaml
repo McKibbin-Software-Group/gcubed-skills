@@ -1,4 +1,4 @@
 interface:
   display_name: "Setup AshieSlashy Skills"
   short_description: "Set up skills and Architect guidance"
-  default_prompt: "Use $setup-ashieslashy-skills to set up installed AshieSlashy skills and Architect methodology in this AGENTS.md. Show proposed changes before applying."
+  default_prompt: "Use $setup-ashieslashy-skills to resolve the target AGENTS.md, list discovered installed AshieSlashy skills and guidance blocks, ask whether to apply all or opt out of specific items, then show proposed changes before applying."
