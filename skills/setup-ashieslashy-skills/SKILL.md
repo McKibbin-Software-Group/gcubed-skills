@@ -1,13 +1,13 @@
 ---
 name: setup-ashieslashy-skills
-description: Add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace AGENTS.md after `npx skills@latest add ashieslashy/skills`. This preserves existing instructions, uses bundled canonical guidance, and includes project-memory guidance when that skill is installed in the same active scope.
+description: Add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace AGENTS.md after `npx skills@latest add ashieslashy/skills`. This preserves existing instructions, uses bundled canonical guidance, and includes project-memory guidance when that skill is installed for the target AGENTS.md scope.
 ---
 
 # Setup AshieSlashy Skills
 
 Set up AshieSlashy's operating guidance without silently rewriting the user's existing instructions.
 
-The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate skills. It only proposes Ashie's Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed in the same active scope, and keeps all changes review-first.
+The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate skills. It only proposes Ashie's Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed for the target `AGENTS.md` scope, and keeps all changes review-first.
 
 ## Assets
 
@@ -23,8 +23,11 @@ The Skills CLI owns skill selection, agent selection, and global/project install
 2. Load bundled assets before proposing:
    - Read `assets/templates/global-architect-agents.md` from this installed skill directory and treat it as the source candidate for Architect methodology.
    - Render the Architect methodology from the bundled template. Do not recreate, paraphrase, or infer this methodology from active session instructions, global `AGENTS.md`, memory, or conversation history.
-   - If `$project-memory` is installed in the same active scope as this setup skill, read its bundled `assets/snippets/project-memory-methodology.md` and replace `{{PROJECT_MEMORY_METHODOLOGY}}` with that snippet. If `$project-memory` is not installed in that same active scope, remove the placeholder.
-   - Treat "installed in the same active scope" as the skill set Codex loaded for the current setup run, not merely any copy found somewhere on disk. When file inspection is needed, prefer sibling installed skill directories from the same skill parent as this setup skill; if scope cannot be determined reliably, surface that uncertainty before proposing.
+   - Determine the target skill scope from the resolved `AGENTS.md`: project/devcontainer/Codespace targets use the target repo or workspace skill install; global targets use the global Codex skill install.
+   - If `$project-memory` is installed for the target skill scope, read its bundled `assets/snippets/project-memory-methodology.md` and replace `{{PROJECT_MEMORY_METHODOLOGY}}` with that snippet. If `$project-memory` is not installed for the target skill scope, remove the placeholder.
+   - A globally installed `$setup-ashieslashy-skills` may configure a project-local `AGENTS.md`; in that case, use the project-local skill state for `$project-memory`, not the global setup skill's sibling directory.
+   - When file inspection is needed for a project target, check the target repo's `skills-lock.json` and `.agents/skills/`. If they disagree, surface the inconsistency in the proposal and prefer actually present skill files for rendering bundled snippets.
+   - When file inspection is needed for a global target, check the global Codex skill directory that contains this setup skill and any available global skills lock/state.
    - Use an existing target `AGENTS.md`, current/global instructions, and conversation context only as merge context. Do not use them as the source for AshieSlashy's Architect methodology.
    - If active/global instructions contradict the bundled template, prefer the bundled template for Ashie-owned methodology and surface the conflict in the proposal.
    - If the bundled Architect template cannot be read or rendered, stop and report the missing asset. Do not fall back to ambient or global `AGENTS.md` prose.
@@ -45,7 +48,7 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - If older AshieSlashy setup prose duplicates only now-obsolete setup guidance, propose removing or replacing it, but preserve it unchanged unless the user approves.
 6. Show before writing:
    - The source path used for the Architect methodology and its first non-heading sentence, so the user can verify provenance.
-   - Whether project-memory guidance was included because `$project-memory` is installed in the same active scope, or omitted because `$project-memory` is not installed in that scope.
+   - Whether project-memory guidance was included because `$project-memory` is installed for the target skill scope, or omitted because `$project-memory` is not installed for that scope.
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts, assumptions, or questions.

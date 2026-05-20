@@ -9,7 +9,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - Keep setup behavior AI-driven and review-first.
 - Use `$setup-ashieslashy-skills` as the normal user-facing setup path.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; use the setup skill and its bundled assets to produce a reviewable proposal first.
-- Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed in the same active scope, without reselecting installed skills.
+- Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed for the target `AGENTS.md` scope, without reselecting installed skills.
 - Keep canonical instruction prose in skill assets rather than ad hoc installer scripts.
 - Keep ADR files optional in generated project docs; recommend them only for durable decisions with meaningful tradeoffs.
 
