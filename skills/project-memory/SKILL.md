@@ -7,7 +7,7 @@ description: Create and maintain a concise per-project documentation memory syst
 
 Use this skill to create or refresh a repository's lightweight memory layer without polluting context.
 
-This skill owns project documentation memory. It does not own global `AGENTS.md` setup, skill-hook wiring, or Architect methodology setup. Use `$setup-ashieslashy-skills` for those setup tasks.
+This skill owns project documentation memory. It does not own global `AGENTS.md` setup or Architect methodology setup. Use `$setup-ashieslashy-skills` for those setup tasks.
 
 ## Baseline Shape
 
@@ -54,7 +54,7 @@ Use this workflow when docs exist but are stale, incomplete, or still contain pl
 `AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
 
 - If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md` and render `{{PROJECT_MEMORY_METHODOLOGY}}` from `assets/snippets/project-memory-methodology.md`.
-- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-ashieslashy-skills` for skill hooks or methodology adoption.
+- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-ashieslashy-skills` for Architect methodology adoption.
 - When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 

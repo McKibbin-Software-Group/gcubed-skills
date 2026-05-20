@@ -1,4 +1,4 @@
 interface:
   display_name: "Setup AshieSlashy Skills"
-  short_description: "Set up skills and Architect guidance"
-  default_prompt: "Use $setup-ashieslashy-skills to resolve the target AGENTS.md, list discovered installed AshieSlashy skills and guidance blocks, ask whether to apply all or opt out of specific items, then show proposed changes before applying."
+  short_description: "Add Architect guidance to AGENTS.md"
+  default_prompt: "Use $setup-ashieslashy-skills to resolve the target AGENTS.md, render the bundled Architect guidance, preserve existing instructions, include project-memory guidance when $project-memory is installed in the same active scope, and show proposed changes before applying."

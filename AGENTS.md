@@ -1,6 +1,6 @@
 # Project Instructions
 
-This repo packages portable Codex skills, review-first `AGENTS.md` skill wiring, and Architect methodology setup guidance.
+This repo packages portable Codex skills, review-first `AGENTS.md` methodology setup, and project-memory guidance.
 
 ## Working Rules
 
