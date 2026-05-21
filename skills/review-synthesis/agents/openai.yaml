@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Synthesis"
+  short_description: "Coordinate focused reviewers and synthesize findings"
+  default_prompt: "Use $review-synthesis to inspect the target, assign focused read-only review lenses to multiple agents when explicitly requested, then integrate their findings into one prioritized review with risks, tradeoffs, open questions, and possible next actions."
