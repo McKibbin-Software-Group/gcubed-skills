@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Capture"
+  short_description: "Turn delivery lessons into skill proposals"
+  default_prompt: "Use $skill-capture to review recent work, decide whether the lesson belongs in docs, an existing skill patch, a new local skill proposal, or an upstream packet for a shared collection, then produce review-first candidate files with an agent-led quality gate."

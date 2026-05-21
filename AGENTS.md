@@ -16,3 +16,4 @@ This repo packages portable Codex skills, review-first `AGENTS.md` methodology s
 
 - `skills/setup-ashieslashy-skills/SKILL.md`: post-install setup flow.
 - `skills/project-memory/SKILL.md`: project memory docs flow.
+- `skills/skill-capture/SKILL.md`: review-first skill proposal flow.

@@ -67,6 +67,7 @@ Review and approve the proposed repo-local `AGENTS.md` diff, then restart Codex 
 
 - `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace `AGENTS.md`; preserves existing instructions and includes project-memory guidance when `$project-memory` is installed for the target `AGENTS.md` scope.
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`, plus concise root `AGENTS.md` guidance when missing or explicitly approved.
+- `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 
 ## Scope Notes
 

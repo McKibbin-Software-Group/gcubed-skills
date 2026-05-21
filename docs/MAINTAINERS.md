@@ -13,6 +13,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - When project-memory is present, keep generated or refreshed `AGENTS.md` files lean: short guardrails and doc pointers only. Durable project facts belong in `docs/`; temporary AI working notes belong in `docs/ai/`.
 - Keep canonical instruction prose in skill assets rather than ad hoc installer scripts.
 - Keep ADR files optional in generated project docs; recommend them only for durable decisions with meaningful tradeoffs.
+- Keep `$skill-capture` proposal-first. It may draft skill files, local review packets, and upstream packets for maintainers, but should not silently mutate installed or shared skills.
 
 ## Maintainer Checklist
 
@@ -25,6 +26,13 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - When changing project-memory guidance, check `skills/project-memory/SKILL.md`, its `AGENTS.md` template, the methodology snippet, and `skills/setup-ashieslashy-skills/SKILL.md` together.
 - Before release, run `git diff --check`, validate `SKILL.md` frontmatter and `agents/openai.yaml` shape, search for stale references to deleted assets, and do one dry review of the proposed setup output.
 
+## Skill Incorporation
+
+- External projects may not be able to see this repository. Treat their `$skill-capture` output as an upstream proposal packet, not as an already accepted skill.
+- Promote accepted proposals by copying the packet's `skill/` contents into `skills/<skill-name>/`, then update `README.md`, this maintainer map, and root `AGENTS.md` entry points when applicable.
+- Prefer skills as the source format for incorporated workflows. Consider plugin packaging only when the collection needs marketplace distribution, bundled integrations, MCP config, hooks, or multiple skills shipped as one installable unit.
+- Review upstream packets for privacy, portability, trigger clarity, overlap with existing skills, and validation evidence before incorporation.
+
 ## Single Setup Path
 
 - Keep setup behavior in `$setup-ashieslashy-skills`, with canonical prose in templates and snippets.
@@ -36,8 +44,11 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - `skills/setup-ashieslashy-skills/assets/templates/global-architect-agents.md`: Architect methodology source.
 - `skills/project-memory/assets/templates/AGENTS.md`: project `AGENTS.md` starter.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
+- `skills/skill-capture/SKILL.md`: review-first flow for turning delivery lessons into skill proposals and upstream packets.
+- `skills/skill-capture/references/upstream-proposals.md`: packet shape and handoff guidance for proposals from external projects.
 
 ## Repository Map
 
 - `skills/setup-ashieslashy-skills/`: post-install setup skill and Architect methodology assets.
 - `skills/project-memory/`: installable project-memory skill, templates, and snippets.
+- `skills/skill-capture/`: installable skill proposal workflow for reusable delivery knowledge.
