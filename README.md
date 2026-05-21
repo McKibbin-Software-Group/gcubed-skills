@@ -69,6 +69,8 @@ Review and approve the proposed repo-local `AGENTS.md` diff, then restart Codex 
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`, plus concise root `AGENTS.md` guidance when missing or explicitly approved.
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 
+Install `$skill-capture` in any scope where you want agents to turn delivery lessons into review-first local or upstream skill proposals.
+
 ## Scope Notes
 
 Project setup should preserve repo-local instructions and avoid importing unrelated personal defaults. `$project-memory` guidance is included when that skill is installed for the target repo scope; it suggests the docs baseline, but setup does not create project memory docs.
