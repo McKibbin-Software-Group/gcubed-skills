@@ -1,6 +1,6 @@
 ---
 name: skill-capture
-description: Capture reusable delivery experience as review-first skill proposals, including upstream packets for shared skill collections. Use when a user wants to turn a completed task, debugging session, project delivery, repeated workflow, or hard-won lesson into docs, a new skill, an existing skill patch, or a maintainer-ready upstream proposal.
+description: Capture reusable delivery experience as review-first skill proposals, including upstream packets for shared skill collections. Use when a user wants to review a completed task, debugging session, project delivery, repeated workflow, or hard-won lesson and propose whether it belongs in docs, a new skill, an existing skill patch, or a maintainer-ready upstream proposal.
 ---
 
 # Skill Capture
@@ -30,7 +30,7 @@ Do not create a skill for:
 1. Inspect the task context, relevant diffs, docs, command output, and any existing skills that may already cover the lesson.
 2. Classify the result:
    - `no-action`: no durable reusable knowledge.
-   - `docs-update`: useful project fact, but not a skill.
+   - `recommend-docs-update`: useful project fact, but not a skill.
    - `patch-existing-skill`: an installed or repo skill needs a focused change.
    - `new-skill-proposal`: a new reusable workflow is justified.
    - `upstream-skill-proposal`: a reusable workflow should be offered to a shared skill collection that the current project may not be able to access directly.
@@ -65,14 +65,9 @@ If a deterministic script would clearly catch repeated mechanical mistakes, reco
 
 ## Proposal Shape
 
-For new skills, prefer:
-```text
-skills/<skill-name>/
-  SKILL.md
-  agents/openai.yaml
-```
+For new skills, prefer `skills/<skill-name>/SKILL.md` plus `agents/openai.yaml` when the collection uses it.
 
-For work captured outside a shared skill collection, prefer a local review packet:
+For work captured outside a shared skill collection, prefer a local review packet. Local packets keep the candidate `SKILL.md` at the packet root for quick project review; upstream packets use a nested `skill/` directory so the portable files can be copied cleanly into a shared collection.
 ```text
 docs/ai/skill-proposals/<YYYY-MM-DD>-<skill-name>/
   SKILL.md
@@ -85,6 +80,12 @@ docs/ai/skill-proposals/<YYYY-MM-DD>-<skill-name>/
 - why this should be a skill rather than docs
 - what existing skill was checked, if any
 - known limits and review questions
+
+## Example
+
+- Classification: `patch-existing-skill`
+- Rationale: repeatable failure mode in an existing workflow; verification belongs in that skill, not project docs.
+- Proposal: patch `skills/<existing-skill>/SKILL.md`; no script needed.
 
 ## Drafting Rules
 
