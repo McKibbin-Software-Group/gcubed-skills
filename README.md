@@ -34,7 +34,11 @@ cd my-repo
 npx skills@latest add ashieslashy/skills --skill project-memory
 ```
 
-Restart Codex or start a new Codex thread in that repo. Project memory is now available there. On a normal workstation, you do not need to run setup in every repo unless you explicitly want to modify that repo's local `AGENTS.md`.
+Restart Codex or start a new Codex thread in that repo. Project memory is now available there. On a normal workstation where Architect guidance already lives in your global `AGENTS.md`, you do not need to run `$setup-ashieslashy-skills` in every repo. Run it for a repo only when you want to create or refresh that repo's local `AGENTS.md`, such as for devcontainers, Codespaces, remote workspaces, repo-specific Architect guidance, or local project-memory guidance:
+
+```text
+$setup-ashieslashy-skills update this repo's local AGENTS.md
+```
 
 ## How Setup Fits
 
@@ -111,6 +115,28 @@ npx skills@latest add ashieslashy/skills
 Previously installed AshieSlashy skills in that scope are upgrade candidates when the Skills CLI has an update path for them. `$setup-ashieslashy-skills` does not upgrade skill files; it refreshes the `AGENTS.md` guidance it owns.
 
 After adding or upgrading skills, restart Codex or start a new Codex thread. Rerun `$setup-ashieslashy-skills` if the bundled Architect or project-memory guidance changed, or if the `$project-memory` install state changed for the target `AGENTS.md` scope. It should report when no `AGENTS.md` changes are needed and should preserve unrelated instructions from other skill collections.
+
+Common case: global Architect with repo-local project memory:
+
+```bash
+# Update the global Architect setup skill.
+npx skills update --global
+
+# Update project memory inside each repo that uses it.
+cd my-repo
+npx skills update
+```
+
+Restart Codex or start a new thread after each scope update. Rerun `$setup-ashieslashy-skills set up my global Codex AGENTS.md` if the global Architect guidance changed. Inside a repo, run `$project-memory` when that repo's docs need refreshing; global setup does not refresh repo docs.
+
+Repo-local case: project Architect with project memory:
+
+```bash
+cd my-repo
+npx skills update
+```
+
+Restart Codex or start a new thread in that repo. Rerun `$setup-ashieslashy-skills` if the repo-local Architect or project-memory guidance in `AGENTS.md` changed. Run `$project-memory` when the repo's docs need refreshing.
 
 ### Remove
 
