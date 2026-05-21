@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Memory"
   short_description: "Set up repo memory docs and AGENTS guidance"
-  default_prompt: "Use $project-memory to set up or refresh this repository's concise docs memory set, including root AGENTS.md guidance when missing or explicitly approved."
+  default_prompt: "Use $project-memory to set up or refresh this repository's concise docs memory set, audit AGENTS.md for durable project facts that should move into docs/, and update AGENTS.md only when missing or explicitly approved."

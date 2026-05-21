@@ -34,6 +34,7 @@ The Skills CLI owns skill selection, agent selection, and global/project install
 3. Inspect before proposing:
    - Read the target `AGENTS.md` if it exists.
    - For project/devcontainer scope, inspect repo-local guidance enough to avoid contradicting it.
+   - When `$project-memory` is installed for the target scope, inspect the target docs memory set enough to identify durable project facts that already belong in `docs/`.
    - Notice existing generated blocks and manually maintained instructions from any collection. Preserve them unless the user explicitly asks to clean them up.
 4. Apply the Architect methodology policy:
    - Architect behavior is scope-independent. Apply it to global, project, devcontainer, and Codespace targets from the same bundled template.
@@ -43,6 +44,8 @@ The Skills CLI owns skill selection, agent selection, and global/project install
 5. Prepare the proposal:
    - If the target `AGENTS.md` is missing, propose the rendered Architect template as the new file.
    - If the target `AGENTS.md` already has meaningful instructions, propose an intelligent merge between the rendered bundled source candidate and the existing target as merge context, rather than a blind replacement.
+   - When `$project-memory` is installed, do not preserve durable project facts in `AGENTS.md` merely because they already exist there. Propose moving runtime flow, environment variable catalogs, release procedure, architecture overview, current status, roadmap, and long maintenance notes into the smallest appropriate `docs/` files, leaving `AGENTS.md` as concise guardrails plus pointers.
+   - Keep project-local guardrails short and actionable: usually 5-10 bullets, one or two lines each. If a guardrail needs background, examples, runtime flow, or operational procedure, put the explanation in `docs/` and link or point to it from `AGENTS.md`.
    - Preserve unrelated skill collection instructions. Do not generate a per-skill instruction list; installed skills are loaded from the scope selected by `npx skills`.
    - Remove duplicate or contradictory Ashie-owned setup guidance only. Preserve user/project safety rules and unrelated collection guidance unless the user explicitly approves changing them.
    - If older AshieSlashy setup prose duplicates only now-obsolete setup guidance, propose removing or replacing it, but preserve it unchanged unless the user approves.

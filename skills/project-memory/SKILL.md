@@ -13,7 +13,7 @@ This skill owns project documentation memory. It does not own global `AGENTS.md`
 
 Expected repository memory set:
 
-- `AGENTS.md`: repo-local agent instructions only; no long status history.
+- `AGENTS.md`: concise repo-local agent guardrails only; no runtime flow, status history, release process, environment catalog, or architecture overview.
 - `docs/00-START-HERE.md`: entrypoint and source-of-truth map.
 - `docs/01-repo-overview.md`: stable project map, architecture, key directories, commands.
 - `docs/02-current-status.md`: living snapshot of what works, what changed, risks, last validation.
@@ -33,7 +33,8 @@ The project-memory methodology snippet lives at `assets/snippets/project-memory-
 3. Create only the missing baseline files and hint directories. Preserve the project's existing doc style and naming if it already has one.
 4. Keep each doc short and link to deeper docs instead of duplicating detail.
 5. Put durable project truth in `docs/`; put temporary investigation notes and draft plans in `docs/ai/`.
-6. Never overwrite existing docs without reading them. If replacing structure would be substantial, explain the proposed move first.
+6. Audit any existing `AGENTS.md` for durable project truth that should move into `docs/`, then propose a lean guardrail-only rewrite when it would prevent drift.
+7. Never overwrite existing docs without reading them. If replacing structure would be substantial, explain the proposed move first.
 
 If this skill is noticed during unrelated work, do not derail the task. Briefly mention that the repo is missing/stale and offer to run the setup later.
 
@@ -43,18 +44,23 @@ Use this workflow when docs exist but are stale, incomplete, or still contain pl
 
 1. Read the existing root `AGENTS.md`, baseline docs, and any nearby domain/architecture docs before writing.
 2. Inspect repo shape, recent work, validation signals, and current user context enough to distinguish stale content from still-accurate content.
-3. Preserve the project's existing doc structure and voice where it is useful. Avoid broad rewrites when targeted updates will do.
-4. Replace stale facts and placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
-5. If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
-6. Update `docs/02-current-status.md` and `docs/04-next-steps.md` first when refreshing after work; update overview, roadmap, ADRs, or `docs/ai/` only when their facts actually changed.
-7. Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
+3. Audit `AGENTS.md` for drift against `docs/`. If it contains stable project facts now owned by `docs/`, propose moving those facts and leaving only concise guardrails plus links.
+4. Preserve the project's existing doc structure and voice where it is useful. Avoid broad rewrites when targeted updates will do.
+5. Replace stale facts and placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
+6. If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
+7. Update `docs/02-current-status.md` and `docs/04-next-steps.md` first when refreshing after work; update overview, roadmap, ADRs, or `docs/ai/` only when their facts actually changed.
+8. Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
 
 ## AGENTS.md Boundary
 
 `AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
 
 - If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md` and render `{{PROJECT_MEMORY_METHODOLOGY}}` from `assets/snippets/project-memory-methodology.md`.
-- If root `AGENTS.md` exists, do not perform a substantial semantic merge as part of ordinary docs refresh. Hand off to `$setup-ashieslashy-skills` for Architect methodology adoption.
+- If root `AGENTS.md` exists and mixes agent guardrails with durable project facts, treat that as documentation drift. Propose moving durable facts into the smallest appropriate `docs/` file and rewriting `AGENTS.md` as lean guardrails.
+- Keep guardrails short and actionable: usually 5-10 bullets, one or two lines each. If a guardrail needs background, examples, runtime flow, or operational procedure, put the explanation in `docs/` and link or point to it from `AGENTS.md`.
+- Keep only constraints that should shape agent behavior before or while reading project docs: safety rules, approval boundaries, validation expectations, repository-specific hazards, and pointers into the docs memory set.
+- Do not preserve runtime flow, environment variable catalogs, release procedure, architecture overview, current status, roadmap, or long maintenance notes in `AGENTS.md` merely because they already exist there.
+- Architect methodology adoption still belongs to `$setup-ashieslashy-skills`; use that skill when the user wants to install or refresh Ashie-owned methodology blocks.
 - When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 

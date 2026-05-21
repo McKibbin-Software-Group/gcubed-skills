@@ -10,6 +10,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - Use `$setup-ashieslashy-skills` as the normal user-facing setup path.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; use the setup skill and its bundled assets to produce a reviewable proposal first.
 - Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed for the target `AGENTS.md` scope, without reselecting installed skills.
+- When project-memory is present, keep generated or refreshed `AGENTS.md` files lean: short guardrails and doc pointers only. Durable project facts belong in `docs/`; temporary AI working notes belong in `docs/ai/`.
 - Keep canonical instruction prose in skill assets rather than ad hoc installer scripts.
 - Keep ADR files optional in generated project docs; recommend them only for durable decisions with meaningful tradeoffs.
 
@@ -21,6 +22,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - Keep reusable setup rules in canonical assets, then reference or render them elsewhere.
 - When adding a skill, update the README skill list and any skill-specific docs. Do not add a second selection layer to setup.
 - When changing generated `AGENTS.md` guidance, check for duplicated or conflicting prose across templates and snippets.
+- When changing project-memory guidance, check `skills/project-memory/SKILL.md`, its `AGENTS.md` template, the methodology snippet, and `skills/setup-ashieslashy-skills/SKILL.md` together.
 - Before release, run `git diff --check`, validate `SKILL.md` frontmatter and `agents/openai.yaml` shape, search for stale references to deleted assets, and do one dry review of the proposed setup output.
 
 ## Single Setup Path

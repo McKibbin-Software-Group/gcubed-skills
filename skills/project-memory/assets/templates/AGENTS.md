@@ -1,34 +1,36 @@
-# Project Instructions
+# Project Agent Instructions
 
-This file contains repo-local instructions for AI agents and automation helpers.
+Start with `docs/00-START-HERE.md`. Durable project context belongs in
+`docs/`; temporary investigation plans or handoff notes belong in `docs/ai/`.
+Keep this file limited to instructions that should shape agent behavior before
+or while reading the rest of the project memory.
 
-## Start Here
+## Before Editing
 
-- Read `docs/00-START-HERE.md` before making non-trivial changes.
-- Prefer existing project patterns over new abstractions.
-- Keep changes minimal and scoped to the request.
+- Check `git status --short` and relevant diffs. Preserve user changes.
+- Read `docs/02-current-status.md` and `docs/04-next-steps.md` for current
+  risks, validation state, and pickup tasks.
+- Keep changes minimal and scoped to the user's request.
+- Run the narrowest meaningful validation and report what passed or could not
+  be run.
 
-## Project Context
+## Guardrails
 
-- Project purpose: TODO
-- Primary stack/tools: TODO
-- Main entrypoints: TODO
+Keep this section short: usually 5-10 bullets, one or two lines each. Include
+only constraints that should shape agent behavior before or while reading the
+project docs. If a guardrail needs background, examples, runtime flow, or an
+operational procedure, put that explanation in `docs/` and point to it here.
 
-## Working Rules
+- TODO: Add repo-specific safety, approval, validation, or hazard constraints.
+- TODO: Remove these placeholder bullets before finishing setup.
 
-- Before editing, inspect relevant files and current worktree state.
-- Preserve user changes and avoid destructive commands unless explicitly approved.
-- After changes, run the narrowest meaningful validation and report any gaps.
-- Do not commit, deploy, or modify production state unless asked.
+## Documentation Boundary
 
-## Documentation Map
-
-- `docs/00-START-HERE.md`: orientation and source-of-truth map.
-- `docs/01-repo-overview.md`: repo structure, architecture, and commands.
-- `docs/02-current-status.md`: current state, risks, and validation.
-- `docs/03-roadmap.md`: priorities and sequencing.
-- `docs/04-next-steps.md`: practical pickup list.
-- `docs/adr/`: hint directory for durable architecture decisions when useful.
-- `docs/ai/`: hint directory for temporary AI handoff and working plans when useful.
+- Stable architecture, runtime flow, environment variables, commands, and release
+  process: `docs/01-repo-overview.md`.
+- Current behavior, known risks, and latest validation:
+  `docs/02-current-status.md`.
+- Next operator or agent actions: `docs/04-next-steps.md`.
+- Significant material durable architecture decisions when useful: `docs/adr/`.
 
 {{PROJECT_MEMORY_METHODOLOGY}}

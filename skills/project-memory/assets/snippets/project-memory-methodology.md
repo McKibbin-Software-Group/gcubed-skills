@@ -13,5 +13,5 @@ Expected baseline:
 - `docs/adr/` as a hint directory for ADRs when useful
 - `docs/ai/` as a hint directory for temporary AI notes when useful
 
-If the baseline is missing or clearly stale, suggest using `$project-memory`. When substantial work changes project state, use `$project-memory` to update the smallest relevant docs. Keep `AGENTS.md` concise and agent-facing. Keep durable project truth in `docs/`; keep temporary AI handoff notes in `docs/ai/`.
+If the baseline is missing or clearly stale, suggest using `$project-memory`. When substantial work changes project state, use `$project-memory` to update the smallest relevant docs. Keep `AGENTS.md` concise and agent-facing: short guardrails only, with durable project truth in `docs/` and temporary AI handoff notes in `docs/ai/`. If `AGENTS.md` contains runtime flow, environment catalogs, release procedure, architecture overview, current status, roadmap, or long maintenance notes, propose moving that content into `docs/` and lean `AGENTS.md` down to guardrails plus pointers.
 <!-- END project-memory-methodology -->
