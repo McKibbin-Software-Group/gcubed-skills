@@ -4,7 +4,14 @@ Portable Codex skills and setup guidance.
 
 ## Recommended Setup
 
-Use the Skills CLI for installation. No separate `install-ashieslashy-skills` command or script is required.
+Use the Skills CLI for installation.
+
+Scope rules:
+
+- For normal local use, install `$setup-ashieslashy-skills` globally once so Architect methodology lives in your durable personal Codex instructions.
+- Install `$project-memory` separately inside each repo that should maintain project docs. Project memory is intentionally repo-local.
+- Install `$setup-ashieslashy-skills` into a project only when global setup is unavailable or not durable, such as Docker, devcontainer, Codespace, remote workspace, or other environments where the agent cannot reach your true global Codex scope.
+- There is no special devcontainer or Codespace installer. Use the Skills CLI project scope from inside that environment.
 
 Install the Architect setup skill globally:
 
@@ -27,38 +34,47 @@ cd my-repo
 npx skills@latest add ashieslashy/skills --skill project-memory
 ```
 
-Restart Codex or start a new Codex thread in that repo. Project memory is now available there. You do not need to run setup in every repo unless you explicitly want to modify that repo's local `AGENTS.md`.
+Restart Codex or start a new Codex thread in that repo. Project memory is now available there. On a normal workstation, you do not need to run setup in every repo unless you explicitly want to modify that repo's local `AGENTS.md`.
 
 ## How Setup Fits
 
 The setup skill does not install, select, enable, disable, or enumerate skills. The Skills CLI already owns that. Setup only proposes Ashie's Architect methodology for a target `AGENTS.md`, includes `$project-memory` methodology guidance when that skill is installed for that target scope, preserves existing instructions, and shows a summary and diff before writing.
 
-Recommended use:
+Run setup after the setup skill is installed in the scope you want to configure. Run it again only when refreshing Architect guidance or intentionally changing a target `AGENTS.md`. Do not use setup as an installer; use `npx skills` for that.
 
-- Run setup once for global Architect adoption.
-- Run setup again only when refreshing global Architect guidance or intentionally changing a project-local `AGENTS.md`.
-- Do not use setup as an installer; use `npx skills` for that.
+## Repo-Local Architect Setup
+
+Installing Architect setup into a specific repo is a special case. Use it when Codex is running inside Docker, a devcontainer, Codespace, remote workspace, or similar environment where the global scope is ephemeral or cannot reach your true global Codex instructions. It is also valid when a repo intentionally needs to carry its own Architect instructions in its local `AGENTS.md`, independent of your global Codex instructions.
+
+```bash
+cd my-repo
+npx skills@latest add ashieslashy/skills --skill setup-ashieslashy-skills
+```
+
+Choose project/local scope if prompted. Restart Codex or start a new Codex thread in that repo so the skill is available, then run:
+
+```text
+$setup-ashieslashy-skills
+```
+
+Review and approve the proposed repo-local `AGENTS.md` diff, then restart Codex or start a new thread again so the updated repo instructions are loaded.
 
 ## Skills
 
 - `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace `AGENTS.md`; preserves existing instructions and includes project-memory guidance when `$project-memory` is installed for the target `AGENTS.md` scope.
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`, plus concise root `AGENTS.md` guidance when missing or explicitly approved.
 
-## Setup Notes
-
-For a project, devcontainer, or Codespace, install repo-specific skills into the project scope. `$project-memory` is the normal project-local skill in this collection.
+## Scope Notes
 
 Project setup should preserve repo-local instructions and avoid importing unrelated personal defaults. `$project-memory` guidance is included when that skill is installed for the target repo scope; it suggests the docs baseline, but setup does not create project memory docs.
 
-For personal or global Codex instructions, install `$setup-ashieslashy-skills` globally, then run:
-
-```text
-$setup-ashieslashy-skills set up my global Codex AGENTS.md
-```
+Project, devcontainer, and Codespace targets use project-scope skill state. Globally installed `$setup-ashieslashy-skills` can still configure a local project `AGENTS.md`; when it does, setup should use the target repo's local `$project-memory` state, not the global setup skill's sibling directory.
 
 To skip the Architect methodology, do not run setup. Installed skills still work from the scope selected during `npx skills`.
 
 If `$project-memory` is installed for the target `AGENTS.md` scope, setup includes its guidance. If you do not want that guidance, do not install `$project-memory` for that scope.
+
+If `skills-lock.json` says a skill is installed but the matching `.agents/skills/<skill>/` directory is missing, treat that as an install inconsistency and rerun the Skills CLI for that scope.
 
 ## Managing Skills
 
@@ -95,8 +111,6 @@ npx skills@latest add ashieslashy/skills
 Previously installed AshieSlashy skills in that scope are upgrade candidates when the Skills CLI has an update path for them. `$setup-ashieslashy-skills` does not upgrade skill files; it refreshes the `AGENTS.md` guidance it owns.
 
 After adding or upgrading skills, restart Codex or start a new Codex thread. Rerun `$setup-ashieslashy-skills` if the bundled Architect or project-memory guidance changed, or if the `$project-memory` install state changed for the target `AGENTS.md` scope. It should report when no `AGENTS.md` changes are needed and should preserve unrelated instructions from other skill collections.
-
-Global setup can configure local projects. If `$setup-ashieslashy-skills` is installed globally and a project repo has `$project-memory` installed locally, setup should use the local `$project-memory` snippet for that repo's `AGENTS.md`. If `skills-lock.json` says a skill is installed but the matching `.agents/skills/<skill>/` directory is missing, treat that as an install inconsistency and rerun the Skills CLI for that scope.
 
 ### Remove
 
