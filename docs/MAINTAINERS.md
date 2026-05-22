@@ -51,6 +51,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 - `skills/project-memory/assets/templates/AGENTS.md`: project `AGENTS.md` starter.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
 - `skills/skill-capture/SKILL.md`: review-first flow for turning delivery lessons into skill proposals and upstream packets.
+- `skills/skill-capture/references/new-skill-proposals.md`: authoring-skill selection, optional subagent drafting, candidate file shape, and local review packet guidance.
 - `skills/skill-capture/references/upstream-proposals.md`: packet shape and handoff guidance for proposals from external projects.
 - `skills/review-synthesis/SKILL.md`: orchestration guidance for explicitly requested multi-perspective review synthesis, with subagents only when allowed.
 - `skills/code-structure-cleanup/SKILL.md`: post-feature cleanup guidance for reducing duplicated mechanics without changing behavior.

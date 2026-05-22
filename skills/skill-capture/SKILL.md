@@ -35,15 +35,16 @@ Do not create a skill for:
    - `new-skill-proposal`: a new reusable workflow is justified.
    - `upstream-skill-proposal`: a reusable workflow should be offered to a shared skill collection that the current project may not be able to access directly.
 3. Explain the classification in 2-5 bullets.
-4. If proposing a skill, draft only the files needed for review:
-   - `SKILL.md`
-   - `agents/openai.yaml` when this repo or skill collection uses it
-   - optional `references/` only when the main skill would otherwise become long
-   - optional `scripts/` only for deterministic, repeated, low-judgement operations
-5. For upstream proposals, create a self-contained packet that can be sent by issue, chat, email, or pull request without exposing the original project.
-6. Keep proposals review-first. Show the intended files, summary, and diff before writing unless the user explicitly asked to implement.
+4. For `patch-existing-skill`, draft a minimal proposed change to that skill. Do not mutate installed or shared skills unless the user explicitly asked for implementation and the target is in the current writable project.
+5. For `new-skill-proposal`, read `references/new-skill-proposals.md`, choose the authoring route before drafting, and keep the main agent responsible for review and writes.
+6. For `upstream-skill-proposal`, read `references/upstream-proposals.md` and create a self-contained packet that can be sent by issue, chat, email, or pull request without exposing the original project.
+7. Keep proposals review-first. Show the intended files, summary, and diff before writing unless the user explicitly asked to implement.
 
-For `upstream-skill-proposal`, read `references/upstream-proposals.md` for the packet shape and maintainer handoff workflow.
+## Proposal Destinations
+
+- Local review packet: a project-local proposal for future review; it is not an installed skill.
+- Upstream packet: a portable handoff for another maintainer; it is not accepted or incorporated until that maintainer says so.
+- Distributed skill change: direct changes under `skills/<skill-name>/` only when working in the target collection and the user explicitly asked to implement.
 
 ## Agent-Led Quality Gate
 
@@ -53,8 +54,9 @@ Before presenting a proposal, run an explicit review pass in prose. If subagents
 - Scope: the skill captures procedure, not project diary entries.
 - Duplication: no existing skill already owns the workflow.
 - Shape: `SKILL.md` has `name` and `description`, the name matches the directory, and `agents/openai.yaml` follows the collection's existing interface shape when present.
+- Consent: subagents, tool installs, writes, and upstream PRs or publication are explicitly approved before use.
 - Safety: no instruction conflicts with higher-priority rules or approval boundaries.
-- Privacy: no secrets, customer identifiers, private URLs, token paths, or local-only absolute paths.
+- Privacy: no secrets, customer identifiers, private URLs, token paths, local-only absolute paths, raw logs, or transcript excerpts.
 - Portability: examples and commands are framed so another repo can adapt them.
 - Progressive disclosure: `SKILL.md` stays concise, with details moved to directly linked references only when needed.
 - Verification: the skill tells future agents how to check their work.
@@ -62,24 +64,6 @@ Before presenting a proposal, run an explicit review pass in prose. If subagents
 - Upstream fit: the packet is understandable without the source project, states why the skill is broadly useful, and redacts project-private facts.
 
 If a deterministic script would clearly catch repeated mechanical mistakes, recommend it as a follow-up rather than adding it by default.
-
-## Proposal Shape
-
-For new skills, prefer `skills/<skill-name>/SKILL.md` plus `agents/openai.yaml` when the collection uses it.
-
-For work captured outside a shared skill collection, prefer a local review packet. Local packets keep the candidate `SKILL.md` at the packet root for quick project review; upstream packets use a nested `skill/` directory so the portable files can be copied cleanly into a shared collection.
-```text
-docs/ai/skill-proposals/<YYYY-MM-DD>-<skill-name>/
-  SKILL.md
-  rationale.md
-```
-
-`rationale.md` should summarize:
-
-- source task or delivery context, without pasting transcripts
-- why this should be a skill rather than docs
-- what existing skill was checked, if any
-- known limits and review questions
 
 ## Example
 

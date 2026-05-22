@@ -1,6 +1,8 @@
 # Upstream Skill Proposals
 
-Use this reference when a captured skill seems broadly useful, but the current project cannot or should not write directly to the shared skill collection.
+Use this reference when a captured skill seems broadly useful, but the current project cannot or should not write directly to the shared skill collection. An upstream packet is a handoff proposal, not an accepted distributed skill.
+
+Before drafting, perform a redaction pass. Replace source-project names with neutral roles, convert private URLs and paths to placeholders, summarize logs instead of pasting them, and omit transcript excerpts unless a short sanitized paraphrase is essential.
 
 ## Packet Shape
 
@@ -42,13 +44,14 @@ AGENTS.md entry points, if the collection lists them
 - trigger clarity
 - overlap with existing skills
 - validation evidence
+- subagent context minimization, if subagents were used
 - whether the candidate should remain project-local
 
 ## Maintainer Handoff
 
 1. Draft the upstream packet locally.
 2. Remove source-project secrets, customer identifiers, private URLs, local-only paths, and transcript noise.
-3. If the target collection is accessible and the user explicitly wants it, prepare a branch or GitHub PR that copies `skill/` into `skills/<skill-name>/` and updates collection bookkeeping.
+3. If the target collection is accessible and the user explicitly wants implementation there, prepare a branch or GitHub PR that copies `skill/` into `skills/<skill-name>/` and updates collection bookkeeping.
 4. If the target collection is not accessible, tell the user where the packet is and how to send it to the maintainer by issue, chat, email, or another available channel.
 5. Do not claim the skill is incorporated until the maintainer has reviewed and accepted it.
 
