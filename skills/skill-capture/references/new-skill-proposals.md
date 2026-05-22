@@ -5,11 +5,15 @@ Use this reference after classification as `new-skill-proposal` and before draft
 ## Authoring Route
 
 1. Identify available skill-authoring skills from the current skill list, such as `$write-a-skill`, `$skill-creator`, or a collection-local equivalent.
-2. Ask the user which authoring path to use: a selected skill-authoring skill, or direct drafting when no suitable skill is available or the user prefers not to use one.
-3. If subagents are available and the user has not already explicitly allowed them, ask whether to use one focused authoring subagent for the first drafting pass.
-4. Explain that a focused subagent can keep the main context smaller, follow any selected authoring guidance, and leave the main agent free to perform an independent `$skill-capture` review.
-5. If the user approves a subagent, give it only the proposal brief, relevant non-sensitive context, and any selected authoring skill to read and follow.
-6. If drafting without a subagent, read the selected authoring skill when one was chosen and apply only the structure guidance that fits this proposal.
+2. Stop and ask the user:
+  - Which authoring path to use:
+    - one of the available skill-authoring skills (list them with brief summary), or
+    - direct drafting when no suitable skill is available or the user prefers not to use one.
+  - If subagents are available and the user has not already explicitly allowed them,
+    - ask whether to use one focused authoring subagent for the first drafting pass;
+    - explain that a focused subagent can keep the main context smaller, follow the selected authoring guidance if any, and leave the main agent free to perform an independent `$skill-capture` review.
+3. If the user approves a subagent, give it only the proposal brief, relevant non-sensitive context, and any selected authoring skill to read and follow.
+4. If drafting without a subagent, read the selected authoring skill when one was chosen and apply only the structure guidance that fits this proposal.
 
 ## Authoring Subagent Brief
 
