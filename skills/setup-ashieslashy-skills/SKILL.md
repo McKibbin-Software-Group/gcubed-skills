@@ -1,6 +1,6 @@
 ---
 name: setup-ashieslashy-skills
-description: Add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace AGENTS.md after `npx skills@latest add ashieslashy/skills`. This preserves existing instructions, uses bundled canonical guidance, and includes project-memory guidance when that skill is installed for the target AGENTS.md scope.
+description: Add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace AGENTS.md with a review-first diff, preserving existing guidance and including project-memory when installed.
 ---
 
 # Setup AshieSlashy Skills
@@ -49,14 +49,23 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - Preserve unrelated skill collection instructions. Do not generate a per-skill instruction list; installed skills are loaded from the scope selected by `npx skills`.
    - Remove duplicate or contradictory Ashie-owned setup guidance only. Preserve user/project safety rules and unrelated collection guidance unless the user explicitly approves changing them.
    - If older AshieSlashy setup prose duplicates only now-obsolete setup guidance, propose removing or replacing it, but preserve it unchanged unless the user approves.
-6. Show before writing:
+6. Quality-check the proposal:
+   - Report the proposed `AGENTS.md` line count and word count.
+   - Warn when global guidance exceeds roughly 40 lines or 500 words.
+   - Warn when project-local guidance grows beyond 5-10 concise guardrail bullets or starts carrying durable project facts.
+   - Flag content that should move behind progressive disclosure: long procedures, tool catalogs, environment catalogs, runtime flow, release steps, architecture overviews, current status, roadmaps, pasted transcripts, and repeated per-skill instructions.
+   - Flag contradictions or weakened constraints around delegation, first-start sub-agent disclosure, approvals, destructive changes, local override order, read-only versus implementation behavior, dirty worktree preservation, validation, and secret handling.
+   - Prefer warnings over hard failure, but stop when the proposal would silently weaken safety, discard user/project constraints, or contradict the bundled Architect source.
+   - Include a short "kept / compressed / moved to docs or skills" summary before the diff.
+7. Show before writing:
    - The source path used for the Architect methodology and its first non-heading sentence, so the user can verify provenance.
    - Whether project-memory guidance was included because `$project-memory` is installed for the target skill scope, or omitted because `$project-memory` is not installed for that scope.
+   - The proposal quality-check counts, warnings, and kept/compressed/moved summary.
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts, assumptions, or questions.
    - If the proposed file matches the target, report that no changes are needed and do not ask to apply.
-7. Write only after explicit approval:
+8. Write only after explicit approval:
    - Re-read the target immediately before writing. If it changed since the diff was shown, stop and show a refreshed proposal instead of writing stale approved content.
    - Back up the existing target first when one exists, using a unique timestamped backup path that will not overwrite an earlier backup.
    - Apply the approved content exactly.

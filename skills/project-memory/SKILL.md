@@ -1,55 +1,65 @@
 ---
 name: project-memory
-description: Create and maintain a concise per-project documentation memory system for agent handoff and low-loss project continuity. Use when setting up or refreshing repository docs, when docs/current-status/next-steps are stale, or after substantial work should be captured for future sessions.
+description: Create or refresh concise repo memory docs and lean root AGENTS.md guidance for handoff, stale status/next steps, or post-work capture.
 ---
 
 # Project Memory
 
-Use this skill to create or refresh a repository's lightweight memory layer without polluting context.
+Create or refresh a repository's lightweight memory layer without polluting default context.
 
 This skill owns project documentation memory. It does not own global `AGENTS.md` setup or Architect methodology setup. Use `$setup-ashieslashy-skills` for those setup tasks.
 
 ## Baseline Shape
 
-Expected repository memory set:
+Expected memory set:
 
-- `AGENTS.md`: concise repo-local agent guardrails only; no runtime flow, status history, release process, environment catalog, or architecture overview.
+- `AGENTS.md`: concise repo-local guardrails only; no runtime flow, status history, release process, environment catalog, or architecture overview.
 - `docs/00-START-HERE.md`: entrypoint and source-of-truth map.
 - `docs/01-repo-overview.md`: stable project map, architecture, key directories, commands.
-- `docs/02-current-status.md`: living snapshot of what works, what changed, risks, last validation.
+- `docs/02-current-status.md`: current behavior, recent changes, risks, validation.
 - `docs/03-roadmap.md`: milestones, priorities, deferred work, sequencing.
-- `docs/04-next-steps.md`: practical pickup list for the next work session.
-- `docs/adr/`: baseline hint directory; add ADR files only when a choice has meaningful tradeoffs.
-- `docs/ai/`: baseline hint directory; add temporary handoff, investigation, or implementation-plan files only when useful.
+- `docs/04-next-steps.md`: practical pickup list.
+- `docs/adr/`: hint directory; add ADRs only for durable choices with tradeoffs.
+- `docs/ai/`: hint directory; add temporary handoff, investigation, or plan files only when useful.
 
 Copy and adapt templates from `assets/templates/` when creating missing files. Treat them as starting points, not boilerplate to leave untouched.
 
-The project-memory methodology snippet lives at `assets/snippets/project-memory-methodology.md`.
+Keep `assets/snippets/project-memory-methodology.md` short; the full baseline and authoring rules live here.
 
-## Setup Workflow
+## Progressive Disclosure
 
-1. Read any existing root `AGENTS.md`, `docs/00-START-HERE.md`, and nearby docs before writing.
-2. Inspect the repo shape with `rg --files`, package manifests, deployment/config files, and existing tests or scripts.
-3. Create only the missing baseline files and hint directories. Preserve the project's existing doc style and naming if it already has one.
+- Keep generated `AGENTS.md` and the methodology snippet lean: point to memory, do not embed the whole system.
+- Keep baseline, setup mechanics, and refresh rules here, loaded only when `$project-memory` runs.
+- Use `docs/00-START-HERE.md` as the map, then open only docs needed for the task.
+- Link instead of duplicating architecture, runtime flow, commands, release process, or status.
+
+## Setup or Refresh Workflow
+
+Use this for missing memory or stale, incomplete, placeholder-heavy docs.
+
+1. Read any existing root `AGENTS.md`, `docs/00-START-HERE.md`, baseline docs, and nearby domain/architecture docs before writing.
+2. Inspect repo shape with `rg --files`, manifests, deployment/config files, tests, scripts, recent work, validation signals, and user context.
+3. Preserve useful existing doc structure and voice. Avoid broad rewrites when targeted updates will do.
 4. Keep each doc short and link to deeper docs instead of duplicating detail.
 5. Put durable project truth in `docs/`; put temporary investigation notes and draft plans in `docs/ai/`.
-6. Audit any existing `AGENTS.md` for durable project truth that should move into `docs/`, then propose a lean guardrail-only rewrite when it would prevent drift.
-7. Never overwrite existing docs without reading them. If replacing structure would be substantial, explain the proposed move first.
+6. Never overwrite existing docs unread. Explain substantial structural moves first.
 
-If this skill is noticed during unrelated work, do not derail the task. Briefly mention that the repo is missing/stale and offer to run the setup later.
+For setup:
 
-## Refresh Workflow
+- Create only the missing baseline files and hint directories.
+- Preserve existing doc style and naming when useful.
+- Copy templates from `assets/templates/`, replace placeholders with discovered repo facts, and delete sections that do not apply.
 
-Use this workflow when docs exist but are stale, incomplete, or still contain placeholders. Do not treat existing files as a no-op by default.
+For refresh:
 
-1. Read the existing root `AGENTS.md`, baseline docs, and any nearby domain/architecture docs before writing.
-2. Inspect repo shape, recent work, validation signals, and current user context enough to distinguish stale content from still-accurate content.
-3. Audit `AGENTS.md` for drift against `docs/`. If it contains stable project facts now owned by `docs/`, propose moving those facts and leaving only concise guardrails plus links.
-4. Preserve the project's existing doc structure and voice where it is useful. Avoid broad rewrites when targeted updates will do.
-5. Replace stale facts and placeholders with repo-specific facts discovered from files. Delete sections that do not apply.
-6. If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
-7. Update `docs/02-current-status.md` and `docs/04-next-steps.md` first when refreshing after work; update overview, roadmap, ADRs, or `docs/ai/` only when their facts actually changed.
-8. Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
+- Do not treat existing files as a no-op by default.
+- Distinguish stale from still-accurate content before changing it.
+- Replace stale facts and placeholders with discovered facts.
+- If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
+- Update `docs/02-current-status.md` and `docs/04-next-steps.md` first after substantial work; update overview, roadmap, ADRs, or `docs/ai/` only when facts changed.
+- Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
+
+If noticed during unrelated work, do not derail the task; briefly offer to run setup later.
 
 ## AGENTS.md Boundary
 
