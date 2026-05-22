@@ -1,6 +1,6 @@
 # Project Instructions
 
-This repo packages portable Codex skills, review-first `AGENTS.md` methodology setup, and project-memory guidance.
+This repo packages portable Codex-compatible skills for Architect methodology setup, project memory, skill capture, review synthesis, and focused code cleanup.
 
 ## Working Rules
 
@@ -17,5 +17,5 @@ This repo packages portable Codex skills, review-first `AGENTS.md` methodology s
 - `skills/setup-ashieslashy-skills/SKILL.md`: post-install setup flow.
 - `skills/project-memory/SKILL.md`: project memory docs flow.
 - `skills/skill-capture/SKILL.md`: review-first skill proposal flow.
-- `skills/review-synthesis/SKILL.md`: multi-agent review synthesis flow.
+- `skills/review-synthesis/SKILL.md`: multi-perspective review synthesis flow.
 - `skills/code-structure-cleanup/SKILL.md`: post-feature structure cleanup flow.
