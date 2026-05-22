@@ -1,4 +1,4 @@
 interface:
   display_name: "Setup AshieSlashy Skills"
-  short_description: "Add Architect guidance to AGENTS.md"
-  default_prompt: "Use $setup-ashieslashy-skills to resolve the target AGENTS.md, render the bundled Architect guidance, include project-memory guidance when installed, move docs-worthy project facts out of AGENTS.md when project-memory is present, and show proposed changes before applying."
+  short_description: "Bootstrap Architect guidance, then self-remove"
+  default_prompt: "Use $setup-ashieslashy-skills to resolve the target AGENTS.md, render Architect guidance, show proposed changes, then validate the configured result and remove only this setup skill from its installed scope."

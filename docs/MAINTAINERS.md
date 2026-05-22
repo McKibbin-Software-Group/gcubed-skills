@@ -7,7 +7,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - Treat `npx skills@latest add ashieslashy/skills` as the primary distribution path.
 - Let the Skills CLI own skill selection, agent selection, and global/project scope.
 - Keep setup behavior AI-driven and review-first.
-- Use `$setup-ashieslashy-skills` as the normal user-facing setup path.
+- Use `$setup-ashieslashy-skills` as the normal user-facing setup path, but treat it as temporary bootstrap tooling. After successful validation it should remove only itself from the scope that supplied the running skill.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; use the setup skill and its bundled assets to produce a reviewable proposal first.
 - Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed for the target `AGENTS.md` scope, without reselecting installed skills.
 - When project-memory is present, keep generated or refreshed `AGENTS.md` files lean: short guardrails and doc pointers only. Durable project facts belong in `docs/`; temporary AI working notes belong in `docs/ai/`.
@@ -20,6 +20,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 ## Maintainer Checklist
 
 - Before changing setup behavior, inspect the setup skill, its agent prompt, and relevant templates together.
+- Keep the setup self-removal path explicit: validation must pass first, unrelated skills must remain installed, and the final message must point users back to README install instructions for future refreshes.
 - Keep `README.md` focused on install/update instructions for users.
 - Keep maintainer-only rationale, asset maps, and release checks in this file.
 - Keep reusable setup rules in canonical assets, then reference or render them elsewhere.

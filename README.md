@@ -4,7 +4,7 @@ Portable Codex skills and setup guidance.
 
 ## Skills
 
-- `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace `AGENTS.md` with a review-first diff.
+- `$setup-ashieslashy-skills` (`skills/setup-ashieslashy-skills/`): bootstrap or refresh Ashie's Architect methodology in `AGENTS.md` with a review-first diff, then validate and remove itself.
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`, plus concise root `AGENTS.md` guidance when missing or explicitly approved.
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 - `$review-synthesis` (`skills/review-synthesis/`): coordinate explicitly requested multi-agent or multi-perspective reviews, then synthesize findings into one integrated review.
@@ -16,8 +16,8 @@ Use the Skills CLI for installation.
 
 Recommended usage:
 
-- Install `$setup-ashieslashy-skills` globally once for normal local use, then run it so Architect methodology lives in your durable personal Codex instructions.
-- If global Codex instructions are unavailable or not durable, such as Docker, devcontainer, Codespace, remote workspace, or similar environments, install `$setup-ashieslashy-skills` at project scope instead and run it there.
+- Install `$setup-ashieslashy-skills` globally once for normal local use, then run it so Architect methodology lives in your durable personal Codex instructions. After a successful validated setup, the skill removes itself from the installed scope.
+- If global Codex instructions are unavailable or not durable, such as Docker, devcontainer, Codespace, remote workspace, or similar environments, install `$setup-ashieslashy-skills` at project scope instead and run it there. It removes only itself after setup; project workflow skills stay installed.
 - Install `$project-memory`, `$skill-capture`, `$review-synthesis`, and `$code-structure-cleanup` at project scope in each repo where you want those capabilities.
 
 ### 1. Global Architect Setup
@@ -34,7 +34,7 @@ Restart Codex or start a new thread so the setup skill is available. Then run:
 $setup-ashieslashy-skills set up my global Codex AGENTS.md
 ```
 
-Review and approve the proposed global `AGENTS.md` diff, then restart Codex or start a new thread again so the updated instructions are loaded.
+Review the proposed global `AGENTS.md` diff or no-change report, then approve if changes are needed. The setup skill re-reads the target, writes approved content when needed, validates the result, removes only `$setup-ashieslashy-skills` from global scope, and reports what happened. Then restart Codex or start a new thread again so the updated instructions and leaner skill inventory are loaded.
 
 ### 2. Project Skills
 
@@ -56,7 +56,7 @@ npx skills@latest add ashieslashy/skills --skill review-synthesis
 npx skills@latest add ashieslashy/skills --skill code-structure-cleanup
 ```
 
-Those four skills are the common project install. `$setup-ashieslashy-skills` is normally installed globally, because it configures your operating guidance rather than a repo workflow.
+Those four skills are the common project install. `$setup-ashieslashy-skills` is normally installed globally and temporarily, because it configures your operating guidance rather than a repo workflow.
 
 To mirror the whole AshieSlashy collection into a repo, including `$setup-ashieslashy-skills`, use:
 
@@ -87,15 +87,15 @@ Restart Codex or start a new thread in that repo. Then run:
 $setup-ashieslashy-skills
 ```
 
-Review and approve the proposed repo-local `AGENTS.md` diff, then restart Codex or start a new thread again so the updated repo instructions are loaded.
+Review the proposed repo-local `AGENTS.md` diff or no-change report, then approve if changes are needed. The setup skill validates the configured result, removes only `$setup-ashieslashy-skills` from that project scope, and reports what happened. Then restart Codex or start a new thread again so the updated repo instructions and leaner skill inventory are loaded.
 
 ## How Setup Fits
 
 Most skills in this collection are used on demand inside a repo: `$project-memory` for repo docs, `$skill-capture` for reusable delivery lessons, `$review-synthesis` for coordinated reviews, and `$code-structure-cleanup` for post-feature cleanup. `$setup-ashieslashy-skills` is different: it configures the `AGENTS.md` instructions that shape how Codex works in a scope.
 
-The setup skill does not install, select, enable, disable, or enumerate skills. The Skills CLI owns that. Setup only proposes Ashie's Architect methodology for a target `AGENTS.md`, preserves existing instructions, and shows a summary and diff before writing.
+The setup skill does not install, select, enable, disable, or enumerate other skills. The Skills CLI owns that. Setup only proposes Ashie's Architect methodology for a target `AGENTS.md`, preserves existing instructions, shows a summary and diff before writing, validates the approved result, and removes itself after success.
 
-Run setup after the setup skill is installed in the scope you want to configure. Run it again only when refreshing Architect guidance or intentionally changing a target `AGENTS.md`. Do not use setup as an installer; use `npx skills` for that.
+Run setup after the setup skill is installed in the scope you want to configure. Run it again only when refreshing Architect guidance or intentionally changing a target `AGENTS.md`; reinstall it from these instructions first if it previously removed itself. Do not use setup as an installer; use `npx skills` for that.
 
 ## Scope Notes
 
@@ -129,12 +129,12 @@ npx skills@latest add ashieslashy/skills
 
 Previously installed AshieSlashy skills in that scope are upgrade candidates when the Skills CLI has an update path for them. `$setup-ashieslashy-skills` does not upgrade skill files; it refreshes the `AGENTS.md` guidance it owns.
 
-After adding or upgrading skills, restart Codex or start a new Codex thread. Rerun `$setup-ashieslashy-skills` only when the Architect guidance for a configured `AGENTS.md` might need refreshing. Project workflow skills are used on demand after they are upgraded.
+After adding or upgrading skills, restart Codex or start a new Codex thread. Reinstall and rerun `$setup-ashieslashy-skills` only when the Architect guidance for a configured `AGENTS.md` might need refreshing. Project workflow skills are used on demand after they are upgraded.
 
 Common case: global Architect with repo-local project skills:
 
 ```bash
-# Update global skills, including the Architect setup skill.
+# Update global skills, including the Architect setup skill when temporarily installed.
 npx skills update --global
 
 # Update project skills inside each repo that uses them.
@@ -143,7 +143,7 @@ cd my-repo
 npx skills update
 ```
 
-Restart Codex or start a new thread after each scope update. Rerun `$setup-ashieslashy-skills set up my global Codex AGENTS.md` if the global Architect guidance changed. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
+Restart Codex or start a new thread after each scope update. Reinstall and rerun `$setup-ashieslashy-skills set up my global Codex AGENTS.md` if the global Architect guidance changed. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
 
 Repo-local case: project Architect with project skills:
 
@@ -153,11 +153,11 @@ cd my-repo
 npx skills update
 ```
 
-Restart Codex or start a new thread in that repo. Rerun `$setup-ashieslashy-skills` if the repo-local Architect guidance changed. Use the other installed skills on demand.
+Restart Codex or start a new thread in that repo. Reinstall and rerun `$setup-ashieslashy-skills` if the repo-local Architect guidance changed. Use the other installed skills on demand.
 
 ### Remove
 
-Use the Skills CLI to remove skills:
+Use the Skills CLI to remove skills. `$setup-ashieslashy-skills` normally removes itself after successful setup validation, but these commands are useful if setup could not complete removal or you installed it intentionally for later refresh work:
 
 ```bash
 # Interactive removal
@@ -173,4 +173,4 @@ npx skills remove code-structure-cleanup
 npx skills remove --global setup-ashieslashy-skills
 ```
 
-After removing skills, restart Codex or start a new Codex thread. If removing a skill changes what should appear in a configured `AGENTS.md`, rerun `$setup-ashieslashy-skills` before removing the setup skill itself. If setup has already been removed, reinstall it or edit `AGENTS.md` manually.
+After removing skills, restart Codex or start a new Codex thread. If setup has already been removed and Architect guidance needs refreshing, reinstall `$setup-ashieslashy-skills` with the install command above or edit `AGENTS.md` manually.

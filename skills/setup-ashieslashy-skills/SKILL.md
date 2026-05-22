@@ -1,13 +1,13 @@
 ---
 name: setup-ashieslashy-skills
-description: Add or refresh Ashie's Architect methodology in a global, project, devcontainer, or Codespace AGENTS.md with a review-first diff, preserving existing guidance and including project-memory when installed.
+description: Bootstrap or refresh Ashie's Architect methodology in AGENTS.md with a review-first diff, then validate and remove this setup skill.
 ---
 
 # Setup AshieSlashy Skills
 
 Set up AshieSlashy's operating guidance without silently rewriting the user's existing instructions.
 
-The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate skills. It only proposes Ashie's Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed for the target `AGENTS.md` scope, and keeps all changes review-first.
+The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate other skills. It only proposes Ashie's Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed for the target `AGENTS.md` scope, keeps all changes review-first, and removes this setup skill after successful validation.
 
 ## Assets
 
@@ -64,16 +64,34 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts, assumptions, or questions.
-   - If the proposed file matches the target, report that no changes are needed and do not ask to apply.
-8. Write only after explicit approval:
+   - A clear note that approval means the setup skill will re-read the target, write the approved content when changes are needed, validate the result, and then uninstall only `$setup-ashieslashy-skills` from the scope that supplied the running skill.
+   - If the proposed file matches the target, report that no `AGENTS.md` changes are needed, skip the write and backup steps, then continue to validation and self-removal because setup is already complete.
+8. Write only after explicit approval when changes are needed:
    - Re-read the target immediately before writing. If it changed since the diff was shown, stop and show a refreshed proposal instead of writing stale approved content.
    - Back up the existing target first when one exists, using a unique timestamped backup path that will not overwrite an earlier backup.
    - Apply the approved content exactly.
-   - Tell the user to restart Codex, reload the workspace, or start a new Codex thread so the updated `AGENTS.md` is loaded.
+9. Validate the completed setup before uninstalling:
+   - Re-read the target `AGENTS.md` after writing, or immediately for a no-change setup, and confirm it exactly matches the approved or already-matching proposed content.
+   - Confirm no unresolved setup placeholders remain, including `{{PROJECT_MEMORY_METHODOLOGY}}`.
+   - Confirm the project-memory methodology block is present or absent according to the proposal.
+   - Re-run the line and word counts from the proposal and report material drift.
+   - Confirm a backup path was created when the target already existed and the setup wrote changes.
+   - If validation fails, stop, do not uninstall the setup skill, and report the exact issue and recovery path.
+10. Remove this bootstrap skill after successful validation:
+   - Remove only `$setup-ashieslashy-skills`, and remove it from the scope that supplied the running skill. Do not remove project workflow skills such as `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
+   - For a global setup skill, run `npx skills remove --global setup-ashieslashy-skills`.
+   - For a project/devcontainer/Codespace setup skill, run `npx skills remove setup-ashieslashy-skills` from that project or workspace root.
+   - If the running setup skill scope is ambiguous, ask one concise question before removing anything.
+   - If the Skills CLI is unavailable or removal fails, leave the setup result in place, report the manual command to run, and explain that the skill remains installed until removal succeeds.
+11. Finish with lifecycle guidance:
+   - Tell the user validation passed, what scope the setup skill was removed from, and that this keeps future startup context lean because the durable guidance now lives in `AGENTS.md`.
+   - Tell the user to restart Codex, reload the workspace, or start a new Codex thread so the updated `AGENTS.md` and skill inventory are loaded.
+   - Point back to this repo's README install instructions for reinstalling `$setup-ashieslashy-skills` if Architect guidance needs refreshing later.
 
 ## Boundaries
 
 - This skill does not install skills or choose which skills are active. Use `npx skills@latest add ashieslashy/skills` for that.
+- This skill removes only itself after successful validation. It must never remove or disable unrelated skills.
 - This skill does not wire installed skills into `AGENTS.md`; Codex loads installed skills from the selected install scope.
 - This skill does not create the project docs memory baseline. Use `$project-memory` for that when the target repo wants one.
 - Architect methodology adoption is review-first; never silently replace or substantially rewrite an existing `AGENTS.md`.
