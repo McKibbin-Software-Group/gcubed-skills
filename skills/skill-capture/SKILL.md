@@ -1,6 +1,6 @@
 ---
 name: skill-capture
-description: Capture reusable delivery experience as review-first skill proposals, including upstream packets for shared skill collections. Use when a user wants to review a completed task, debugging session, project delivery, repeated workflow, or hard-won lesson and propose whether it belongs in docs, a new skill, an existing skill patch, or a maintainer-ready upstream proposal.
+description: Capture reusable delivery lessons as review-first skill proposals or upstream packets. Use after completed tasks, debugging, deliveries, repeated workflows, or hard-won lessons to decide docs update, new skill, skill patch, or maintainer-ready upstream proposal.
 ---
 
 # Skill Capture

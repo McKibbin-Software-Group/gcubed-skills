@@ -1,6 +1,6 @@
 ---
 name: setup-ashieslashy-skills
-description: Bootstrap or refresh Ashie's Architect methodology in AGENTS.md with a review-first diff, then validate and remove this setup skill.
+description: Bootstrap/refresh Ashie's Architect methodology in AGENTS.md; show a review-first diff, validate, then self-remove.
 ---
 
 # Setup AshieSlashy Skills

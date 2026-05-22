@@ -1,6 +1,6 @@
 ---
 name: code-structure-cleanup
-description: Use after a feature works when asked to clean up structure, reduce duplication, extract repeated mechanics, prepare a focused PR, or make agent-written code easier to maintain without changing behavior.
+description: Use after behavior works to clean up structure, reduce duplication, extract repeated mechanics, prepare a focused PR, or make agent-written code maintainable without behavior changes.
 ---
 
 # Code Structure Cleanup

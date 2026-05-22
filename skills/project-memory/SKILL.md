@@ -1,6 +1,6 @@
 ---
 name: project-memory
-description: Create or refresh concise repo memory docs and lean root AGENTS.md guidance for handoff, stale status/next steps, or post-work capture.
+description: Create/refresh lean repo memory docs and root AGENTS.md guidance for handoffs, stale status, next steps, or post-work capture.
 ---
 
 # Project Memory

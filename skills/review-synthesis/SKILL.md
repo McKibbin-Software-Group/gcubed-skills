@@ -1,6 +1,6 @@
 ---
 name: review-synthesis
-description: Coordinate multi-perspective project, code, documentation, design, or delivery reviews and synthesize focused recommendations. Use when a user asks for review with multiple subagents, multiple perspectives, review roles such as UI/UX/DevOps/architecture/security/docs, or integrated feedback before deciding what to change.
+description: Coordinate multi-perspective project, code, docs, design, or delivery reviews into focused recommendations. Use for multiple subagents, perspectives, named roles like UI/UX, DevOps, architecture, security, docs, or integrated feedback before changes.
 ---
 
 # Review Synthesis
