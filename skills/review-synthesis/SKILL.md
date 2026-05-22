@@ -7,7 +7,7 @@ description: Coordinate multi-perspective project, code, documentation, design, 
 
 Use this skill to run a review through several focused lenses and integrate the results into one coherent answer.
 
-Do not spawn subagents unless the user explicitly asks for multiple agents, parallel reviewers, or named perspectives. If the user explicitly invokes this skill without explicitly allowing subagents, ask one concise confirmation before spawning reviewers; do not require the user to rephrase. Default to read-only review unless the user explicitly asks to implement changes. This skill reviews work; `$skill-capture` decides whether review lessons should become reusable skills.
+Do not spawn subagents unless the user explicitly asks for multiple agents, parallel reviewers, or named perspectives. If the user explicitly invokes this skill without explicitly allowing subagents, stop, ask one concise confirmation to spawn reviewers; and then resume as instructed. Do not require the user to rephrase. Default to read-only review unless the user explicitly asks to implement changes. This skill reviews work; `$skill-capture` decides whether review lessons should become reusable skills.
 
 ## Workflow
 
