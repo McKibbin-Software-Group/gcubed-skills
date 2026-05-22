@@ -18,3 +18,4 @@ This repo packages portable Codex skills, review-first `AGENTS.md` methodology s
 - `skills/project-memory/SKILL.md`: project memory docs flow.
 - `skills/skill-capture/SKILL.md`: review-first skill proposal flow.
 - `skills/review-synthesis/SKILL.md`: multi-agent review synthesis flow.
+- `skills/code-structure-cleanup/SKILL.md`: post-feature structure cleanup flow.

@@ -8,6 +8,7 @@ Portable Codex skills and setup guidance.
 - `$project-memory` (`skills/project-memory/`): create and maintain lightweight repo memory docs under `docs/`, plus concise root `AGENTS.md` guidance when missing or explicitly approved.
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 - `$review-synthesis` (`skills/review-synthesis/`): coordinate explicitly requested multi-agent or multi-perspective reviews, then synthesize findings into one integrated review.
+- `$code-structure-cleanup` (`skills/code-structure-cleanup/`): after a feature works, reduce duplicated mechanics and extract the smallest repo-appropriate shared helper without changing behavior.
 
 ## Install
 
@@ -17,7 +18,7 @@ Recommended usage:
 
 - Install `$setup-ashieslashy-skills` globally once for normal local use, then run it so Architect methodology lives in your durable personal Codex instructions.
 - If global Codex instructions are unavailable or not durable, such as Docker, devcontainer, Codespace, remote workspace, or similar environments, install `$setup-ashieslashy-skills` at project scope instead and run it there.
-- Install `$project-memory`, `$skill-capture`, and `$review-synthesis` at project scope in each repo where you want those capabilities.
+- Install `$project-memory`, `$skill-capture`, `$review-synthesis`, and `$code-structure-cleanup` at project scope in each repo where you want those capabilities.
 
 ### 1. Global Architect Setup
 
@@ -46,15 +47,16 @@ npx skills@latest add ashieslashy/skills
 
 During `npx skills add`, select the AshieSlashy skills you want installed in that scope. Previously installed unrelated skills are retained. To exclude a skill that is already installed, remove it with `npx skills remove`.
 
-To install with explicit CLI flags instead of the picker, run any of these commands. Run all three for the usual project set:
+To install with explicit CLI flags instead of the picker, run any of these commands. Run all four for the usual project set:
 
 ```bash
 npx skills@latest add ashieslashy/skills --skill project-memory
 npx skills@latest add ashieslashy/skills --skill skill-capture
 npx skills@latest add ashieslashy/skills --skill review-synthesis
+npx skills@latest add ashieslashy/skills --skill code-structure-cleanup
 ```
 
-Those three skills are the common project install. `$setup-ashieslashy-skills` is normally installed globally, because it configures your operating guidance rather than a repo workflow.
+Those four skills are the common project install. `$setup-ashieslashy-skills` is normally installed globally, because it configures your operating guidance rather than a repo workflow.
 
 To mirror the whole AshieSlashy collection into a repo, including `$setup-ashieslashy-skills`, use:
 
@@ -64,7 +66,7 @@ npx skills@latest add ashieslashy/skills --skill '*'
 
 Use the whole-collection install mainly for devcontainers, Codespaces, remote workspaces, or repos that intentionally carry their own Architect setup.
 
-Install `$project-memory` in repos that should maintain project docs. Install `$skill-capture` where you want agents to turn delivery lessons into review-first local or upstream skill proposals. Install `$review-synthesis` where you want coordinated review panels for code, docs, designs, plans, or delivery work.
+Install `$project-memory` in repos that should maintain project docs. Install `$skill-capture` where you want agents to turn delivery lessons into review-first local or upstream skill proposals. Install `$review-synthesis` where you want coordinated review panels for code, docs, designs, plans, or delivery work. Install `$code-structure-cleanup` where you want a focused post-feature cleanup pass that reduces duplication without broad refactors.
 
 Restart Codex or start a new Codex thread after adding project skills.
 
@@ -89,7 +91,7 @@ Review and approve the proposed repo-local `AGENTS.md` diff, then restart Codex 
 
 ## How Setup Fits
 
-Most skills in this collection are used on demand inside a repo: `$project-memory` for repo docs, `$skill-capture` for reusable delivery lessons, and `$review-synthesis` for coordinated reviews. `$setup-ashieslashy-skills` is different: it configures the `AGENTS.md` instructions that shape how Codex works in a scope.
+Most skills in this collection are used on demand inside a repo: `$project-memory` for repo docs, `$skill-capture` for reusable delivery lessons, `$review-synthesis` for coordinated reviews, and `$code-structure-cleanup` for post-feature cleanup. `$setup-ashieslashy-skills` is different: it configures the `AGENTS.md` instructions that shape how Codex works in a scope.
 
 The setup skill does not install, select, enable, disable, or enumerate skills. The Skills CLI owns that. Setup only proposes Ashie's Architect methodology for a target `AGENTS.md`, preserves existing instructions, and shows a summary and diff before writing.
 
@@ -141,7 +143,7 @@ cd my-repo
 npx skills update
 ```
 
-Restart Codex or start a new thread after each scope update. Rerun `$setup-ashieslashy-skills set up my global Codex AGENTS.md` if the global Architect guidance changed. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, or `$review-synthesis`.
+Restart Codex or start a new thread after each scope update. Rerun `$setup-ashieslashy-skills set up my global Codex AGENTS.md` if the global Architect guidance changed. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
 
 Repo-local case: project Architect with project skills:
 
@@ -165,6 +167,7 @@ npx skills remove
 npx skills remove project-memory
 npx skills remove skill-capture
 npx skills remove review-synthesis
+npx skills remove code-structure-cleanup
 
 # Remove from global scope
 npx skills remove --global setup-ashieslashy-skills

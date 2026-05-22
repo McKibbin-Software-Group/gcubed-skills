@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Structure Cleanup"
+  short_description: "Clean up post-feature duplication"
+  default_prompt: "Use $code-structure-cleanup after a working feature to reduce duplicated mechanics, extract the smallest repo-appropriate helper or service, preserve behavior, and run focused validation."

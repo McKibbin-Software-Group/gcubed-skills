@@ -15,6 +15,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - Keep ADR files optional in generated project docs; recommend them only for durable decisions with meaningful tradeoffs.
 - Keep `$skill-capture` proposal-first. It may draft skill files, local review packets, and upstream packets for maintainers, but should not silently mutate installed or shared skills.
 - Keep `$review-synthesis` orchestration-focused. It should coordinate and synthesize focused reviewers, not replace normal implementation, issue triage, or project-memory flows.
+- Keep `$code-structure-cleanup` post-feature and behavior-preserving. It should reduce concrete duplication in the feature area, not become a general architecture cleanup permission slip.
 
 ## Maintainer Checklist
 
@@ -48,6 +49,7 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - `skills/skill-capture/SKILL.md`: review-first flow for turning delivery lessons into skill proposals and upstream packets.
 - `skills/skill-capture/references/upstream-proposals.md`: packet shape and handoff guidance for proposals from external projects.
 - `skills/review-synthesis/SKILL.md`: orchestration guidance for explicitly requested multi-agent review synthesis.
+- `skills/code-structure-cleanup/SKILL.md`: post-feature cleanup guidance for reducing duplicated mechanics without changing behavior.
 
 ## Repository Map
 
@@ -55,3 +57,4 @@ This repo is a distribution source for portable Codex skills. It should stay bor
 - `skills/project-memory/`: installable project-memory skill, templates, and snippets.
 - `skills/skill-capture/`: installable skill proposal workflow for reusable delivery knowledge.
 - `skills/review-synthesis/`: installable multi-agent review orchestration skill.
+- `skills/code-structure-cleanup/`: installable post-feature code structure cleanup skill.
