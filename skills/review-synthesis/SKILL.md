@@ -13,20 +13,21 @@ Do not spawn subagents unless the user explicitly asks for multiple agents, para
 
 1. Confirm scope and mode: read-only review, implementation follow-up, or both.
 2. Inspect repo instructions, relevant docs, `git status --short`, and target files enough to avoid blind delegation.
-3. Select 3-5 relevant perspectives. Use user-named roles first; otherwise choose only roles that fit the target.
-4. Brief each reviewer with:
+3. If reviewing an agent skill, skill proposal, or skill collection change, read `references/skill-reviews.md` and use its lenses to select reviewers and structure findings.
+4. Select relevant perspectives. Use user-named roles first; otherwise choose only roles that fit the target.
+5. Brief each reviewer with:
    - exact target files, directories, or question
    - its assigned perspective and boundaries
    - read-only instruction unless implementation was explicitly requested
    - expected output: findings first, severity, file/line references when available, and open questions
-5. Continue a lightweight parent review while reviewers run; do not duplicate their assigned work.
-6. Integrate the results:
+6. Continue a lightweight parent review while reviewers run; do not duplicate their assigned work.
+7. Integrate the results:
    - deduplicate overlapping findings
    - resolve contradictions or mark them as tradeoffs
    - verify important claims against files when practical
    - separate confirmed issues from suggestions and taste calls
    - connect findings to likely user impact
-7. Present one synthesized review, not a paste-up of agent reports, with the smallest useful action path.
+8. Present one synthesized review, not a paste-up of agent reports, with the smallest useful action path.
 
 ## Common Perspectives
 
@@ -39,6 +40,7 @@ Choose lenses that fit the target:
 - UI: implementation polish, responsiveness, accessibility mechanics.
 - UX/design: flows, clarity, hierarchy, task fit.
 - Docs/product: accuracy, reader fit, terminology, missing context.
+- Skill authoring: trigger clarity, instruction coherence, progressive disclosure, agent ergonomics, portability, bundled assets, and validation. For skill-specific reviews, use `references/skill-reviews.md`.
 
 ## Output Shape
 
