@@ -39,6 +39,7 @@ Do not create a skill for:
 5. For `new-skill-proposal`, read `references/new-skill-proposals.md`, choose the authoring route before drafting, and keep the main agent responsible for review and writes.
 6. For `upstream-skill-proposal`, read `references/upstream-proposals.md` and create a self-contained packet that can be sent by issue, chat, email, or pull request without exposing the original project.
 7. Keep proposals review-first. Show the intended files, summary, and diff before writing unless the user explicitly asked to implement.
+8. For `new-skill-proposal` and `upstream-skill-proposal`, once the full proposal or packet is drafted, run `$review-synthesis` over it before final presentation. Use the skill-review lenses, apply useful cleanup changes when edits are already in scope, and present any remaining findings or tradeoffs with the final proposal.
 
 ## Proposal Destinations
 
@@ -49,6 +50,8 @@ Do not create a skill for:
 ## Agent-Led Quality Gate
 
 Before presenting a proposal, run an explicit review pass in prose. If subagents are available and the user allowed their use, use an independent reviewer when the candidate skill is broad, safety-sensitive, or likely to be reused across projects.
+
+The main agent remains responsible for deciding which findings to apply, preserving privacy and portability, and producing the final user-facing proposal.
 
 - Trigger clarity: the description says exactly when to use the skill.
 - Scope: the skill captures procedure, not project diary entries.

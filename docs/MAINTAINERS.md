@@ -54,7 +54,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 - `skills/skill-capture/references/new-skill-proposals.md`: authoring-skill selection, optional subagent drafting, candidate file shape, and local review packet guidance.
 - `skills/skill-capture/references/upstream-proposals.md`: packet shape and handoff guidance for proposals from external projects.
 - `skills/review-synthesis/SKILL.md`: orchestration guidance for explicitly requested multi-perspective review synthesis, with subagents only when allowed.
-- `skills/review-synthesis/references/skill-reviews.md`: skill-review lenses for trigger clarity, instruction coherence, progressive disclosure, safety, portability, distribution, and validation.
+- `skills/review-synthesis/references/skill-reviews.md`: skill-review lenses for trigger clarity, instruction coherence, cognitive load, progressive disclosure, safety, portability, distribution, and validation.
 - `skills/code-structure-cleanup/SKILL.md`: post-feature cleanup guidance for reducing duplicated mechanics without changing behavior.
 
 ## Repository Map

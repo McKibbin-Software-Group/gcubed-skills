@@ -40,7 +40,9 @@ Choose lenses that fit the target:
 - UI: implementation polish, responsiveness, accessibility mechanics.
 - UX/design: flows, clarity, hierarchy, task fit.
 - Docs/product: accuracy, reader fit, terminology, missing context.
-- Skill authoring: trigger clarity, instruction coherence, progressive disclosure, agent ergonomics, portability, bundled assets, and validation. For skill-specific reviews, use `references/skill-reviews.md`.
+- Skill authoring: trigger clarity, instruction coherence, cognitive load, progressive disclosure, agent ergonomics, portability, bundled assets, and validation.
+
+For skill-specific reviews, read `references/skill-reviews.md`.
 
 ## Output Shape
 
