@@ -9,7 +9,7 @@
 - Skill instructions should use progressive disclosure: concise `SKILL.md`; larger optional details in directly linked `references/` files; reusable templates/snippets in `assets/`.
 - `agents/openai.yaml` shape should remain consistent across skills: `interface.display_name`, `short_description`, `default_prompt`.
 - Keep canonical instruction prose in assets/templates/snippets where setup/rendering depends on it; avoid duplicating it ad hoc in README or scripts.
-- Setup behavior is owned by `skills/setup-ashieslashy-skills/`; Skills CLI owns selection, agent selection, install scope, updates, and removals.
+- Setup behavior is owned by `skills/setup-gcubed-skills/`; Skills CLI owns selection, agent selection, install scope, updates, and removals.
 - Project-memory generated docs should keep `AGENTS.md` lean and move durable facts into `docs/`.
 - `$skill-capture` remains proposal-first; it should not silently mutate installed/shared skills.
 - `$review-synthesis` uses subagents only when explicitly allowed.

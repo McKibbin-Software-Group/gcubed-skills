@@ -1,13 +1,13 @@
 ---
-name: setup-ashieslashy-skills
-description: Bootstrap/refresh Ashie's Architect methodology in AGENTS.md; show a review-first diff, validate, then self-remove.
+name: setup-gcubed-skills
+description: Bootstrap/refresh MSG Architect methodology in AGENTS.md; show a review-first diff, validate, then self-remove.
 ---
 
-# Setup AshieSlashy Skills
+# Setup G-Cubed Skills
 
-Set up AshieSlashy's operating guidance without silently rewriting the user's existing instructions.
+Set up MSG operating guidance without silently rewriting the user's existing instructions.
 
-The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate other skills. It only proposes Ashie's Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed for the target `AGENTS.md` scope, keeps all changes review-first, and removes this setup skill after successful validation.
+The Skills CLI owns skill selection, agent selection, and global/project install scope. This setup skill does not install, select, enable, disable, or enumerate other skills. It only proposes MSG Architect methodology from the bundled template, includes project-memory methodology guidance when that skill is installed for the target `AGENTS.md` scope, keeps all changes review-first, and removes this setup skill after successful validation.
 
 ## Assets
 
@@ -25,11 +25,11 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - Render the Architect methodology from the bundled template. Do not recreate, paraphrase, or infer this methodology from active session instructions, global `AGENTS.md`, memory, or conversation history.
    - Determine the target skill scope from the resolved `AGENTS.md`: project/devcontainer/Codespace targets use the target repo or workspace skill install; global targets use the global Codex skill install.
    - If `$project-memory` is installed for the target skill scope, read its bundled `assets/snippets/project-memory-methodology.md` and replace `{{PROJECT_MEMORY_METHODOLOGY}}` with that snippet. If `$project-memory` is not installed for the target skill scope, remove the placeholder.
-   - A globally installed `$setup-ashieslashy-skills` may configure a project-local `AGENTS.md`; in that case, use the project-local skill state for `$project-memory`, not the global setup skill's sibling directory.
+   - A globally installed `$setup-gcubed-skills` may configure a project-local `AGENTS.md`; in that case, use the project-local skill state for `$project-memory`, not the global setup skill's sibling directory.
    - When file inspection is needed for a project target, check the target repo's `skills-lock.json` and `.agents/skills/`. If they disagree, surface the inconsistency in the proposal and prefer actually present skill files for rendering bundled snippets.
    - When file inspection is needed for a global target, check the global Codex skill directory that contains this setup skill and any available global skills lock/state.
-   - Use an existing target `AGENTS.md`, current/global instructions, and conversation context only as merge context. Do not use them as the source for AshieSlashy's Architect methodology.
-   - If active/global instructions contradict the bundled template, prefer the bundled template for Ashie-owned methodology and surface the conflict in the proposal.
+   - Use an existing target `AGENTS.md`, current/global instructions, and conversation context only as merge context. Do not use them as the source for MSG Architect methodology.
+   - If active/global instructions contradict the bundled template, prefer the bundled template for MSG-owned methodology and surface the conflict in the proposal.
    - If the bundled Architect template cannot be read or rendered, stop and report the missing asset. Do not fall back to ambient or global `AGENTS.md` prose.
 3. Inspect before proposing:
    - Read the target `AGENTS.md` if it exists.
@@ -47,8 +47,8 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - When `$project-memory` is installed, do not preserve durable project facts in `AGENTS.md` merely because they already exist there. Propose moving runtime flow, environment variable catalogs, release procedure, architecture overview, current status, roadmap, and long maintenance notes into the smallest appropriate `docs/` files, leaving `AGENTS.md` as concise guardrails plus pointers.
    - Keep project-local guardrails short and actionable: usually 5-10 bullets, one or two lines each. If a guardrail needs background, examples, runtime flow, or operational procedure, put the explanation in `docs/` and link or point to it from `AGENTS.md`.
    - Preserve unrelated skill collection instructions. Do not generate a per-skill instruction list; installed skills are loaded from the scope selected by `npx skills`.
-   - Remove duplicate or contradictory Ashie-owned setup guidance only. Preserve user/project safety rules and unrelated collection guidance unless the user explicitly approves changing them.
-   - If older AshieSlashy setup prose duplicates only now-obsolete setup guidance, propose removing or replacing it, but preserve it unchanged unless the user approves.
+   - Remove duplicate or contradictory MSG-owned setup guidance only. Preserve user/project safety rules and unrelated collection guidance unless the user explicitly approves changing them.
+   - If older G-Cubed setup prose duplicates only now-obsolete setup guidance, propose removing or replacing it, but preserve it unchanged unless the user approves.
 6. Quality-check the proposal:
    - Report the proposed `AGENTS.md` line count and word count.
    - Warn when global guidance exceeds roughly 40 lines or 500 words.
@@ -64,7 +64,7 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - Short semantic summary.
    - Unified diff, or full proposed file if creating a missing file.
    - Any conflicts, assumptions, or questions.
-   - A clear note that approval means the setup skill will re-read the target, write the approved content when changes are needed, validate the result, and then uninstall only `$setup-ashieslashy-skills` from the scope that supplied the running skill.
+   - A clear note that approval means the setup skill will re-read the target, write the approved content when changes are needed, validate the result, and then uninstall only `$setup-gcubed-skills` from the scope that supplied the running skill.
    - If the proposed file matches the target, report that no `AGENTS.md` changes are needed, skip the write and backup steps, then continue to validation and self-removal because setup is already complete.
 8. Write only after explicit approval when changes are needed:
    - Re-read the target immediately before writing. If it changed since the diff was shown, stop and show a refreshed proposal instead of writing stale approved content.
@@ -78,19 +78,19 @@ The Skills CLI owns skill selection, agent selection, and global/project install
    - Confirm a backup path was created when the target already existed and the setup wrote changes.
    - If validation fails, stop, do not uninstall the setup skill, and report the exact issue and recovery path.
 10. Remove this bootstrap skill after successful validation:
-   - Remove only `$setup-ashieslashy-skills`, and remove it from the scope that supplied the running skill. Do not remove project workflow skills such as `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
-   - For a global setup skill, run `npx skills remove --global setup-ashieslashy-skills`.
-   - For a project/devcontainer/Codespace setup skill, run `npx skills remove setup-ashieslashy-skills` from that project or workspace root.
+   - Remove only `$setup-gcubed-skills`, and remove it from the scope that supplied the running skill. Do not remove project workflow skills such as `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
+   - For a global setup skill, run `npx skills remove --global setup-gcubed-skills`.
+   - For a project/devcontainer/Codespace setup skill, run `npx skills remove setup-gcubed-skills` from that project or workspace root.
    - If the running setup skill scope is ambiguous, ask one concise question before removing anything.
    - If the Skills CLI is unavailable or removal fails, leave the setup result in place, report the manual command to run, and explain that the skill remains installed until removal succeeds.
 11. Finish with lifecycle guidance:
    - Tell the user validation passed, what scope the setup skill was removed from, and that this keeps future startup context lean because the durable guidance now lives in `AGENTS.md`.
    - Tell the user to restart Codex, reload the workspace, or start a new Codex thread so the updated `AGENTS.md` and skill inventory are loaded.
-   - Point back to this repo's README install instructions for reinstalling `$setup-ashieslashy-skills` if Architect guidance needs refreshing later.
+   - Point back to this repo's README install instructions for reinstalling `$setup-gcubed-skills` if Architect guidance needs refreshing later.
 
 ## Boundaries
 
-- This skill does not install skills or choose which skills are active. Use `npx skills@latest add ashieslashy/skills` for that.
+- This skill does not install skills or choose which skills are active. Use `npx skills@latest add McKibbin-Software-Group/gcubed-skills` for that.
 - This skill removes only itself after successful validation. It must never remove or disable unrelated skills.
 - This skill does not wire installed skills into `AGENTS.md`; Codex loads installed skills from the selected install scope.
 - This skill does not create the project docs memory baseline. Use `$project-memory` for that when the target repo wants one.

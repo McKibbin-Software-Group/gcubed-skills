@@ -54,6 +54,6 @@ Ground subjective comments in agent outcomes: wrong skill selection, excess cont
 
 ## Delegating Reviewers
 
-When the user explicitly allows multiple reviewers, assign reviewers from the review lenses above. Use as many lenses as the skill change genuinely needs. Combine related lenses for small reviews; split them for larger, riskier, or collection-wide changes.
+Assign reviewers from the review lenses above. Use as many lenses as the skill change genuinely needs. Combine related lenses for small reviews; split them for larger, riskier, or collection-wide changes.
 
 Each reviewer should own a narrow lens, avoid re-reviewing the whole skill, and report findings first with severity, file references, and concrete rewrite or restructuring suggestions.

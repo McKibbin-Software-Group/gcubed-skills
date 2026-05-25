@@ -7,7 +7,7 @@ description: Create/refresh lean repo memory docs and root AGENTS.md guidance fo
 
 Create or refresh a repository's lightweight memory layer without polluting default context.
 
-This skill owns project documentation memory. It does not own global `AGENTS.md` setup or Architect methodology setup. Use `$setup-ashieslashy-skills` for those setup tasks.
+This skill owns project documentation memory. It does not own global `AGENTS.md` setup or Architect methodology setup. Use `$setup-gcubed-skills` for those setup tasks.
 
 ## Baseline Shape
 
@@ -70,7 +70,7 @@ If noticed during unrelated work, do not derail the task; briefly offer to run s
 - Keep guardrails short and actionable: usually 5-10 bullets, one or two lines each. If a guardrail needs background, examples, runtime flow, or operational procedure, put the explanation in `docs/` and link or point to it from `AGENTS.md`.
 - Keep only constraints that should shape agent behavior before or while reading project docs: safety rules, approval boundaries, validation expectations, repository-specific hazards, and pointers into the docs memory set.
 - Do not preserve runtime flow, environment variable catalogs, release procedure, architecture overview, current status, roadmap, or long maintenance notes in `AGENTS.md` merely because they already exist there.
-- Architect methodology adoption still belongs to `$setup-ashieslashy-skills`; use that skill when the user wants to install or refresh Ashie-owned methodology blocks.
+- Architect methodology adoption still belongs to `$setup-gcubed-skills`; use that skill when the user wants to install or refresh MSG-owned methodology blocks.
 - When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 

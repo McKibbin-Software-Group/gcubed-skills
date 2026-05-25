@@ -1,0 +1,4 @@
+interface:
+  display_name: "Setup G-Cubed Skills"
+  short_description: "Bootstrap Architect guidance, then self-remove"
+  default_prompt: "Use $setup-gcubed-skills to resolve the target AGENTS.md, render Architect guidance, show proposed changes, then validate the configured result and remove only this setup skill from its installed scope."

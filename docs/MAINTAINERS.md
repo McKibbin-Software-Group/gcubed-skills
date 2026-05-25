@@ -1,13 +1,13 @@
 # Maintainer Notes
 
-This repo is a distribution source for portable Codex-compatible skills. It should stay boring, reviewable, and easy to install from.
+This repo is the McKibbin Software Group distribution source for portable Codex-compatible skills. It should stay boring, reviewable, and easy to install from.
 
 ## Operating Model
 
-- Treat `npx skills@latest add ashieslashy/skills` as the primary distribution path.
+- Treat `npx skills@latest add McKibbin-Software-Group/gcubed-skills` as the primary distribution path.
 - Let the Skills CLI own skill selection, agent selection, and global/project scope.
 - Keep setup behavior AI-driven and review-first.
-- Use `$setup-ashieslashy-skills` as the normal user-facing setup path, but treat it as temporary bootstrap tooling. After successful validation it should remove only itself from the scope that supplied the running skill.
+- Use `$setup-gcubed-skills` as the normal user-facing setup path, but treat it as temporary bootstrap tooling. After successful validation it should remove only itself from the scope that supplied the running skill.
 - Keep global Architect setup as a key package deliverable while still presenting the other workflow skills as first-class capabilities.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; use the setup skill and its bundled assets to produce a reviewable proposal first.
 - Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed for the target `AGENTS.md` scope, without reselecting installed skills.
@@ -27,7 +27,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 - Keep reusable setup rules in canonical assets, then reference or render them elsewhere.
 - When adding or materially changing a skill, update the README skill list, usage guidance, relevant skill-specific docs, and this maintainer map. Do not add a second selection layer to setup.
 - When changing generated `AGENTS.md` guidance, check for duplicated or conflicting prose across templates and snippets.
-- When changing project-memory guidance, check `skills/project-memory/SKILL.md`, its `AGENTS.md` template, the methodology snippet, and `skills/setup-ashieslashy-skills/SKILL.md` together.
+- When changing project-memory guidance, check `skills/project-memory/SKILL.md`, its `AGENTS.md` template, the methodology snippet, and `skills/setup-gcubed-skills/SKILL.md` together.
 - Before release, run `git diff --check`, validate `SKILL.md` frontmatter and `agents/openai.yaml` shape, compare README summaries with skill metadata, search for stale references to deleted assets, and do one dry review of the proposed setup output.
 
 ## Skill Incorporation
@@ -39,7 +39,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 
 ## Single Setup Path
 
-- Keep setup behavior in `$setup-ashieslashy-skills`, with canonical prose in templates and snippets.
+- Keep setup behavior in `$setup-gcubed-skills`, with canonical prose in templates and snippets.
 - Do not add separate static merge/review packet templates for normal setup work.
 - If an external workflow eventually needs a portable brief, generate it from the same canonical assets instead of storing a parallel setup path.
 
@@ -47,7 +47,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 
 - `skills/*/SKILL.md`: installable skill instructions and public metadata.
 - `skills/*/agents/openai.yaml`: per-skill agent interface metadata; keep shape consistent across the collection.
-- `skills/setup-ashieslashy-skills/assets/templates/global-architect-agents.md`: Architect methodology source.
+- `skills/setup-gcubed-skills/assets/templates/global-architect-agents.md`: Architect methodology source.
 - `skills/project-memory/assets/templates/AGENTS.md`: project `AGENTS.md` starter.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
 - `skills/skill-capture/SKILL.md`: review-first flow for turning delivery lessons into skill proposals and upstream packets.
@@ -59,7 +59,7 @@ This repo is a distribution source for portable Codex-compatible skills. It shou
 
 ## Repository Map
 
-- `skills/setup-ashieslashy-skills/`: post-install setup skill and Architect methodology assets.
+- `skills/setup-gcubed-skills/`: post-install setup skill and Architect methodology assets.
 - `skills/project-memory/`: installable project-memory skill, templates, and snippets.
 - `skills/skill-capture/`: installable skill proposal workflow for reusable delivery knowledge.
 - `skills/review-synthesis/`: installable multi-perspective review synthesis skill.

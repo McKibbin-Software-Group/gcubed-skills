@@ -1,6 +1,6 @@
 # Project Instructions
 
-This repo packages portable Codex-compatible skills for Architect methodology setup, project memory, skill capture, review synthesis, and focused code cleanup.
+This repo packages portable Codex-compatible skills for G-Cubed code development, review, and improvement.
 
 ## Working Rules
 
@@ -14,7 +14,7 @@ This repo packages portable Codex-compatible skills for Architect methodology se
 
 ## Entry Points
 
-- `skills/setup-ashieslashy-skills/SKILL.md`: post-install setup flow.
+- `skills/setup-gcubed-skills/SKILL.md`: post-install setup flow.
 - `skills/project-memory/SKILL.md`: project memory docs flow.
 - `skills/skill-capture/SKILL.md`: review-first skill proposal flow.
 - `skills/review-synthesis/SKILL.md`: multi-perspective review synthesis flow.

@@ -7,7 +7,9 @@ description: Coordinate multi-perspective project, code, docs, design, or delive
 
 Use this skill to run a review through several focused lenses and integrate the results into one coherent answer.
 
-Do not spawn subagents unless the user explicitly asks for multiple agents, parallel reviewers, or named perspectives. If the user explicitly invokes this skill without explicitly allowing subagents, stop, ask one concise confirmation to spawn reviewers; and then resume as instructed. Do not require the user to rephrase. Default to read-only review unless the user explicitly asks to implement changes. This skill reviews work; `$skill-capture` decides whether review lessons should become reusable skills.
+Default to read-only review unless the user explicitly asks to implement changes. This skill reviews work; `$skill-capture` decides whether review lessons should become reusable skills.
+
+Default to spawning focused subagents for distinct review perspectives whenever subagents are allowed and likely to improve coverage. If subagents are explicitly disallowed, unavailable, or not worth the overhead, apply the selected perspectives locally.
 
 ## Workflow
 
@@ -15,12 +17,12 @@ Do not spawn subagents unless the user explicitly asks for multiple agents, para
 2. Inspect repo instructions, relevant docs, `git status --short`, and target files enough to avoid blind delegation.
 3. If reviewing an agent skill, skill proposal, or skill collection change, read `references/skill-reviews.md` and use its lenses to select reviewers and structure findings.
 4. Select relevant perspectives. Use user-named roles first; otherwise choose only roles that fit the target.
-5. Brief each reviewer with:
+5. When using subagents, brief each reviewer with:
    - exact target files, directories, or question
    - its assigned perspective and boundaries
    - read-only instruction unless implementation was explicitly requested
    - expected output: findings first, severity, file/line references when available, and open questions
-6. Continue a lightweight parent review while reviewers run; do not duplicate their assigned work.
+6. Continue a lightweight parent review while reviewers run; if applying lenses locally, keep each pass distinct and avoid re-reviewing the same concerns.
 7. Integrate the results:
    - deduplicate overlapping findings
    - resolve contradictions or mark them as tradeoffs
