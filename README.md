@@ -1,6 +1,6 @@
 # G-Cubed Skills
 
-Portable Codex-compatible skills for McKibbin Software Group's G-Cubed development workflow: MSG Architect methodology setup, repo memory, review synthesis, skill capture, and focused cleanup.
+Portable Codex-compatible skills for McKibbin Software Group's G-Cubed development workflow: MSG Architect methodology setup, repo memory, review synthesis, skill capture, focused cleanup, and optional Serena memory hygiene.
 
 ## Skills
 
@@ -9,6 +9,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 - `$review-synthesis` (`skills/review-synthesis/`): coordinate explicitly requested multi-perspective reviews using subagents, then synthesize findings into one integrated review.
 - `$code-structure-cleanup` (`skills/code-structure-cleanup/`): after a feature works, reduce duplicated mechanics, prepare focused PRs, and make agent-written code easier to maintain without changing behavior.
+- `$serena-memory-hygiene` (`skills/serena-memory-hygiene/`): audit or refresh Serena memories so they stay concise, dated, and source-linked to canonical repo docs, manifests, source, and tests.
 
 ## When To Use Each Skill
 
@@ -17,6 +18,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - Use `$skill-capture` after a repeated workflow, debugging pattern, or delivery lesson might deserve a reusable skill, skill patch, or upstream proposal.
 - Use `$review-synthesis` when you want a coordinated review across perspectives such as docs, architecture, security, UX, delivery, or operations.
 - Use `$code-structure-cleanup` after working behavior exists and the next useful move is a narrow cleanup pass, not new product behavior.
+- Use `$serena-memory-hygiene` in Serena-backed repos when you need to audit, refresh, or de-stale `.serena/memories` without turning them into a second docs system.
 
 ## Install
 
@@ -27,6 +29,7 @@ Recommended usage:
 - Install `$setup-gcubed-skills` globally once for normal local use, then run it so Architect methodology lives in your durable personal Codex instructions. After a successful validated setup, the skill removes itself from the installed scope.
 - If global Codex instructions are unavailable or not durable, such as Docker, devcontainer, Codespace, remote workspace, or similar environments, install `$setup-gcubed-skills` at project scope instead and run it there. It removes only itself after setup; project workflow skills stay installed.
 - Install the rest of the skills at project scope in each repo where you want those capabilities.
+- If you use Serena memories across most or all projects, install `$serena-memory-hygiene` globally; its trigger is narrow enough to stay out of ordinary work.
 
 ### 1. Global Architect Setup
 
@@ -65,6 +68,18 @@ npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill code-structu
 ```
 
 Those four skills are the common project install. `$setup-gcubed-skills` is normally installed globally and temporarily, because global Architect guidance is a key deliverable of this collection and the setup skill configures your operating guidance rather than an ordinary repo workflow.
+
+For repos that use Serena memories, install the optional Serena memory hygiene skill as needed. Use project scope for a single repo:
+
+```bash
+npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill serena-memory-hygiene
+```
+
+Use global scope if Serena-backed memory hygiene is part of your normal workflow across projects:
+
+```bash
+npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill serena-memory-hygiene --global
+```
 
 To mirror the whole G-Cubed collection into a repo, including `$setup-gcubed-skills`, use:
 
@@ -115,7 +130,7 @@ Run setup after the setup skill is installed in a scope where Codex can load it.
 
 ## Scope Notes
 
-Install scope controls where a skill is available. Use global scope for durable personal operating guidance; use project scope for skills that should travel with, or only apply inside, a specific repo.
+Install scope controls where a skill is available. Use global scope for durable personal operating guidance or recurring personal workflows across projects; use project scope for skills that should travel with, or only apply inside, a specific repo.
 
 Project, devcontainer, and Codespace installs use project-scope skill state. A globally installed `$setup-gcubed-skills` can still configure a local project `AGENTS.md`, but the proposed file should reflect that target repo's local state and instructions.
 
@@ -159,7 +174,7 @@ cd my-repo
 npx skills update
 ```
 
-Restart or reload Codex after each scope update. Reinstall and rerun `$setup-gcubed-skills set up my global Codex AGENTS.md` when you intentionally want to refresh global Architect guidance. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, or `$code-structure-cleanup`.
+Restart or reload Codex after each scope update. Reinstall and rerun `$setup-gcubed-skills set up my global Codex AGENTS.md` when you intentionally want to refresh global Architect guidance. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, `$code-structure-cleanup`, or `$serena-memory-hygiene`.
 
 Repo-local case: project Architect with project skills:
 
@@ -186,10 +201,12 @@ npx skills remove project-memory
 npx skills remove skill-capture
 npx skills remove review-synthesis
 npx skills remove code-structure-cleanup
+npx skills remove serena-memory-hygiene
 npx skills remove setup-gcubed-skills
 
 # Remove from global scope
 npx skills remove --global setup-gcubed-skills
+npx skills remove --global serena-memory-hygiene
 ```
 
 After removing skills, restart or reload Codex. If setup has already been removed and Architect guidance needs refreshing, reinstall `$setup-gcubed-skills` with the install command above or edit `AGENTS.md` manually.

@@ -19,3 +19,4 @@ This repo packages portable Codex-compatible skills for G-Cubed code development
 - `skills/skill-capture/SKILL.md`: review-first skill proposal flow.
 - `skills/review-synthesis/SKILL.md`: multi-perspective review synthesis flow.
 - `skills/code-structure-cleanup/SKILL.md`: post-feature structure cleanup flow.
+- `skills/serena-memory-hygiene/SKILL.md`: optional Serena memory audit and refresh flow.

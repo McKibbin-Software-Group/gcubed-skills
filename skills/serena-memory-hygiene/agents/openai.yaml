@@ -1,0 +1,4 @@
+interface:
+  display_name: "Serena Memory Hygiene"
+  short_description: "Keep Serena memories fresh and source-linked"
+  default_prompt: "Use $serena-memory-hygiene to audit or refresh Serena memories so they stay concise, dated, source-linked indexes over canonical project docs, manifests, source, and tests."
