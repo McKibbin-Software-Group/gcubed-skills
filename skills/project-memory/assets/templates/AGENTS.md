@@ -1,7 +1,6 @@
 # Project Agent Instructions
 
-Start with `docs/00-START-HERE.md`. Durable project context belongs in `docs/`;
-temporary investigation plans or handoff notes belong in `docs/ai/`.
+Start with `docs/00-START-HERE.md`; use it as the project-memory map.
 
 ## Before Editing
 
