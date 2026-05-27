@@ -7,7 +7,10 @@ description: Create/refresh lean repo memory docs and root AGENTS.md guidance fo
 
 Create or refresh a repository's lightweight memory layer without polluting default context.
 
-This skill owns project documentation memory. It does not own global `AGENTS.md` setup or Architect methodology setup. Use `$setup-gcubed-skills` for those setup tasks.
+Assume the global Architect methodology has been installed globally from
+`$setup-gcubed-skills`, call out the missing dependency if not. This skill owns project documentation memory and
+repo-local guardrails only. It does not own global `AGENTS.md` setup or
+Architect methodology setup.
 
 ## Baseline Shape
 
@@ -24,11 +27,14 @@ Expected memory set:
 
 Copy and adapt templates from `assets/templates/` when creating missing files. Treat them as starting points, not boilerplate to leave untouched.
 
-Keep `assets/snippets/project-memory-methodology.md` short; the full baseline and authoring rules live here.
+Keep `assets/snippets/project-memory-methodology.md` short; it is rendered by
+`$setup-gcubed-skills` into global Architect guidance, not into repo-local
+`AGENTS.md` files.
 
 ## Progressive Disclosure
 
-- Keep generated `AGENTS.md` and the methodology snippet lean: point to memory, do not embed the whole system.
+- Keep generated repo `AGENTS.md` lean: point to memory, do not restate global
+  Architect or project-memory methodology.
 - Keep baseline, setup mechanics, and refresh rules here, loaded only when `$project-memory` runs.
 - Use `docs/00-START-HERE.md` as the map, then open only docs needed for the task.
 - Link instead of duplicating architecture, runtime flow, commands, release process, or status.
@@ -65,13 +71,15 @@ If noticed during unrelated work, do not derail the task; briefly offer to run s
 
 `AGENTS.md` is part of the baseline, but it is instruction prose rather than ordinary documentation.
 
-- If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md` and render `{{PROJECT_MEMORY_METHODOLOGY}}` from `assets/snippets/project-memory-methodology.md`.
+- If root `AGENTS.md` is missing during project-memory setup, propose a concise repo-local file from `assets/templates/AGENTS.md`. Do not include global Architect or project-memory methodology blocks in repo-local `AGENTS.md`.
 - If root `AGENTS.md` exists and mixes agent guardrails with durable project facts, treat that as documentation drift. Propose moving durable facts into the smallest appropriate `docs/` file and rewriting `AGENTS.md` as lean guardrails.
 - Keep guardrails short and actionable: usually 5-10 bullets, one or two lines each. If a guardrail needs background, examples, runtime flow, or operational procedure, put the explanation in `docs/` and link or point to it from `AGENTS.md`.
-- Keep only constraints that should shape agent behavior before or while reading project docs: safety rules, approval boundaries, validation expectations, repository-specific hazards, and pointers into the docs memory set.
+- Keep only repository-specific constraints that should shape agent behavior
+  before or while reading project docs: generated-file rules, unusual validation
+  commands, protected paths, external side effects, repo-specific hazards, and
+  pointers into the docs memory set.
 - Do not preserve runtime flow, environment variable catalogs, release procedure, architecture overview, current status, roadmap, or long maintenance notes in `AGENTS.md` merely because they already exist there.
 - Architect methodology adoption still belongs to `$setup-gcubed-skills`; use that skill when the user wants to install or refresh MSG-owned methodology blocks.
-- When adding project-memory guidance, use `assets/snippets/project-memory-methodology.md` between its BEGIN/END markers.
 - Show a semantic summary and diff/full file before writing any `AGENTS.md` change, and write only after explicit approval.
 
 ## Update Workflow
@@ -110,4 +118,8 @@ Templates live at:
 - `assets/templates/docs/adr/0001-record-architecture-decisions.md` when an ADR is useful
 - `assets/snippets/project-memory-methodology.md`
 
-When using templates, replace placeholders with repo-specific facts discovered from files and render snippet placeholders from their canonical snippet files. Delete sections that do not apply. Before proposing generated docs, check the proposed `AGENTS.md` and `docs/` content for unresolved `TODO` placeholders and either resolve them, remove the section, or mark a dated unknown.
+When using templates, replace placeholders with repo-specific facts discovered
+from files. Delete sections that do not apply. Before proposing generated docs,
+check the proposed `AGENTS.md` and `docs/` content for unresolved `TODO`
+placeholders and either resolve them, remove the section, or mark a dated
+unknown.

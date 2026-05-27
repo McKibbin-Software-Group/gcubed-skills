@@ -6,9 +6,10 @@ Last updated: TODO
 
 TODO: What currently works end to end?
 
-## Recent Changes
+## Current Facts / Recent Changes
 
-- TODO
+- TODO: Keep only recent facts that affect pickup; move detailed history to
+  `docs/ai/` when useful.
 
 ## Known Risks / Gaps
 
