@@ -9,6 +9,7 @@ This repo is the McKibbin Software Group distribution source for portable Codex-
 - Keep setup behavior AI-driven and review-first.
 - Use `$setup-gcubed-skills` as the normal user-facing setup path, but treat it as temporary bootstrap tooling. After successful validation it should remove only itself from the scope that supplied the running skill.
 - Keep global Architect setup as a key package deliverable while still presenting the other workflow skills as first-class capabilities.
+- Keep the context-economy principle canonical in the global Architect template: small cohesive modules, semantic navigation with Serena when available, focused sub-agent exploration, and main-agent synthesis. Do not duplicate the full guidance into every skill.
 - Do not blindly merge instruction prose into an existing `AGENTS.md`; use the setup skill and its bundled assets to produce a reviewable proposal first.
 - Keep one setup skill that proposes Architect methodology and includes project-memory guidance whenever `$project-memory` is installed for the target `AGENTS.md` scope, without reselecting installed skills.
 - When project-memory is present, keep generated or refreshed `AGENTS.md` files lean: short guardrails and doc pointers only. Durable project facts belong in `docs/`; temporary AI working notes belong in `docs/ai/`.
