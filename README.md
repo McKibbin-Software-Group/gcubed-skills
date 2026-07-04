@@ -1,6 +1,6 @@
 # G-Cubed Skills
 
-Portable Codex-compatible skills for McKibbin Software Group's G-Cubed development workflow: MSG Architect methodology setup, repo memory, review synthesis, skill capture, focused cleanup, and optional Serena memory hygiene.
+Portable Codex-compatible skills for McKibbin Software Group's G-Cubed development workflow: MSG Architect methodology setup, repo memory, review synthesis, skill capture, sliced delivery, focused cleanup, and optional Serena memory hygiene.
 
 ## Skills
 
@@ -9,6 +9,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 - `$review-synthesis` (`skills/review-synthesis/`): coordinate explicitly requested multi-perspective reviews using subagents, then synthesize findings into one integrated review.
 - `$code-structure-cleanup` (`skills/code-structure-cleanup/`): after a feature works, reduce duplicated mechanics, prepare focused PRs, and make agent-written code easier to maintain without changing behavior.
+- `$deliver-slices` (`skills/deliver-slices/`): deliver GitHub issues, next-step docs, or task bundles as ordered slices with fresh child agents, validation, deploy decisions, docs, commits, pushes, and a clean tree between slices.
 - `$serena-memory-hygiene` (`skills/serena-memory-hygiene/`): audit or refresh Serena memories so they stay concise, dated, and source-linked to canonical repo docs, manifests, source, and tests.
 
 ## When To Use Each Skill
@@ -18,6 +19,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - Use `$skill-capture` after a repeated workflow, debugging pattern, or delivery lesson might deserve a reusable skill, skill patch, or upstream proposal.
 - Use `$review-synthesis` when you want a coordinated review across perspectives such as docs, architecture, security, UX, delivery, or operations.
 - Use `$code-structure-cleanup` after working behavior exists and the next useful move is a narrow cleanup pass, not new product behavior.
+- Use `$deliver-slices` when a backlog, issue set, or local task list should be grouped, ordered, delivered, validated, documented, deployed when sensible, committed, and pushed one slice at a time without carrying each slice's context into the next one.
 - Use `$serena-memory-hygiene` in Serena-backed repos when you need to audit, refresh, or de-stale `.serena/memories` without turning them into a second docs system.
 
 ## Install
@@ -58,12 +60,13 @@ npx skills@latest add McKibbin-Software-Group/gcubed-skills
 
 During `npx skills add`, select the G-Cubed skills you want installed in that scope. Previously installed unrelated skills are retained. To exclude a skill that is already installed, remove it with `npx skills remove`.
 
-To install with explicit CLI flags instead of the picker, run any of these commands. Run all four for the usual project set:
+To install with explicit CLI flags instead of the picker, run any of these commands. Run all five for the usual project set:
 
 ```bash
 npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill project-memory
 npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill skill-capture
 npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill review-synthesis
+npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill deliver-slices
 npx skills@latest add McKibbin-Software-Group/gcubed-skills --skill code-structure-cleanup
 ```
 
@@ -122,7 +125,7 @@ Restart or reload Codex in that workspace, run `$setup-gcubed-skills`, review an
 
 ## How Setup Fits
 
-Most skills in this collection are used on demand inside a repo: `$project-memory` for repo docs, `$skill-capture` for reusable delivery lessons, `$review-synthesis` for coordinated reviews, and `$code-structure-cleanup` for post-feature cleanup. `$setup-gcubed-skills` is different: it configures the `AGENTS.md` instructions that shape how Codex works in a scope.
+Most skills in this collection are used on demand inside a repo: `$project-memory` for repo docs, `$skill-capture` for reusable delivery lessons, `$review-synthesis` for coordinated reviews, `$deliver-slices` for token-efficient backlog delivery, and `$code-structure-cleanup` for post-feature cleanup. `$setup-gcubed-skills` is different: it configures the `AGENTS.md` instructions that shape how Codex works in a scope.
 
 The setup skill does not install, select, enable, disable, or enumerate other skills. The Skills CLI owns that. Setup only proposes MSG Architect methodology for a target `AGENTS.md`, preserves existing instructions, shows a summary and diff before writing, validates the approved result, and removes itself after success.
 
@@ -174,7 +177,7 @@ cd my-repo
 npx skills update
 ```
 
-Restart or reload Codex after each scope update. Reinstall and rerun `$setup-gcubed-skills set up my global Codex AGENTS.md` when you intentionally want to refresh global Architect guidance. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, `$code-structure-cleanup`, or `$serena-memory-hygiene`.
+Restart or reload Codex after each scope update. Reinstall and rerun `$setup-gcubed-skills set up my global Codex AGENTS.md` when you intentionally want to refresh global Architect guidance. Inside a repo, use whichever project skill matches the work: `$project-memory`, `$skill-capture`, `$review-synthesis`, `$deliver-slices`, `$code-structure-cleanup`, or `$serena-memory-hygiene`.
 
 Repo-local case: project Architect with project skills:
 
@@ -201,6 +204,7 @@ npx skills remove project-memory
 npx skills remove skill-capture
 npx skills remove review-synthesis
 npx skills remove code-structure-cleanup
+npx skills remove deliver-slices
 npx skills remove serena-memory-hygiene
 npx skills remove setup-gcubed-skills
 

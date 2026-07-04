@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deliver Slices"
+  short_description: "Orchestrate backlog delivery as clean sequential slices"
+  default_prompt: "Use $deliver-slices to review the worklist, group it into ordered delivery slices, brief fresh child agents with compact slice packets, validate and deploy each slice when sensible, update docs, commit, push, and keep a clean tree between slices."
