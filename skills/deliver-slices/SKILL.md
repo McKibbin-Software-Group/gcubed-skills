@@ -9,13 +9,36 @@ Use this skill when the user wants a package of work delivered end to end, not j
 
 Default: plan once, deliver one slice at a time, keep the parent context small, commit/push after each accepted slice, start the next slice from a clean tree.
 
+## Child Prompt Requirements
+
+Every child-agent packet must include this initial-response handshake near the top:
+
+```text
+Use `$caveman`. Keep reports compressed.
+On your first response only, start with:
+ack: caveman active
+
+Do not repeat `ack: caveman active` in progress updates, WIP heartbeats,
+or the final report.
+
+If `$caveman` is unavailable, start the first response with:
+ack: caveman unavailable; compressed mode active
+Mention this fallback again in the final report.
+```
+
+Also include the slice heartbeat path:
+
+```text
+wip_path: /tmp/deliver-slices/<repo>-<slice-id>-<agent-role>.wip.md
+```
+
 ## Supervisor Rules
 
 - Do not implement inline except for tiny fixes or emergency repair of a child result.
 - Use read-only discovery agents in parallel when worklist discovery is large.
 - Use one writer at a time on the active branch unless separate worktrees/branches and a merge plan are explicit.
 - Keep parent updates terse. Summarize receipts; do not paste full child logs.
-- Tell child agents to use `$caveman` when available, or otherwise answer in compressed form.
+- Require the child prompt requirements above in every child packet.
 - Use `$handoff` only for paused/failed sprint continuation. For normal slice delivery, use the smaller slice packet.
 
 ## Workflow
@@ -36,12 +59,16 @@ Default: plan once, deliver one slice at a time, keep the parent context small, 
    - Confirm clean tree or account for user changes.
    - Build a compact slice packet from [slice-packet.md](references/slice-packet.md).
    - Launch one child agent for implementation. Give it only the packet plus needed repo instructions.
+   - Tell the child to update its WIP heartbeat every 10 minutes, before long commands, and after long commands.
 
 4. Child contract
+   - Acknowledge `$caveman` or compressed fallback on the first child response only.
+   - Omit `ack: caveman active` from progress updates and the final report. If `$caveman` is unavailable, mention the fallback in the final report.
    - Inspect before editing.
    - Keep changes minimal and scoped.
    - Validate narrowly first, wider when risk requires.
    - Update docs touched by behavior or ops.
+   - Update the WIP heartbeat at least every 10 minutes and before/after long validation, deploy, flash, or network operations.
    - Return the fixed final report shape below.
    - Do not close issues unless packet explicitly says so.
    - Default: do not commit/push; supervisor owns the final gate. If packet delegates commit/push, child must still return proof.
@@ -58,6 +85,30 @@ Default: plan once, deliver one slice at a time, keep the parent context small, 
    - Summarize slice commits, validation, deploys, deferred work, and remaining blockers.
    - Update/close issue tracker items only according to repo/user policy.
    - Leave repo clean or state exactly why not.
+
+## Supervisor Patience Protocol
+
+`wait_agent` can wait up to 1 hour but does not stream progress. Use child WIP heartbeats and local diffs to distinguish active work from stalls.
+
+Treat a child as still working when any condition is true:
+
+- `wait_agent` times out but the child is not final
+- heartbeat updated within the last 20 minutes
+- `git status --short` or relevant diffs changed since the last check
+- child reported a long validation, deploy, flash, or network operation that may still be running
+
+Treat a child as stalled only when all conditions are true:
+
+- at least one long wait elapsed without a final result
+- two heartbeat intervals were missed
+- no diff/status movement was observed
+- no known long operation is expected to still be running
+
+Before `close_agent` on a running child:
+
+1. Send a non-interrupt status ping asking for the heartbeat/final report.
+2. Wait at least 5 minutes.
+3. Close only if still stalled, unsafe, conflicting, or explicitly stopped by the user.
 
 ## Deploy Gate
 

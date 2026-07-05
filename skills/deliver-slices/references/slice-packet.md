@@ -4,7 +4,12 @@ Use this compact packet to brief a child agent. Fill only relevant fields. Prefe
 
 ```text
 mode: delivery child
-compression: use $caveman if available; otherwise terse technical mode
+compression: use $caveman; if unavailable, use compressed technical mode
+initial_response_line: ack: caveman active
+fallback_initial_response_line: ack: caveman unavailable; compressed mode active
+ack_scope: first child response only; do not repeat ack: caveman active in progress updates, WIP heartbeats, or final report
+fallback_final_report: if $caveman is unavailable, mention compressed fallback in final report
+wip_path: /tmp/deliver-slices/<repo>-<slice-id>-<agent-role>.wip.md
 
 slice:
   id: <slice number/name>
@@ -59,4 +64,15 @@ final_report:
 
 ## Child Reminder
 
-Inspect before editing. Preserve user changes. Keep diff narrow. Validate before reporting. Do not paste long logs; summarize command, status, key failure lines.
+First child response only must acknowledge `$caveman` or compressed fallback exactly. Do not repeat `ack: caveman active` in progress updates, WIP heartbeats, or the final report. If `$caveman` is unavailable, mention the fallback in the final report. Inspect before editing. Preserve user changes. Keep diff narrow. Validate before reporting. Do not paste long logs; summarize command, status, key failure lines.
+
+Update `wip_path` every 10 minutes, before long commands, and after long commands:
+
+```text
+time: <ISO timestamp>
+status: working | blocked | validating
+current: <one-line current activity>
+changed: <files touched or none>
+validated: <checks run or none>
+next: <next action>
+```
