@@ -6,16 +6,15 @@ Load this when the worklist is large, mixed, or dependency order is unclear.
 
 A good slice:
 
-- can be understood by a fresh child from one packet
-- has one primary outcome
-- touches a coherent ownership area
-- has clear validation
-- can be committed and pushed alone
-- leaves the product in a better deployable state
+- can be understood from one compact packet
+- has one primary outcome and coherent ownership
+- has clear validation and a reviewable diff
+- can be committed independently after its assigned gate
+- leaves the product in a better state, with release readiness stated accurately
 
-Split when a task needs different deploy targets, unrelated files, unrelated validation, or different risk owners.
+Split unrelated outcomes, deploy targets, validation, or risk owners.
 
-Merge when several tasks share the same root cause, same files, same validation, and separate commits would create churn without useful review boundaries.
+Merge tasks with the same root cause, files, and validation when separate slices would create churn without useful review boundaries. Keep multiple reviewable commits where useful; commit boundaries need not be worker-session boundaries.
 
 ## Ordering
 
@@ -29,30 +28,20 @@ Prefer this order:
 6. Cleanup after behavior works.
 7. Long soak, deploy, or operational follow-up.
 
-Move a slice earlier when it reduces uncertainty for many later tasks. Move it later when it has broad blast radius but no current blocker.
+Move a slice earlier when it reduces uncertainty for later work. Move it later when it has broad blast radius but no current blocker.
 
-## Group By
+## Grouping and Readiness
 
-Useful grouping axes:
+Group by shared root cause, ownership, user workflow, deploy target, docs, dependency, fixture, or validation. Do not group merely by issue number.
 
-- same failing test/check
-- same issue root cause
-- same module/package/ownership boundary
-- same deploy target
-- same user workflow
-- same docs section
-- same external dependency or hardware fixture
+Separate a slice's local implementation checks from acceptance requiring another slice's frozen output. Schedule that acceptance when the dependency is ready; avoid launching a worker just to wait.
 
-Avoid grouping only by issue number when implementation dependency says otherwise.
+Parallelize only work that can make useful progress with accepted inputs and isolated write/test outputs. Record integration order before launching writers.
 
-## Token Controls
+Reuse a worker across closely related slices when retained context helps, subject to each slice's acceptance and clean-tree gate. Use fresh context for unrelated scope or when accumulated context impedes work.
 
-- Discovery agents may summarize large issue/doc sets into tables.
-- Child packets should cite paths/URLs, not copy whole issues/docs.
-- Child output should report proof, not raw logs.
-- Supervisor should keep a sprint ledger outside chat when slice count is high.
-- Prefer exact validation command names and result status over full output.
+## Context and Escalation
 
-## Escalation
+Keep the worklist and receipt index in one ledger. Packets should reference exact sections/symbols and accepted versions; avoid full documents or bare paths that require rediscovering the assignment.
 
-Ask user before continuing when the next sensible slice needs new credentials, hardware access not already authorized, destructive migration, production deploy with unclear blast radius, or a branch/worktree strategy change.
+Adjust grouping and routine ownership within existing authorization. Escalate when the change requires new access, unsafe or unauthorized effects, changed acceptance criteria, or departure from an explicit user/repo branch policy.

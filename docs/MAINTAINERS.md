@@ -18,7 +18,7 @@ This repo is the McKibbin Software Group distribution source for portable Codex-
 - Keep `$skill-capture` proposal-first. It may draft skill files, local review packets, and upstream packets for maintainers, but should not silently mutate installed or shared skills.
 - Keep `$review-synthesis` orchestration-focused. It should coordinate and synthesize focused perspectives, using subagents only when explicitly allowed, not replace normal implementation, issue triage, or project-memory flows.
 - Keep `$code-structure-cleanup` post-feature and behavior-preserving. It should reduce concrete duplication in the feature area, not become a general architecture cleanup permission slip.
-- Keep `$deliver-slices` supervisor-led and token-conscious. It should plan ordered slices, brief fresh child agents, audit receipts, and keep one clean commit/push per slice rather than becoming a chatty inline implementation loop.
+- Keep `$deliver-slices` supervisor-led and token-conscious. It should plan ordered slices, coordinate scoped workers with explicit write and integration ownership, reuse valid receipts, assign one owner for consolidated acceptance, and keep commit/push actions within existing authorization rather than becoming a chatty inline implementation loop.
 - Keep `$serena-memory-hygiene` optional and narrow. It should maintain Serena memories as source-linked indexes, not replace project docs or add ambient hook policy by default.
 
 ## Maintainer Checklist
@@ -58,9 +58,9 @@ This repo is the McKibbin Software Group distribution source for portable Codex-
 - `skills/skill-capture/references/upstream-proposals.md`: packet shape and handoff guidance for proposals from external projects.
 - `skills/review-synthesis/SKILL.md`: orchestration guidance for explicitly requested multi-perspective review synthesis, with subagents only when allowed.
 - `skills/review-synthesis/references/skill-reviews.md`: skill-review lenses for trigger clarity, instruction coherence, cognitive load, progressive disclosure, safety, portability, distribution, and validation.
-- `skills/deliver-slices/SKILL.md`: token-efficient supervisor workflow for delivering ordered task slices with fresh child agents.
-- `skills/deliver-slices/references/slice-packet.md`: minimal child-agent brief template.
-- `skills/deliver-slices/references/grouping-heuristics.md`: slice grouping, ordering, and stop-condition guidance.
+- `skills/deliver-slices/SKILL.md`: token-conscious supervisor workflow for delivering ordered, reviewable task slices with scoped workers.
+- `skills/deliver-slices/references/slice-packet.md`: compact worker brief, contract, checkpoint, and report template.
+- `skills/deliver-slices/references/grouping-heuristics.md`: slice grouping, readiness, dependency, integration, and escalation guidance.
 - `skills/code-structure-cleanup/SKILL.md`: post-feature cleanup guidance for reducing duplicated mechanics without changing behavior.
 - `skills/serena-memory-hygiene/SKILL.md`: optional Serena memory audit and refresh guidance.
 

@@ -1,147 +1,106 @@
 ---
 name: deliver-slices
-description: Token-efficiently deliver a backlog or task bundle as ordered implementation slices using a supervisor and fresh child agents. Use when the user asks to work through GitHub issues, local next-step docs, markdown task lists, or a package of tickets sequentially with validation, docs, deploy decisions, commits, pushes, and a clean tree between slices.
+description: Deliver a backlog or task bundle as ordered, reviewable implementation slices with a coordinating supervisor and scoped child agents. Use for end-to-end delivery from GitHub issues, local task docs, PR comments, or ticket bundles, including validation, docs, deploy decisions, and authorized commits and pushes.
 ---
 
 # Deliver Slices
 
-Use this skill when the user wants a package of work delivered end to end, not just planned. The main agent is the supervisor. Child agents do slice work in fresh context.
+The main agent owns coordination, acceptance, delivery, and user communication. Delegate implementation to scoped workers. Plan once, deliver one slice at a time per checkout/branch, and continue until the authorized package is complete or genuinely blocked.
 
-Default: plan once, deliver one slice at a time, keep the parent context small, commit/push after each accepted slice, start the next slice from a clean tree.
-
-## Child Prompt Requirements
-
-Every child-agent packet must include this initial-response handshake near the top:
-
-```text
-Use `$caveman`. Keep reports compressed.
-On your first response only, start with:
-ack: caveman active
-
-Do not repeat `ack: caveman active` in progress updates, WIP heartbeats,
-or the final report.
-
-If `$caveman` is unavailable, start the first response with:
-ack: caveman unavailable; compressed mode active
-Mention this fallback again in the final report.
-```
-
-Also include the slice heartbeat path:
-
-```text
-wip_path: /tmp/deliver-slices/<repo>-<slice-id>-<agent-role>.wip.md
-```
+Keep decisions and receipt paths in a compact ledger. Use brief, precise inter-agent messages; preserve technical detail and uncertainty. Use $caveman for supervisor-to-child messages and supervisor working notes. Keep user-facing communication normal. Child communication requirements are defined in the Worker Contract.
 
 ## Supervisor Rules
 
-- Do not implement inline except for tiny fixes or emergency repair of a child result.
-- Use read-only discovery agents in parallel when worklist discovery is large.
-- Use one writer at a time on the active branch unless separate worktrees/branches and a merge plan are explicit.
-- Keep parent updates terse. Summarize receipts; do not paste full child logs.
-- Require the child prompt requirements above in every child packet.
-- Use `$handoff` only for paused/failed sprint continuation. For normal slice delivery, use the smaller slice packet.
+- Keep parent context to scope, decisions, relevant diffs, risks, and receipts. Delegate implementation, diagnosis, and routine validation. Read deeper for a concrete review question; do not repeat worker exploration.
+- Keep one writer per checkout/worktree, including the supervisor. Parallel writers require isolated directories, distinct branches within a repository, and isolated generated/test outputs.
+- Record ownership, accepted dependency versions, and integration order. Workers must not consume another worker's changing files. Serialize integration and validate the combined result.
+- Implement inline only for tiny fixes or emergency repair, after obtaining exclusive write ownership. Do not take over merely because a worker is quiet.
+- Parallelize ready, independent work when useful. Do not launch workers whose only action is waiting for a dependency. Use discovery or review agents for a bounded question; avoid routine extra review tiers.
+- Batch non-blocking comments; send correctness issues, blockers, and user steering promptly.
+- Honor existing user/repo authorization for commits, pushes, issue updates, and deployments. This skill does not expand it.
 
 ## Workflow
 
-1. Intake
-   - Read repo instructions, current status/next-step docs, and `git status --short`.
-   - Identify work sources: GitHub issues, local docs, user-provided task list, PR comments, or mixed set.
-   - Freeze a worklist snapshot: ids, titles, paths/URLs, current labels/status, and any obvious dependencies.
+1. **Intake and plan**
+   - Read applicable repo instructions, relevant status/next-step sections, and `git status --short`. Record pre-existing user changes.
+   - Freeze the worklist: ids, titles, refs, status, acceptance criteria, and dependencies. Group coherent, independently reviewable slices; read [grouping-heuristics.md](references/grouping-heuristics.md) only when grouping or ordering needs judgment.
+   - Record slice order, ownership, validation gates and owners, deploy policy, and dependency readiness. For long work, use a ledger in an appropriate `docs/ai/` or `/tmp` location.
+   - Record requested supervisor/worker model and effort separately. Honor user choices and configured defaults. When selection is delegated, choose capability appropriate to the work. Apply choices through supported launch settings; packet prose alone does not configure a model. Verify resolved settings once when metadata is available; otherwise mark them unverified.
 
-2. Plan slices
-   - Group by dependency order, shared files, shared validation, deploy target, and rollback risk.
-   - Make each slice independently reviewable and committable.
-   - Prefer thin vertical slices over broad subsystem rewrites.
-   - Record planned slice order in chat or a transient `docs/ai/`/`/tmp` ledger when the sprint is long.
-   - Read [grouping-heuristics.md](references/grouping-heuristics.md) when ordering is non-obvious.
+2. **Assign ready work**
+   - Confirm the checkout is clean or explicitly account for preserved user changes before each slice.
+   - Read [slice-packet.md](references/slice-packet.md) once. Send a filled brief plus its Worker Contract, including checkpoint/report formats. Do not send this entire skill or require workers to reload it.
+   - Include applicable instruction paths, exact relevant doc sections/symbols, accepted versions, decisions, validation commands, and reusable receipts. Inspect necessary context yourself to make the packet actionable; do not duplicate worker implementation discovery.
+   - Start independent scope in fresh context (`fork_turns: "none"` where supported). Reuse a worker for corrections, dependency resumption, and closely related subsequent slices while its context remains useful. A new commit alone does not require a new worker.
+   - Start a fresh worker when scope changes materially or accumulated context impedes work. Transfer only decisions, relevant refs, receipts, checkpoint, and unfinished work.
 
-3. Before each slice
-   - Confirm clean tree or account for user changes.
-   - Build a compact slice packet from [slice-packet.md](references/slice-packet.md).
-   - Launch one child agent for implementation. Give it only the packet plus needed repo instructions.
-   - Tell the child to update its WIP heartbeat every 10 minutes, before long commands, and after long commands.
+3. **Coordinate dependencies**
+   - Treat `paused` as an internal dependency checkpoint, never as accepted or delivered work. Record the worker/thread, dependency owner, exact resume condition, receipts, and retained write ownership.
+   - Continue other ready work. Do not poll paused workers, request heartbeats, or close a resumable thread.
+   - When the prerequisite is ready, verify its accepted revision/artifact identity and explicitly resume the same worker with only the changed inputs and next task. Use the runtime's supported follow-up/resume operation; a status message alone may not restart an idle worker.
+   - If resumption is unavailable, give a fresh worker the checkpoint after confirming the previous writer and any owned commands have stopped or transferred ownership.
+   - A pause does not release a dirty checkout for another writer. Finish, safely integrate, or explicitly transfer the existing work first.
+   - If running workers remain, wait for their events under the Patience Protocol. If only external blockers remain, report the concrete blocker and resume condition to the user.
 
-4. Child contract
-   - Acknowledge `$caveman` or compressed fallback on the first child response only.
-   - Omit `ack: caveman active` from progress updates and the final report. If `$caveman` is unavailable, mention the fallback in the final report.
-   - Inspect before editing.
-   - Keep changes minimal and scoped.
-   - Validate narrowly first, wider when risk requires.
-   - Update docs touched by behavior or ops.
-   - Update the WIP heartbeat at least every 10 minutes and before/after long validation, deploy, flash, or network operations.
-   - Return the fixed final report shape below.
-   - Do not close issues unless packet explicitly says so.
-   - Default: do not commit/push; supervisor owns the final gate. If packet delegates commit/push, child must still return proof.
+4. **Review and accept**
+   - Inspect `git status --short`, relevant diffs, and the worker report. A worker's `done` means ready for acceptance.
+   - Resolve material review comments before expensive acceptance checks. Freeze the candidate by commit or working-tree/artifact fingerprint; later changes invalidate affected receipts.
+   - Verify the assigned checks and evidence. Use focused independent review when risk warrants it; give the reviewer a stable candidate and specific questions. Independently rerun critical checks when high risk or unreliable evidence warrants it; otherwise reuse receipts. Avoid duplicate routine validation or screenshot inspection.
+   - Confirm documentation and the Deploy Gate. Commit/push each accepted slice when authorized; verify the intended remote branch matches the delivered commit.
+   - Record pending group acceptance explicitly. A feature-branch push does not establish release readiness.
+   - Confirm a clean tree, accounting for preserved user changes, before the next slice on that checkout. This applies equally when reusing a worker.
 
-5. Supervisor acceptance gate
-   - Inspect `git status --short`, relevant diffs, and child report.
-   - Run or verify meaningful validation. Re-run critical checks yourself when risk is high.
-   - Decide deploy: deploy/revalidate only when safe, necessary, and sensible under repo/user rules.
-   - Ensure docs are updated or explicitly unnecessary.
-   - Commit and push one accepted slice.
-   - Confirm clean tree before starting next slice.
+5. **Finish**
+   - Complete required group acceptance on the final integrated inputs. Reconcile every acceptance criterion, outstanding check, and authorized exception before declaring delivery.
+   - Summarize commits, validation, deploys, deferred work, and blockers. Update/close tracker items only as authorized. Leave the repo clean or explain exactly why not.
+   - For a necessary session continuation, preserve a compact handoff at a safe boundary. Use a configured handoff skill only when needed; do not replay full histories or stop authorized delivery merely to create a handoff.
 
-6. Finish
-   - Summarize slice commits, validation, deploys, deferred work, and remaining blockers.
-   - Update/close issue tracker items only according to repo/user policy.
-   - Leave repo clean or state exactly why not.
+## Validation Schedule
 
-## Supervisor Patience Protocol
+Assign coverage and ownership before implementation:
 
-`wait_agent` can wait up to 1 hour but does not stream progress. Use child WIP heartbeats and local diffs to distinguish active work from stalls.
+- **Per slice:** smallest checks covering changed behavior and material risks, including essential contract feedback. Prefer one representative browser unless the change or repo rules require more.
+- **Per feature group:** one named owner runs required broad suites, cross-browser, packaging, generated-output, offline/export, and representative visual checks against stable integrated inputs. Include only relevant checks. Reuse an implementation worker; do not add a worker solely to monitor commands.
+- **Before delivery/deploy:** all required gates pass or have an explicitly authorized exception. Do not silently move or weaken previously required per-slice gates.
 
-Treat a child as still working when any condition is true:
+Reuse valid evidence before scheduling another run. A passing broad suite can satisfy included focused checks when its receipt identifies those checks and the tested inputs are still valid. Extract the evidence rather than rerunning solely to obtain separate counts or receipts.
 
-- `wait_agent` times out but the child is not final
-- heartbeat updated within the last 20 minutes
-- `git status --short` or relevant diffs changed since the last check
-- child reported a long validation, deploy, flash, or network operation that may still be running
+A receipt must identify commands/checks, exit status/result, tested code and relevant dependency/configuration/generated-input identities, and log/artifact paths. A commit alone is insufficient for tests of modified or untracked files. Preserve failures when aggregating commands.
 
-Treat a child as stalled only when all conditions are true:
+Carry receipts forward only when intervening changes cannot affect their results; otherwise rerun affected checks. Across repositories, freeze shared schemas/artifacts before consumer validation and record both sides' versions. One broad run is a target, not a guarantee: fix failures and repeat affected or broader coverage as the risk requires.
 
-- at least one long wait elapsed without a final result
-- two heartbeat intervals were missed
-- no diff/status movement was observed
-- no known long operation is expected to still be running
+Prefer existing repo validation scripts. If needed, use a small task-local runner that records commands, inputs, statuses, and logs and propagates failures. Keep full logs on disk and return a compact result with relevant failure excerpts. Avoid a generic validation framework.
 
-Before `close_agent` on a running child:
+Keep required automated visual coverage. Assign representative human/model screenshot inspection to one owner; inspect additional images for a concrete concern. Reviewers can request additional evidence without routinely repeating the worker's inspection.
 
-1. Send a non-interrupt status ping asking for the heartbeat/final report.
-2. Wait at least 5 minutes.
-3. Close only if still stalled, unsafe, conflicting, or explicitly stopped by the user.
+## Patience Protocol
 
-## Deploy Gate
+Prefer native completion notifications and interruptible waits, normally 5–10 minutes when higher-priority instructions and tool limits permit. After a shorter timeout, resume waiting unless a new event or a due checkpoint justifies action. A user update does not require another worker status request.
+
+Long commands have one monitor: their owning worker or an explicitly assigned completion-notifying runner. Do not independently poll the same process. Dependency-paused workers have ended their turns and need no monitor or heartbeat.
+
+If session instructions force frequent wake-ups or user updates, disclose that limitation once and perform only the required work. This skill cannot change the controlling runtime's cadence or guarantee token savings.
+
+Inspect liveness only after an expected checkpoint is missed or an operation's recorded check time arrives. Read enough to resolve uncertainty. A timeout, stale checkpoint, or generic running status alone proves neither progress nor a stall.
+
+Before replacing an apparently stalled worker:
+
+1. Exclude an intentional dependency pause and check for recent checkpoint/diff movement or an explained long operation.
+2. Outside an explained operation, allow two missed active-work checkpoint intervals before treating silence as a suspected stall.
+3. Send one non-interrupting status request and allow at least five minutes for a response, using waits permitted by the runtime.
+4. Inspect the checkpoint, existing changes, command status, and receipts. Replace only if evidence still supports a stall. Stop the old writer and resolve owned commands before transferring its checkout and unfinished work.
+
+Unsafe/conflicting activity or an explicit user stop may require immediate intervention. Preserve completed work; silence alone is not permission to redo it.
+
+## Deploy Gate and Escalation
 
 Classify each slice before implementation:
 
-- `deploy-required`: user-facing or hardware behavior needs live proof now.
-- `deploy-if-safe`: deploy only if target reachable and risk low.
-- `defer-deploy`: validation enough for now; record reason and follow-up.
-- `no-deploy`: docs, tests, refactor, or tooling-only slice.
+- `deploy-required`: live proof is required; proceed only within existing authorization.
+- `deploy-if-safe`: deploy if authorized, reachable, and low risk.
+- `defer-deploy`: record why validation is sufficient for now and the follow-up.
+- `no-deploy`: no deployment needed.
 
-## Stop Conditions
+Workers return blockers to the supervisor. Escalate to the user only for a decision, access, or authorization the supervisor cannot resolve within scope. Stop affected work for unexplained conflicting user changes, conflicting acceptance criteria, missing required access/targets, unauthorized effects, or failures whose risk cannot be isolated.
 
-Stop the slice and return to the user or supervisor when:
-
-- worktree has unexplained user changes in files the slice must edit
-- acceptance criteria conflict
-- required secret/credential/target is missing
-- deploy would affect hardware/prod beyond authorization
-- tests fail outside slice scope and risk cannot be isolated
-- child finds the slice is too broad for one clean commit
-
-## Child Final Report
-
-Require this fixed shape:
-
-```text
-slice: <name/id>
-status: done | blocked | partial
-commit: <hash or "not committed">
-changed: <files/areas, brief>
-validated: <commands/checks and result>
-deployed: <target/result or "not deployed: reason">
-docs: <updated paths or "not needed">
-issues: <closed/updated refs or "not touched">
-risks: <remaining risks/blockers>
-```
+If a slice is too broad, revise its boundaries with the supervisor while preserving completed work and acceptance coverage. Needing another commit does not by itself require user intervention.

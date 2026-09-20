@@ -21,7 +21,9 @@ Expected memory set:
 - `docs/01-repo-overview.md`: stable project map, architecture, key directories, commands.
 - `docs/02-current-status.md`: current behavior, recent changes, risks, validation.
 - `docs/03-roadmap.md`: milestones, priorities, deferred work, sequencing.
-- `docs/04-next-steps.md`: practical pickup list.
+- `docs/04-next-steps.md`: practical pickup list only; current state needed
+  to choose work, immediate next actions, current blockers, and narrow
+  validation notes.
 - `docs/adr/`: hint directory; add ADRs only for durable choices with tradeoffs.
 - `docs/ai/`: hint directory; add temporary handoff, investigation, or plan files only when useful.
 
@@ -61,6 +63,7 @@ For refresh:
 - Do not treat existing files as a no-op by default.
 - Distinguish stale from still-accurate content before changing it.
 - Replace stale facts and placeholders with discovered facts.
+- Delete or replace obsolete pickup bullets before appending new ones.
 - If information cannot be discovered, write a dated unknown such as "Not identified from repo scan on YYYY-MM-DD" only when keeping the section is still useful.
 - Update `docs/02-current-status.md` and `docs/04-next-steps.md` first after substantial work; update overview, roadmap, ADRs, or `docs/ai/` only when facts changed.
 - Summarize semantic changes, validation run or skipped, and remaining unknowns before writing.
@@ -94,6 +97,64 @@ After substantial work, update the smallest relevant docs:
 - Promote lasting findings from `docs/ai/` into canonical docs; prune or mark temporary notes as superseded.
 
 Do not paste chat transcripts. Summarize outcomes, decisions, commands, and verification signals in current-state language. Use concrete dates when recording status.
+
+## Current-Status Boundary
+
+Treat `docs/02-current-status.md` as a dashboard, not a phase diary. It should
+answer: what is active now, what baseline must hold, what currently blocks or
+risks the next action, and what was most recently verified.
+
+Keep only:
+
+- active phase/slice and authoritative links;
+- current behavior or invariants needed for that slice;
+- active risks, blockers, and conditional gates;
+- the latest relevant validation/deployment baseline; and
+- operational facts needed before the next external action.
+
+Do not keep completed-phase narratives, test-count ledgers, commit histories,
+fixture archaeology, troubleshooting diaries, superseded sequencing, or
+decisions already owned by an ADR/spec. Git is the default history store.
+
+At a phase transition, replace the previous status snapshot; do not append a
+new receipt beneath it. Aim for five or fewer sections and roughly 100 lines.
+Before writing, delete any statement that does not change the next work,
+validation, or live operation.
+
+## Next-Steps Boundary
+
+Treat `docs/04-next-steps.md` as the cockpit, not the flight recorder. It
+answers "what now?" for the next human or agent. It should usually stay under
+150-200 lines; if it grows past that, compact it before adding more.
+
+Keep only:
+
+- current state needed to choose the next slice
+- required next actions and immediate acceptance notes
+- current blockers, risks, and assumptions
+- narrow validation guidance for the next slice
+- links to deeper history or command catalogs
+
+Do not keep:
+
+- completed issue schedules or "complete" ledgers
+- historical validation logs
+- old deploy diaries or blow-by-blow troubleshooting narratives
+- long command catalogs
+- architecture overviews already covered by roadmap/overview docs
+- stale alternatives that no longer affect the next decision
+
+Move durable current facts to `docs/02-current-status.md`. Move historical
+detail to milestone/archive docs or `docs/ai/` if it is temporary. Link instead
+of duplicating.
+
+Before writing `docs/04-next-steps.md`, check:
+
+- What can be deleted because it is complete?
+- What belongs in `docs/02-current-status.md` instead?
+- What belongs only in history/archive docs?
+- Can a future agent choose the next slice within two minutes?
+- Is the file still within the line-budget heuristic?
 
 ## Writing Rules
 

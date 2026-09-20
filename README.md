@@ -9,7 +9,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - `$skill-capture` (`skills/skill-capture/`): review completed work, debugging sessions, or delivery lessons and propose whether they belong in docs, an existing skill patch, a new skill, or an upstream packet for a shared collection.
 - `$review-synthesis` (`skills/review-synthesis/`): coordinate explicitly requested multi-perspective reviews using subagents, then synthesize findings into one integrated review.
 - `$code-structure-cleanup` (`skills/code-structure-cleanup/`): after a feature works, reduce duplicated mechanics, prepare focused PRs, and make agent-written code easier to maintain without changing behavior.
-- `$deliver-slices` (`skills/deliver-slices/`): deliver GitHub issues, next-step docs, or task bundles as ordered slices with fresh child agents, validation, deploy decisions, docs, commits, pushes, and a clean tree between slices.
+- `$deliver-slices` (`skills/deliver-slices/`): deliver GitHub issues, next-step docs, PR comments, or task bundles as ordered reviewable slices with scoped child agents, explicit dependencies and integration ownership, focused validation, consolidated acceptance, deploy decisions, docs, and authorized commits or pushes.
 - `$serena-memory-hygiene` (`skills/serena-memory-hygiene/`): audit or refresh Serena memories so they stay concise, dated, and source-linked to canonical repo docs, manifests, source, and tests.
 
 ## When To Use Each Skill
@@ -19,7 +19,7 @@ Portable Codex-compatible skills for McKibbin Software Group's G-Cubed developme
 - Use `$skill-capture` after a repeated workflow, debugging pattern, or delivery lesson might deserve a reusable skill, skill patch, or upstream proposal.
 - Use `$review-synthesis` when you want a coordinated review across perspectives such as docs, architecture, security, UX, delivery, or operations.
 - Use `$code-structure-cleanup` after working behavior exists and the next useful move is a narrow cleanup pass, not new product behavior.
-- Use `$deliver-slices` when a backlog, issue set, or local task list should be grouped, ordered, delivered, validated, documented, deployed when sensible, committed, and pushed one slice at a time without carrying each slice's context into the next one.
+- Use `$deliver-slices` when a backlog, issue set, PR review, or local task list should be grouped, ordered, delivered, validated, documented, and deployed when sensible, with compact context, controlled write ownership, and commit or push actions kept within existing authorization.
 - Use `$serena-memory-hygiene` in Serena-backed repos when you need to audit, refresh, or de-stale `.serena/memories` without turning them into a second docs system.
 
 ## Install
