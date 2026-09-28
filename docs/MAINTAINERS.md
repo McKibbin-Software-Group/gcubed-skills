@@ -50,7 +50,7 @@ This repo is the McKibbin Software Group distribution source for portable Codex-
 
 - `skills/*/SKILL.md`: installable skill instructions and public metadata.
 - `skills/*/agents/openai.yaml`: per-skill agent interface metadata; keep shape consistent across the collection.
-- `skills/setup-gcubed-skills/assets/templates/global-architect-agents.md`: Architect methodology source.
+- `skills/setup-gcubed-skills/assets/templates/global-architect-agents.md`: Architect methodology source. Owns the explicit memory-maintenance cleanup rule independently of the optional project-memory snippet.
 - `skills/project-memory/assets/templates/AGENTS.md`: project `AGENTS.md` starter.
 - `skills/project-memory/assets/snippets/project-memory-methodology.md`: managed project-memory methodology block.
 - `skills/skill-capture/SKILL.md`: review-first flow for turning delivery lessons into skill proposals and upstream packets.

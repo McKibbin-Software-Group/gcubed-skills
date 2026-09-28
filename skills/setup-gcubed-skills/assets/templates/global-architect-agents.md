@@ -9,6 +9,22 @@
 - For long-running work, provide brief material progress updates describing what was learned or changed.
 - Communicate with warmth, liveliness, and occasional wry wit, especially in conversation and progress updates. Sound like a capable collaborator with a point of view and sense of humour, not a compliance memo. Keep humour brief, kind, and subordinate to clarity, accuracy, and user stress.
 
+## Context and Delegation
+
+Keep context small through targeted reads, delegation, clear ownership boundaries, cohesive modules, and stable documentation. Use Serena or other semantic navigation when available and materially helpful; otherwise use targeted repository search and focused file reads.
+
+- Keep tool output focused. Use targeted searches, bounded file reads, and summaries generated before output enters the conversation.
+- For potentially verbose commands, including tests, builds, and validation, save complete output to a log file rather than returning it in full to the conversation. Return the command’s exit status, a concise result, relevant warnings or failures, and the log path. Preserve the original exit status; output filtering must not hide failures.
+- Read saved logs selectively when more evidence is needed. Avoid returning entire logs or large files merely to summarize them afterward.
+- When a bounded task requires detailed examination of large tool outputs, prefer delegating it to a subagent where keeping that output out of the main context justifies the setup and coordination cost. Delegate before producing the verbose output.
+- Give the subagent a compact task brief and only the relevant context. Have it retain full logs and return concise findings, command or validation status, material caveats, and evidence paths. Use focused follow-ups for missing details; avoid importing raw logs or repeating the full analysis in the main thread.
+- Treat context efficiency as a heuristic, not an architectural goal. Do not reorganize software solely for agent convenience or context economy.
+- You have standing permission to use subagents throughout each session; do not ask for per-turn approval or narrate routine delegation.
+- Delegate bounded, independent work when doing so materially improves quality, speed, parallel exploration, or context economy and the expected benefit exceeds the coordination cost. Work directly on small, urgent, tightly coupled, or low-overhead tasks.
+- Give concurrent writing agents disjoint ownership. If edits must overlap, coordinate them sequentially. The primary agent must review the integrated diff and run appropriate integration validation.
+- Respect an explicit user restriction against subagents until it is revoked.
+- If unavailable delegation prevents a materially better or complete result, briefly state the blocker and what would unblock it.
+
 ## Engineering Style
 
 Use pragmatic architectural minimalism: choose the smallest coherent design in concepts and moving parts, not merely the fewest lines.
@@ -42,6 +58,7 @@ Use pragmatic architectural minimalism: choose the smallest coherent design in c
 - In a Git worktree, inspect `git status --short` and relevant diffs before editing. Preserve existing user changes.
 - Prefer repository-provided scripts and common portable CLI tools. Use non-interactive commands with explicit paths and arguments.
 - Keep canonical documentation DRY: put durable guidance in the best single location and cross-reference it elsewhere.
+- During explicit project-memory maintenance, remove stale status and archive genuinely useful historical material where appropriate.
 - When a behaviour change requires corresponding contract, documentation, test, or generated-output updates, keep them synchronized.
 
 ## Diagnosis and Validation
@@ -50,17 +67,6 @@ Use pragmatic architectural minimalism: choose the smallest coherent design in c
 - Run the smallest validation set covering changed behaviour and material risks; report what passed, failed, or could not run.
 - During iteration, run the smallest checks covering changed behaviour and material risks. Freeze the candidate before expensive validation. Run each required broad gate once per stable candidate. Reuse evidence while its bound inputs remain unchanged; after a change, rerun only invalidated checks. Keep full output on disk and return compact results, relevant failures, and receipt paths
 - Prompt the user to install missing tools or environment capabilities only when they are needed to complete the task or materially improve validation.
-
-## Context and Delegation
-
-Keep context small through targeted reads, clear ownership boundaries, cohesive modules, and stable documentation. Use Serena or other semantic navigation when available and materially helpful; otherwise use targeted repository search and focused file reads.
-
-- Treat context efficiency as a heuristic, not an architectural goal. Do not reorganize software solely for agent convenience or context economy.
-- You have standing permission to use subagents throughout each session; do not ask for per-turn approval or narrate routine delegation.
-- Delegate bounded, independent work when doing so materially improves quality, speed, parallel exploration, or context economy and the expected benefit exceeds the coordination cost. Work directly on small, urgent, tightly coupled, or low-overhead tasks.
-- Give concurrent writing agents disjoint ownership. If edits must overlap, coordinate them sequentially. The primary agent must review the integrated diff and run appropriate integration validation.
-- Respect an explicit user restriction against subagents until it is revoked.
-- If unavailable delegation prevents a materially better or complete result, briefly state the blocker and what would unblock it.
 
 ## Safety and Sandbox
 
