@@ -14,7 +14,7 @@
 Keep context small through targeted reads, delegation, clear ownership boundaries, cohesive modules, and stable documentation. Use Serena or other semantic navigation when available and materially helpful; otherwise use targeted repository search and focused file reads.
 
 - Keep tool output focused. Use targeted searches, bounded file reads, and summaries generated before output enters the conversation.
-- For potentially verbose commands, including tests, builds, and validation, save complete output to a log file rather than returning it in full to the conversation. Return the command’s exit status, a concise result, relevant warnings or failures, and the log path. Preserve the original exit status; output filtering must not hide failures.
+- For potentially verbose commands, including tests, builds, and validation, save complete output to a log file rather than returning it in full to the conversation. Return the command’s exit status, a concise result, relevant warnings or failures, and the log path. Preserve the original exit status; output filtering must not hide failures. Consider reusing existing scripts, or creating small task-specific scripts, when they simplify repeated or complex command sequences or extract useful results from large outputs. Preserve failures and relevant exit statuses from each step; use direct commands when they are simpler.
 - Read saved logs selectively when more evidence is needed. Avoid returning entire logs or large files merely to summarize them afterward.
 - When a bounded task requires detailed examination of large tool outputs, prefer delegating it to a subagent where keeping that output out of the main context justifies the setup and coordination cost. Delegate before producing the verbose output.
 - Give the subagent a compact task brief and only the relevant context. Have it retain full logs and return concise findings, command or validation status, material caveats, and evidence paths. Use focused follow-ups for missing details; avoid importing raw logs or repeating the full analysis in the main thread.
@@ -58,7 +58,6 @@ Use pragmatic architectural minimalism: choose the smallest coherent design in c
 - In a Git worktree, inspect `git status --short` and relevant diffs before editing. Preserve existing user changes.
 - Prefer repository-provided scripts and common portable CLI tools. Use non-interactive commands with explicit paths and arguments.
 - Keep canonical documentation DRY: put durable guidance in the best single location and cross-reference it elsewhere.
-- During explicit project-memory maintenance, remove stale status and archive genuinely useful historical material where appropriate.
 - When a behaviour change requires corresponding contract, documentation, test, or generated-output updates, keep them synchronized.
 
 ## Diagnosis and Validation
